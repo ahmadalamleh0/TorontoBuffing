@@ -1,0 +1,30 @@
+.step-progress {
+  margin-bottom: var(--space-7);
+}
+
+.step-progress__label {
+  display: block;
+  margin-bottom: var(--space-4);
+  font-family: var(--font-heading);
+  font-size: var(--fs-sm);
+  letter-spacing: var(--ls-widest);
+  text-transform: uppercase;
+  color: var(--color-black);
+}
+
+.step-progress__bar {
+  display: flex;
+  gap: 6px;
+}
+
+.step-progress__segment {
+  flex: 1;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--color-border-gray);
+  transition: background-color var(--duration-base) var(--ease-standard);
+}
+
+.step-progress__segment.is-complete {
+  background: var(--color-accent);
+}

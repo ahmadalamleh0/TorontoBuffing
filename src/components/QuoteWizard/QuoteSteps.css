@@ -1,0 +1,357 @@
+/* ---- Shared step heading ---- */
+
+.quote-step__heading {
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.01em;
+  color: var(--color-black);
+}
+
+.quote-step__helper {
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-5);
+  font-size: var(--fs-sm);
+  color: var(--color-text-faint);
+}
+
+/* ---- Step 1: service selection tiles ----
+   Plain typographic tiles, no icons — bold condensed labels carry the
+   whole selection, not framed artwork. */
+
+.quote-option-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+.quote-option-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  text-align: left;
+  background: var(--color-white);
+  border: 1px solid var(--color-border-gray);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--duration-fast) var(--ease-standard),
+    background-color var(--duration-fast) var(--ease-standard);
+}
+
+.quote-option-card:focus-visible {
+  outline-offset: 1px;
+}
+
+.quote-option-card:hover {
+  border-color: var(--color-accent);
+}
+
+.quote-option-card.is-selected {
+  background: rgba(30, 40, 132, 0.05);
+  border-color: var(--color-accent);
+}
+
+.quote-option-card__label {
+  font-family: var(--font-heading);
+  font-size: var(--fs-lg);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  color: var(--color-black);
+}
+
+.quote-option-card__check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  color: var(--color-accent-contrast);
+  background: var(--color-accent);
+  border-radius: 50%;
+}
+
+.quote-option-card__check svg {
+  width: 10px;
+  height: 10px;
+}
+
+@media (min-width: 560px) {
+  .quote-option-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ---- Form fields (Steps 2-4) ---- */
+
+.quote-field-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+}
+
+/* Single-column vertical stack — used by Step 2 (vehicle details) so
+   its fields never spread into two columns the way quote-field-grid
+   does at wider widths. */
+.quote-field-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.quote-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+}
+
+.quote-field-grid .quote-field,
+.quote-field-stack .quote-field {
+  margin-bottom: 0;
+}
+
+.quote-field__label {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+
+.quote-field__label em {
+  font-style: normal;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--color-muted-gray);
+}
+
+.quote-field__input {
+  width: 100%;
+  padding: var(--space-4);
+  font-size: var(--fs-base);
+  color: var(--color-black);
+  background: var(--color-white);
+  border: 1px solid var(--color-border-gray);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--duration-base) var(--ease-standard);
+}
+
+.quote-field__input:focus {
+  border-color: var(--color-accent);
+  outline: none;
+}
+
+.quote-field__textarea {
+  resize: vertical;
+  min-height: 96px;
+  font-family: var(--font-body);
+}
+
+@media (min-width: 640px) {
+  .quote-field-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---- Tag pills (issues, timeline, yes/no) ---- */
+
+.quote-tag-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.quote-tag {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--color-black);
+  background: var(--color-white);
+  border: 1px solid var(--color-border-gray);
+  border-radius: 999px;
+  transition: border-color var(--duration-base) var(--ease-standard),
+    background-color var(--duration-base) var(--ease-standard),
+    color var(--duration-base) var(--ease-standard);
+}
+
+.quote-tag:hover {
+  border-color: var(--color-accent);
+}
+
+.quote-tag.is-selected {
+  color: var(--color-accent-contrast);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+/* ---- Step 4: photo upload ---- */
+
+.quote-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-7) var(--space-5);
+  margin-bottom: var(--space-5);
+  text-align: center;
+  color: var(--color-text-faint);
+  background: var(--color-off-white);
+  border: 1px dashed var(--color-border-gray);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: border-color var(--duration-base) var(--ease-standard);
+}
+
+.quote-upload:hover,
+.quote-upload:focus-visible {
+  border-color: var(--color-accent);
+}
+
+.quote-upload__icon {
+  color: var(--color-accent);
+}
+
+.quote-upload__title {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--color-black);
+}
+
+.quote-upload__hint {
+  font-size: var(--fs-xs);
+  color: var(--color-muted-gray);
+}
+
+.quote-upload__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+
+.quote-upload__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--fs-sm);
+  color: var(--color-black);
+  background: var(--color-off-white);
+  border-radius: var(--radius-sm);
+}
+
+.quote-upload__item-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.quote-upload__item-remove {
+  flex-shrink: 0;
+  font-size: var(--fs-lg);
+  line-height: 1;
+  color: var(--color-muted-gray);
+}
+
+.quote-upload__item-remove:hover {
+  color: var(--color-accent);
+}
+
+/* ---- Step 5: review ---- */
+
+.quote-review {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.quote-review__row {
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--color-border-gray);
+}
+
+.quote-review__row:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.quote-review__row-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.quote-review__row-label {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+
+.quote-review__edit {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  color: var(--color-accent);
+}
+
+.quote-review__edit:hover {
+  text-decoration: underline;
+}
+
+.quote-review__row-value {
+  margin-top: var(--space-2);
+  font-size: var(--fs-base);
+  color: var(--color-black);
+}
+
+/* ---- Success state ---- */
+
+.quote-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding-block: var(--space-6);
+  text-align: center;
+}
+
+.quote-success__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  color: var(--color-accent-contrast);
+  background: var(--color-accent);
+  border-radius: 50%;
+}
+
+.quote-success__heading {
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-semibold);
+  color: var(--color-black);
+}
+
+.quote-success__body {
+  max-width: 40ch;
+  color: var(--color-text-faint);
+}
+
+.quote-success__note {
+  font-size: var(--fs-sm);
+  color: var(--color-muted-gray);
+}
+
+.quote-success__note a {
+  color: var(--color-accent);
+  font-weight: var(--fw-medium);
+}
+
+.quote-success .btn {
+  margin-top: var(--space-3);
+}

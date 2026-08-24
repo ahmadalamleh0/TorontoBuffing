@@ -1,41 +1,79 @@
 import "./Footer.css";
 
-const SOCIAL_LINKS = [
-  { label: "Instagram", href: "#" },
-  { label: "Facebook", href: "#" },
-];
-
 function Footer() {
   return (
-    <footer className="footer">
-      <div className="container footer__inner">
-        <div className="footer__brand">
-          <span className="footer__logo">Toronto Buffing</span>
-          <p className="footer__location">Toronto, ON</p>
+    <footer className="editorial-footer">
+      <div className="editorial-footer__inner container">
+        {/* Top Info Sections */}
+        <div className="editorial-footer__info-grid">
+          <div className="editorial-footer__col">
+            <h4 className="editorial-footer__label">CONTACT</h4>
+            <div className="editorial-footer__content">
+              <a href="tel:+16479858630" className="editorial-footer__link">
+                (647) 985-8630
+              </a>
+              <a href="mailto:info@torontobuffing.com" className="editorial-footer__link">
+                INFO@TORONTOBUFFING.COM
+              </a>
+              <p className="editorial-footer__text">MON – FRI: 8AM – 5PM</p>
+            </div>
+          </div>
+
+          <div className="editorial-footer__col">
+            <h4 className="editorial-footer__label">LOCATION</h4>
+            <div className="editorial-footer__content">
+              <p className="editorial-footer__text editorial-footer__text--bold">
+                TORONTO BUFFING INC.
+              </p>
+              <p className="editorial-footer__text">
+                99 RODINEA ROAD, UNIT 14
+              </p>
+              <p className="editorial-footer__text">
+                MAPLE, ON L6A 1E9
+              </p>
+            </div>
+          </div>
+
+          <div className="editorial-footer__col">
+            <h4 className="editorial-footer__label">FOLLOW</h4>
+            <div className="editorial-footer__content">
+              <a 
+                href="https://instagram.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="editorial-footer__link"
+              >
+                INSTAGRAM
+              </a>
+              <a 
+                href="https://google.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="editorial-footer__link"
+              >
+                GOOGLE
+              </a>
+            </div>
+          </div>
         </div>
 
-        <div className="footer__group">
-          <span className="eyebrow">Contact</span>
-          <a href="mailto:info@torontobuffing.com">
-            info@torontobuffing.com
-          </a>
-          <a href="tel:+10000000000">(000) 000-0000</a>
-        </div>
-
-        <div className="footer__group">
-          <span className="eyebrow">Follow</span>
-          <ul className="footer__social">
-            {SOCIAL_LINKS.map((link) => (
-              <li key={link.label}>
-                <a href={link.href}>{link.label}</a>
-              </li>
-            ))}
-          </ul>
+        {/* Utility Row */}
+        <div className="editorial-footer__utility">
+          <span className="editorial-footer__handle">@TORONTOBUFFING</span>
+          <div className="editorial-footer__legal">
+            <a href="#privacy">PRIVACY</a>
+            <span className="editorial-footer__sep">·</span>
+            <a href="#terms">TERMS</a>
+          </div>
         </div>
       </div>
 
-      <div className="container footer__bottom">
-        <p>&copy; {new Date().getFullYear()} Toronto Buffing. All rights reserved.</p>
+      {/* Massive Brand Wordmark */}
+      <div className="editorial-footer__wordmark-container">
+        <h1 className="editorial-footer__wordmark">
+          <span>TORONTO</span>
+          <span>BUFFING</span>
+        </h1>
       </div>
     </footer>
   );

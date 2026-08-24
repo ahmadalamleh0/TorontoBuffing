@@ -36,7 +36,7 @@
 }
 
 .btn-secondary:hover {
-  border-color: var(--color-accent);
+  border-color: var(--color-accent-on-dark);
 }
 
 .btn-text {
@@ -48,5 +48,5 @@
 }
 
 .btn-text:hover {
-  border-color: var(--color-accent);
+  border-color: var(--color-accent-on-dark);
 }

@@ -1,0 +1,54 @@
+.mobile-action-bar {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .mobile-action-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 70;
+    display: flex;
+    box-shadow: 0 -8px 24px rgba(11, 11, 13, 0.18);
+    transition: opacity var(--duration-base) var(--ease-standard),
+      transform var(--duration-base) var(--ease-standard);
+  }
+
+  .mobile-action-bar--yield {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(100%);
+  }
+}
+
+.mobile-action-bar__btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 18px;
+  padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  font-family: var(--font-heading);
+  font-size: var(--fs-base);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.mobile-action-bar__btn--call {
+  background: var(--color-black);
+  color: var(--color-white);
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.mobile-action-bar__btn--book {
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-action-bar {
+    transition: none;
+  }
+}

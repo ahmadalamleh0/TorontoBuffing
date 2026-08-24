@@ -1,20 +1,13 @@
-import Header from "./components/Header/Header";
-import Hero from "./components/Hero/Hero";
-import MainSection from "./components/MainSection/MainSection";
-import ConversionSection from "./components/ConversionSection/ConversionSection";
-import Footer from "./components/Footer/Footer";
+import { Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import ServicePage from "./pages/ServicePage/ServicePage";
 
 function App() {
   return (
-    <>
-      <Header />
-      <main>
-        <Hero />
-        <MainSection />
-        <ConversionSection />
-      </main>
-      <Footer />
-    </>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/services/:slug" element={<ServicePage />} />
+    </Routes>
   );
 }
 

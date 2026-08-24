@@ -1,0 +1,105 @@
+.google-reviews {
+  background: var(--color-white);
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity var(--duration-slow) var(--ease-standard),
+    transform var(--duration-slow) var(--ease-standard);
+}
+
+.google-reviews.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.google-reviews__heading {
+  max-width: 60ch;
+  margin-inline: auto;
+  margin-bottom: var(--space-6);
+  text-align: center;
+}
+
+.google-reviews__eyebrow {
+  color: var(--color-text-faint);
+}
+
+.google-reviews__title {
+  margin-top: var(--space-3);
+  font-size: var(--fs-4xl);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--color-black);
+}
+
+.google-reviews__subline {
+  margin-top: var(--space-4);
+  font-size: var(--fs-lg);
+  color: var(--color-text-faint);
+}
+
+.google-reviews__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+  margin-top: var(--space-7);
+}
+
+.google-reviews__rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  margin-top: var(--space-7);
+}
+
+.google-reviews__error,
+.google-reviews__empty {
+  margin-top: var(--space-6);
+  text-align: center;
+  color: var(--color-text-faint);
+}
+
+@media (max-width: 767px) {
+  .google-reviews {
+    padding-block: var(--space-7);
+  }
+
+  .google-reviews__heading {
+    margin-bottom: var(--space-4);
+  }
+
+  .google-reviews__title {
+    margin-top: var(--space-2);
+  }
+
+  .google-reviews__subline {
+    margin-top: var(--space-2);
+  }
+
+  .google-reviews__rows {
+    margin-top: var(--space-5);
+  }
+}
+
+@media (min-width: 640px) {
+  .google-reviews__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .google-reviews__title {
+    font-size: var(--fs-5xl);
+  }
+
+  .google-reviews__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .google-reviews {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

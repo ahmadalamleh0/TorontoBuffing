@@ -1,0 +1,66 @@
+.reviews-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--color-border-gray);
+  text-align: center;
+}
+
+.reviews-summary__rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.reviews-summary__value {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+  color: var(--color-black);
+}
+
+.reviews-summary__sep {
+  color: var(--color-border-gray);
+}
+
+.reviews-summary__count {
+  font-size: var(--fs-sm);
+  color: var(--color-text-faint);
+}
+
+.reviews-summary__mark {
+  margin-left: var(--space-1);
+  opacity: 0.85;
+}
+
+.reviews-summary__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+/* .btn-text's global hover color is tuned for dark backgrounds
+   (accent-on-dark); this section is light, so override locally
+   rather than touch the shared button styles used elsewhere. */
+.reviews-summary__actions .btn-text:hover {
+  color: var(--color-accent);
+}
+
+@media (max-width: 767px) {
+  .reviews-summary {
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+    padding-bottom: var(--space-4);
+  }
+}
+
+@media (min-width: 640px) {
+  .reviews-summary {
+    flex-direction: row;
+    justify-content: center;
+  }
+}

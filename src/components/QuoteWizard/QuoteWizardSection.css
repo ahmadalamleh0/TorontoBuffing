@@ -1,0 +1,85 @@
+.quote-wizard {
+  background: var(--color-off-white);
+}
+
+/* .btn-text / :focus-visible are tuned for dark backgrounds
+   (accent-on-dark) elsewhere on the site; this section is light, so
+   override locally rather than touch the shared globals. */
+.quote-wizard :focus-visible {
+  outline-color: var(--color-accent);
+}
+
+.quote-wizard__heading {
+  max-width: 60ch;
+  margin-inline: auto;
+  margin-bottom: var(--space-7);
+  text-align: center;
+}
+
+.quote-wizard__title {
+  margin-top: var(--space-3);
+  color: var(--color-black);
+}
+
+.quote-wizard__subline {
+  margin-top: var(--space-4);
+  font-size: var(--fs-lg);
+  color: var(--color-text-faint);
+}
+
+.quote-wizard__container {
+  max-width: 760px;
+}
+
+.quote-wizard__card {
+  background: var(--color-white);
+  border: 1px solid var(--color-border-gray);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  box-shadow: 0 20px 48px rgba(11, 11, 13, 0.06);
+}
+
+.quote-wizard__step-body {
+  animation: quote-step-in var(--duration-slow) var(--ease-standard);
+}
+
+@keyframes quote-step-in {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.quote-wizard__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-top: var(--space-7);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border-gray);
+}
+
+.quote-wizard .btn:disabled {
+  color: var(--color-muted-gray);
+  background: var(--color-off-white);
+  border-color: var(--color-border-gray);
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+@media (min-width: 640px) {
+  .quote-wizard__card {
+    padding: var(--space-7);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quote-wizard__step-body {
+    animation: none;
+  }
+}

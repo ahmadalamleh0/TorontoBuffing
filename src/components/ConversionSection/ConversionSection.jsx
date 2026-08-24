@@ -8,8 +8,8 @@ function ConversionSection() {
           Ready to elevate your vehicle?
         </h2>
         <p className="conversion__copy">
-          Tell us about your vehicle and what you're looking for — we'll get
-          back to you with next steps.
+          Tell us about your vehicle and what you're looking for, and we'll
+          get back to you with next steps.
         </p>
 
         <div className="conversion__actions">

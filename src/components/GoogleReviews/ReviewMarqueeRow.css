@@ -1,0 +1,52 @@
+.review-marquee {
+  overflow: hidden;
+  width: 100%;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
+}
+
+.review-marquee__track {
+  display: flex;
+  align-items: stretch;
+  width: max-content;
+  gap: var(--space-5);
+  padding-inline: var(--space-5);
+  animation-name: review-marquee-scroll;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+.review-marquee[data-direction="right"] .review-marquee__track {
+  animation-direction: reverse;
+}
+
+.review-marquee__track > * {
+  width: 340px;
+  flex: 0 0 auto;
+}
+
+@keyframes review-marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.review-marquee:hover .review-marquee__track {
+  animation-play-state: paused;
+}
+
+@media (max-width: 640px) {
+  .review-marquee__track > * {
+    width: 280px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .review-marquee__track {
+    animation: none;
+  }
+}

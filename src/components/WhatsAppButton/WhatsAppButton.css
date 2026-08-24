@@ -1,0 +1,47 @@
+.whatsapp-button {
+  position: fixed;
+  right: var(--space-6);
+  bottom: 40px;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 14px 20px;
+  background: #25d366;
+  border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(11, 11, 13, 0.2);
+  transition: transform var(--duration-base) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard);
+}
+
+.whatsapp-button__label {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.whatsapp-button:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 12px 26px rgba(11, 11, 13, 0.26);
+}
+
+.whatsapp-button--yield {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px) scale(0.92);
+}
+
+@media (max-width: 767px) {
+  /* Replaced by MobileActionBar's fixed Call/Book bar on mobile,
+     the two shouldn't both be on screen at once. */
+  .whatsapp-button {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .whatsapp-button {
+    transition: none;
+  }
+}

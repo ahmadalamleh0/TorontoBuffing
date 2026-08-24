@@ -11,11 +11,23 @@ body {
   line-height: var(--lh-normal);
 }
 
+/* Display font reserved for hero/major-statement headings (h1, h2).
+   h3/h4 (form step prompts, reviewer names, card labels, etc.) stay
+   on the regular body font for readability — opt a specific h3 in
+   with its own font-family: var(--font-heading) rule, as ServiceCard
+   titles do, rather than widening this selector. */
 h1,
-h2,
+h2 {
+  font-family: var(--font-heading);
+  font-weight: var(--fw-regular);
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
 h3,
 h4 {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   line-height: var(--lh-tight);
   letter-spacing: var(--ls-tight);
 }
@@ -73,7 +85,7 @@ p {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-accent-on-dark);
   outline-offset: 3px;
 }
 
