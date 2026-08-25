@@ -42,7 +42,7 @@ function Hero() {
           </a>
           <span className="hero__trust-badge" aria-label="Rated 5.0 stars on Google from 350+ reviews">
             <span className="hero__trust-badge-visual" aria-hidden="true">
-              <GoogleLogo size={14} />
+              <GoogleLogo size={13} />
               <span>5.0</span>
               <span className="hero__trust-badge-star">★</span>
               <span>350+</span>

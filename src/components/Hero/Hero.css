@@ -87,18 +87,18 @@
   margin-top: auto;
   padding-top: var(--space-6);
   display: flex;
+  flex-direction: column;
   align-items: center;
-  flex-wrap: wrap;
-  gap: var(--space-3);
+  gap: var(--space-2);
 }
 
-/* Secondary social proof beside the primary CTA — small, dark glass
-   pill matching the CTA's own treatment, never competing with it. */
+/* Tiny secondary social-proof pill under the primary CTA — never
+   competes with the button for attention. */
 .hero__trust-badge-visual {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 7px 12px;
+  padding: 6px 11px;
   font-size: var(--fs-xs);
   font-weight: var(--fw-medium);
   color: var(--color-white);
@@ -194,6 +194,7 @@
   .hero__actions {
     margin-top: 0;
     padding-top: var(--space-7);
+    align-items: flex-start;
   }
 
   .hero__brands {
