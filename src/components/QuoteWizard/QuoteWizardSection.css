@@ -1,6 +1,11 @@
 .quote-wizard {
   background: var(--color-off-white);
   padding-block: var(--space-6);
+  /* The header is position: fixed and floats over whatever's at the
+     top of the viewport. Without this, jumping here via #contact
+     (hero CTA, header CTA, mobile nav) lands the section flush under
+     the header, so its logo overlaps "Build Your Quote." */
+  scroll-margin-top: calc(var(--header-height) + var(--space-4));
 }
 
 @media (min-width: 640px) {

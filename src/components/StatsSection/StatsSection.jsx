@@ -80,13 +80,13 @@ function StatsSection() {
           counterObj,
           {
             val: stat.targetValue,
-            duration: 1.8,
+            duration: 0.9,
             ease: "power2.out",
             onUpdate: () => {
               if (el) el.textContent = stat.format(counterObj.val);
             },
           },
-          0.1 + i * 0.08
+          0.1 + i * 0.05
         );
       });
     }, sectionRef);

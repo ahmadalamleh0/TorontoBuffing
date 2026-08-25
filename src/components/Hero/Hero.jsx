@@ -1,5 +1,6 @@
 import heroImage from "../../assets/images/hero/hero-mobile-hood-detail.webp";
 import BrandLogoStrip from "../BrandLogoStrip/BrandLogoStrip";
+import GoogleLogo from "../GoogleReviews/GoogleLogo";
 import "./Hero.css";
 
 // Same hood-detail shot on every breakpoint now; .hero__media--mobile
@@ -39,6 +40,14 @@ function Hero() {
           <a href="#contact" className="btn btn-secondary hero__cta">
             Start Your Quote
           </a>
+          <span className="hero__trust-badge" aria-label="Rated 5.0 stars on Google from 350+ reviews">
+            <span className="hero__trust-badge-visual" aria-hidden="true">
+              <GoogleLogo size={14} />
+              <span>5.0</span>
+              <span className="hero__trust-badge-star">★</span>
+              <span>350+</span>
+            </span>
+          </span>
         </div>
       </div>
 

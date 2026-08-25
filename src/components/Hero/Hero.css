@@ -86,6 +86,33 @@
      the brand strip — no matter how tall .hero__text is. */
   margin-top: auto;
   padding-top: var(--space-6);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* Secondary social proof beside the primary CTA — small, dark glass
+   pill matching the CTA's own treatment, never competing with it. */
+.hero__trust-badge-visual {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 12px;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  color: var(--color-white);
+  white-space: nowrap;
+  background: rgba(11, 11, 13, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.hero__trust-badge-star {
+  color: #fbbc05;
+  font-size: 11px;
 }
 
 .hero__brands {
