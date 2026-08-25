@@ -37,9 +37,6 @@ function Hero() {
         </div>
 
         <div className="hero__actions">
-          <a href="#contact" className="btn btn-secondary hero__cta">
-            Start Your Quote
-          </a>
           <span className="hero__trust-badge" aria-label="Rated 5.0 stars on Google from 350+ reviews">
             <span className="hero__trust-badge-visual" aria-hidden="true">
               <GoogleLogo size={13} />
@@ -48,6 +45,9 @@ function Hero() {
               <span>350+</span>
             </span>
           </span>
+          <a href="#contact" className="btn btn-secondary hero__cta">
+            Start Your Quote
+          </a>
         </div>
       </div>
 

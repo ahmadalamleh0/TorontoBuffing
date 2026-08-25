@@ -9,6 +9,18 @@
   height: var(--header-height);
   padding-inline: var(--space-4);
   pointer-events: none;
+  opacity: 1;
+  transition: opacity var(--duration-slow) var(--ease-standard);
+}
+
+/* Faded out entirely while the quote section sits under it (see
+   Header.jsx) — nothing in here should be visible or clickable then. */
+.header--hidden {
+  opacity: 0;
+}
+
+.header--hidden .header__inner {
+  pointer-events: none;
 }
 
 .header__inner {

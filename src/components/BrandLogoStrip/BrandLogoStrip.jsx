@@ -41,7 +41,7 @@ function BrandLogoStrip() {
                 className={`brand-strip__logo${brand.large ? " brand-strip__logo--large" : ""}`}
                 key={i}
               >
-                <img src={brand.src} alt={brand.name} loading="lazy" />
+                <img src={brand.src} alt={brand.name} />
               </span>
             ))}
           </div>

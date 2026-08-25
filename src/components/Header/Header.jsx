@@ -52,6 +52,7 @@ const MOBILE_SECONDARY_LINKS = [
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isOverQuote, setIsOverQuote] = useState(false);
   const [openCategory, setOpenCategory] = useState(null);
 
   const closeMenu = () => setIsMenuOpen(false);
@@ -65,7 +66,18 @@ function Header() {
     // 90px roughly matches "just past the very top of the hero" —
     // far enough that this isn't triggered by a stray pixel of
     // scroll, soon enough that the docking feels responsive.
-    const onScroll = () => setIsScrolled(window.scrollY > 90);
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 90);
+
+      // The floating header fades out entirely for as long as any
+      // part of the quote configurator (#contact) is on screen, and
+      // fades back in once it's scrolled past — either direction.
+      const quoteSection = document.getElementById("contact");
+      if (quoteSection) {
+        const rect = quoteSection.getBoundingClientRect();
+        setIsOverQuote(rect.top < window.innerHeight && rect.bottom > 0);
+      }
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -73,7 +85,7 @@ function Header() {
 
   return (
     <>
-      <header className="header">
+      <header className={`header${isOverQuote ? " header--hidden" : ""}`}>
         <div className={`header__inner${isScrolled ? " is-scrolled" : ""}`}>
           <div className="header__side header__side--left">
             <nav className="header__nav" aria-label="Primary">
