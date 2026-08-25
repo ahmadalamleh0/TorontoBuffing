@@ -6,6 +6,15 @@
     transform var(--duration-slow) var(--ease-standard);
 }
 
+/* Trim just the top inset on phone/tablet — paired with
+   BrandStatement's own tightened padding above, so the hero -> Services
+   transition feels immediate instead of leaving a big blank gap. */
+@media (max-width: 1023px) {
+  .services {
+    padding-top: var(--space-6);
+  }
+}
+
 .services.is-visible {
   opacity: 1;
   transform: translateY(0);
@@ -33,6 +42,7 @@
 
 .services__copy {
   margin-top: var(--space-4);
+  color: var(--color-white);
   font-size: var(--fs-base);
   line-height: var(--lh-normal);
 }
@@ -122,48 +132,42 @@
   font-size: var(--fs-4xl);
 }
 
-.service-card__subtitle {
+.service-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
   margin-top: var(--space-2);
+}
+
+.service-card__subtitle {
   font-size: var(--fs-xs);
   font-weight: var(--fw-medium);
   letter-spacing: var(--ls-wide);
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-white);
 }
 
-/* Minimal tap/click affordance — bottom-right corner, out of the way
-   of the title/subtitle block on the opposite side. */
+/* Minimal tap/click affordance — a small plain arrow beside the
+   subtitle, not a separate button. */
 .service-card__arrow {
-  position: absolute;
-  right: var(--space-4);
-  bottom: var(--space-4);
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
   color: var(--color-white);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  transition: transform var(--duration-base) var(--ease-standard),
-    background-color var(--duration-base) var(--ease-standard),
-    border-color var(--duration-base) var(--ease-standard);
+  transition: transform var(--duration-base) var(--ease-standard);
 }
 
 .service-card__arrow svg {
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
 }
 
 .service-card:hover .service-card__arrow,
 .service-card:focus-visible .service-card__arrow,
 .service-card:active .service-card__arrow {
   transform: translate(3px, -3px);
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.5);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -221,9 +225,13 @@
   }
 }
 
-/* ---- Desktop: editorial left/right split ---- */
+/* ---- Desktop: editorial left/right split, sized up for real presence ---- */
 
 @media (min-width: 1024px) {
+  .services {
+    padding-block: var(--space-10);
+  }
+
   .services__layout {
     display: grid;
     grid-template-columns: 300px 1fr;
@@ -233,21 +241,77 @@
 
   .services__intro {
     position: sticky;
-    top: calc(var(--header-height) + var(--space-6));
+    top: calc(var(--header-height) + var(--space-7));
     margin-bottom: 0;
+    max-width: none;
+  }
+
+  .services__headline {
+    margin-top: var(--space-5);
+    font-size: var(--fs-5xl);
+    letter-spacing: -0.015em;
+  }
+
+  .services__copy {
+    margin-top: var(--space-6);
+    max-width: 30ch;
+    font-size: var(--fs-lg);
+  }
+
+  .services__featured {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
   }
 
   .services__supporting {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-5);
+    margin-top: var(--space-7);
   }
 
   .service-card--featured {
+    height: 480px;
+  }
+
+  .service-card--supporting {
     height: 340px;
+  }
+
+  .service-card__title {
+    font-size: var(--fs-4xl);
+  }
+
+  .service-card--featured .service-card__title {
+    font-size: var(--fs-4xl);
+  }
+
+  .service-card__subtitle {
+    margin-top: var(--space-3);
+    font-size: var(--fs-sm);
+  }
+
+  .service-card__arrow svg {
+    width: 22px;
+    height: 22px;
   }
 }
 
 @media (min-width: 1280px) {
   .service-card--featured {
+    height: 560px;
+  }
+
+  .service-card--supporting {
     height: 380px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .service-card--featured {
+    height: 620px;
+  }
+
+  .service-card--supporting {
+    height: 420px;
   }
 }

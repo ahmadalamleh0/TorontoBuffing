@@ -6,14 +6,19 @@
  * and is never shown in a production build. Delete this file once the
  * real endpoint is live.
  *
- * A few entries below carry a `reviewPhoto` (reusing existing shop
- * photography as a stand-in) purely so the featured-photo-review
- * layout can be reviewed locally — these are not real customer photos
- * and none of this ever reaches production.
+ * Several entries below carry a `reviewImage` (reusing existing shop
+ * photography as a stand-in) purely so the photo-only featured layout
+ * can be reviewed locally — these are not real customer photos and
+ * none of this ever reaches production. Entries with no reviewImage
+ * are deliberately kept too, to preview the "no photo = not featured"
+ * filter behavior.
  */
 import paintCorrectionPhoto from "../assets/images/services/paint-correction.jpg";
 import ceramicCoatingPhoto from "../assets/images/services/ceramic-coating.jpg";
 import panelRefinishingPhoto from "../assets/images/services/panel-refinishing.jpg";
+import classicRestorationPhoto from "../assets/images/services/classic-restoration.jpg";
+import headlightRestorationPhoto from "../assets/images/services/headlight-restoration.jpg";
+import ppfPhoto from "../assets/images/services/ppf.jpg";
 
 /** @type {import('../types/reviews').ReviewsSummary} */
 export const SAMPLE_REVIEWS_SUMMARY = {
@@ -29,7 +34,7 @@ export const SAMPLE_REVIEWS_SUMMARY = {
       rating: 5,
       comment:
         "Excellent experience from start to finish. The team was professional, communicated clearly throughout, and the final result exceeded what I expected. Would go back without hesitation.",
-      reviewPhoto: paintCorrectionPhoto,
+      reviewImage: paintCorrectionPhoto,
       createTime: "2026-06-02T00:00:00.000Z",
     },
     {
@@ -39,6 +44,7 @@ export const SAMPLE_REVIEWS_SUMMARY = {
       rating: 5,
       comment:
         "Really happy with how everything turned out. Booking was easy and the team explained the whole process before getting started.",
+      reviewImage: ppfPhoto,
       createTime: "2026-05-14T00:00:00.000Z",
     },
     {
@@ -56,6 +62,7 @@ export const SAMPLE_REVIEWS_SUMMARY = {
       rating: 4,
       comment:
         "Solid work overall and friendly staff. Turnaround took a little longer than I expected, but the quality made up for it.",
+      reviewImage: headlightRestorationPhoto,
       createTime: "2026-04-11T00:00:00.000Z",
     },
     {
@@ -73,7 +80,7 @@ export const SAMPLE_REVIEWS_SUMMARY = {
       rating: 5,
       comment:
         "Very impressed with the level of care put into the work. It's clear they take pride in what they do. Will be back for future services.",
-      reviewPhoto: ceramicCoatingPhoto,
+      reviewImage: ceramicCoatingPhoto,
       createTime: "2026-03-05T00:00:00.000Z",
     },
     {
@@ -82,6 +89,7 @@ export const SAMPLE_REVIEWS_SUMMARY = {
       reviewerPhoto: null,
       rating: 5,
       comment: "Professional, punctual, and the results speak for themselves.",
+      reviewImage: classicRestorationPhoto,
       createTime: "2026-02-18T00:00:00.000Z",
     },
     {
@@ -91,7 +99,7 @@ export const SAMPLE_REVIEWS_SUMMARY = {
       rating: 5,
       comment:
         "Top-tier service. They took the time to answer all of my questions before booking and the end result was worth every penny.",
-      reviewPhoto: panelRefinishingPhoto,
+      reviewImage: panelRefinishingPhoto,
       createTime: "2026-01-27T00:00:00.000Z",
     },
   ],

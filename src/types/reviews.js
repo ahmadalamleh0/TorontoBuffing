@@ -21,9 +21,11 @@
  * @property {string | null} reviewerProfileUrl - link to the reviewer's Google profile, when Google provides one
  * @property {number} rating - 1-5
  * @property {string} comment - empty string if the reviewer left a rating with no written text
- * @property {string | null} reviewPhoto - a customer-attached photo on this review, when available.
- *   The Google Places API (New) does not reliably expose reviewer-uploaded review photos, so today
- *   this only ever comes from manually curated entries (see src/data/manualReviews.js) — never live.
+ * @property {string | null} reviewImage - a single customer-uploaded photo attached to this review, when
+ *   available. The Places API (New) does not reliably expose reviewer-uploaded media, so today this only
+ *   ever comes from manually curated entries (see src/data/manualReviews.js) — never live. The Reviews
+ *   section only features reviews that have one of these; drop the filter once a source that reliably
+ *   supplies review photos (e.g. Business Profile API) is connected for every review.
  * @property {string | null} createTime - ISO 8601, when known
  * @property {string | null} updateTime - ISO 8601, when known
  * @property {string | null} reviewUrl - deep link to this specific review, when available

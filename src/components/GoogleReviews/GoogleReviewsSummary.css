@@ -1,66 +1,80 @@
-.reviews-summary {
+.reviews-bar {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-4);
-  margin-top: var(--space-5);
-  padding-bottom: var(--space-6);
-  border-bottom: 1px solid var(--color-border-gray);
-  text-align: center;
-}
-
-.reviews-summary__rating {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   flex-wrap: wrap;
-  gap: var(--space-2);
-}
-
-.reviews-summary__value {
-  font-size: var(--fs-lg);
-  font-weight: var(--fw-semibold);
-  color: var(--color-black);
-}
-
-.reviews-summary__sep {
-  color: var(--color-border-gray);
-}
-
-.reviews-summary__count {
-  font-size: var(--fs-sm);
-  color: var(--color-text-faint);
-}
-
-.reviews-summary__mark {
-  margin-left: var(--space-1);
-  opacity: 0.85;
-}
-
-.reviews-summary__actions {
-  display: flex;
   align-items: center;
-  gap: var(--space-5);
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-5) var(--space-6);
+  background: var(--color-brand-blue);
+  border-radius: var(--radius-md);
 }
 
-/* .btn-text's global hover color is tuned for dark backgrounds
-   (accent-on-dark); this section is light, so override locally
-   rather than touch the shared button styles used elsewhere. */
-.reviews-summary__actions .btn-text:hover {
-  color: var(--color-accent);
+.reviews-bar__info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
 }
 
-@media (max-width: 767px) {
-  .reviews-summary {
-    gap: var(--space-2);
-    margin-top: var(--space-3);
-    padding-bottom: var(--space-4);
+.reviews-bar__logo {
+  font-size: 1.125rem;
+}
+
+.reviews-bar__loading {
+  font-size: var(--fs-sm);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.reviews-bar__label {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--color-white);
+}
+
+/* Gold stars already read fine on black; only the (usually invisible,
+   since ratings run near-5) unfilled track needs a dark-safe color. */
+.reviews-bar .star-rating__track {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.reviews-bar__value {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--color-white);
+}
+
+.reviews-bar__sep {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.reviews-bar__count {
+  font-size: var(--fs-sm);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.reviews-bar__cta {
+  flex-shrink: 0;
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-white);
+  color: var(--color-black);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: background-color var(--duration-base) var(--ease-standard);
+}
+
+.reviews-bar__cta:hover {
+  background: var(--color-off-white);
+}
+
+@media (max-width: 639px) {
+  .reviews-bar {
+    padding: var(--space-4) var(--space-5);
   }
-}
 
-@media (min-width: 640px) {
-  .reviews-summary {
-    flex-direction: row;
-    justify-content: center;
+  .reviews-bar__cta {
+    width: 100%;
+    text-align: center;
   }
 }

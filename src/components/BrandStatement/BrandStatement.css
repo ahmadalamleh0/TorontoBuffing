@@ -1,6 +1,9 @@
 .brand-statement {
   background: var(--color-off-white);
-  padding-block: var(--space-9);
+  /* Tight on phone — the old space-9 default read as a huge dead gap
+     between the hero and Services on short screens. Desktop gets its
+     generous padding back via the 1024px override below. */
+  padding-block: var(--space-6);
   text-align: center;
 }
 
@@ -26,7 +29,7 @@
   font-size: 3.5rem;
   line-height: 0.86;
   letter-spacing: 0;
-  color: var(--color-black);
+  color: var(--color-brand-blue);
   opacity: 0;
   transform: translateY(20px);
   transition: opacity var(--duration-slow) var(--ease-standard) 120ms,
@@ -57,7 +60,7 @@
 
 @media (min-width: 640px) {
   .brand-statement {
-    padding-block: var(--space-10);
+    padding-block: var(--space-7);
   }
 
   .brand-statement__headline {
@@ -70,6 +73,10 @@
 }
 
 @media (min-width: 1024px) {
+  .brand-statement {
+    padding-block: var(--space-10);
+  }
+
   .brand-statement__headline {
     font-size: 8rem;
   }

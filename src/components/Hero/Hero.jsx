@@ -1,22 +1,21 @@
-import heroImageMobile from "../../assets/images/hero/hero-mobile-hood-detail.webp";
-import heroImageDesktop from "../../assets/images/hero/hero-foam-wash.jpg";
+import heroImage from "../../assets/images/hero/hero-mobile-hood-detail.webp";
 import BrandLogoStrip from "../BrandLogoStrip/BrandLogoStrip";
 import "./Hero.css";
 
-// Two art-directed crops: a wider shop shot for narrow/tall mobile
-// viewports, a tight detail shot for wide desktop viewports. Swap
-// either import to change that breakpoint's image — nothing else changes.
+// Same hood-detail shot on every breakpoint now; .hero__media--mobile
+// and --desktop still exist purely so each breakpoint can keep its
+// own background-position crop via CSS.
 function Hero() {
   return (
     <section id="top" className="hero">
       <div
         className="hero__media hero__media--mobile"
-        style={{ backgroundImage: `url(${heroImageMobile})` }}
+        style={{ backgroundImage: `url(${heroImage})` }}
         aria-hidden="true"
       />
       <div
         className="hero__media hero__media--desktop"
-        style={{ backgroundImage: `url(${heroImageDesktop})` }}
+        style={{ backgroundImage: `url(${heroImage})` }}
         aria-hidden="true"
       />
       <div className="hero__scrim" aria-hidden="true" />

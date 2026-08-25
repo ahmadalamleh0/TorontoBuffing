@@ -59,7 +59,7 @@ export function normalizeReview(review, source) {
     reviewerProfileUrl: review.reviewerProfileUrl ?? null,
     rating: Number(review.rating ?? 0),
     comment: review.comment ?? "",
-    reviewPhoto: review.reviewPhoto ?? null,
+    reviewImage: review.reviewImage ?? null,
     createTime: review.createTime ?? null,
     updateTime: review.updateTime ?? null,
     reviewUrl: review.reviewUrl ?? null,
@@ -87,24 +87,21 @@ export function mergeManualReviews(liveSummary, manualReviews = []) {
 }
 
 /**
- * Curates a small, strong set of reviews for the premium featured-review
- * grid, rather than rendering every review that comes back. Reviews with
- * a customer-attached photo (see reviewPhoto on the Review type) are
- * prioritized first; the remaining slots are filled with the
- * highest-rated, most substantial written reviews. Reviews with no
- * written text are dropped entirely — a star-only rating gives visitors
- * nothing to read in this card layout.
+ * Curates the set of reviews for the premium featured-review section.
+ * Only reviews with both written text and a customer-uploaded photo
+ * (see reviewImage on the Review type) qualify — a star-only rating,
+ * or a review with no photo, gives this photo-forward layout nothing
+ * to show. Once every review reliably includes a photo (Business
+ * Profile API), this can drop back to a pure quality sort instead of
+ * a hard filter.
  *
  * @param {import('../types/reviews').Review[]} reviews
  * @param {number} [max]
  * @returns {import('../types/reviews').Review[]}
  */
 export function selectFeaturedReviews(reviews, max = 8) {
-  const withText = reviews.filter((review) => review.comment?.trim());
-  const withPhoto = withText.filter((review) => review.reviewPhoto);
-  const withoutPhoto = withText
-    .filter((review) => !review.reviewPhoto)
-    .sort((a, b) => b.rating - a.rating || b.comment.length - a.comment.length);
-
-  return [...withPhoto, ...withoutPhoto].slice(0, max);
+  return reviews
+    .filter((review) => review.comment?.trim() && review.reviewImage)
+    .sort((a, b) => b.rating - a.rating || b.comment.length - a.comment.length)
+    .slice(0, max);
 }

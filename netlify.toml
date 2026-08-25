@@ -1,0 +1,18 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+# Frontend keeps calling /api/google-reviews — this rewrites it to the
+# actual function path without changing the URL the browser sees.
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# SPA fallback for react-router client-side routes. Must come after
+# the /api/* rule above — Netlify uses the first matching redirect.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

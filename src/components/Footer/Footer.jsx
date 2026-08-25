@@ -64,7 +64,6 @@ const SERVICE_GROUPS = [
     services: [
       { title: "Headlight Restoration", id: "headlight-restoration" },
       { title: "Paint Chip Repair", id: "paint-chip-repair" },
-      { title: "Plastic Restoration", id: "plastic-restoration" },
     ],
   },
 ];
@@ -98,7 +97,7 @@ function Footer() {
                 99 RODINEA ROAD, UNIT 14
               </p>
               <p className="editorial-footer__text">
-                MAPLE, ON L6A 1E9
+                VAUGHAN, ON L6A 1E9
               </p>
             </div>
           </div>

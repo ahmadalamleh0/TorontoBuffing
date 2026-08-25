@@ -1,4 +1,5 @@
-// Vercel serverless function -> GET /api/google-reviews
+// Netlify Function -> GET /api/google-reviews (rewritten from
+// /.netlify/functions/google-reviews via netlify.toml)
 //
 // Holds the only copy of the Google Places API key and Toronto
 // Buffing's Place ID; neither ever reaches the browser. Calls Place
@@ -20,6 +21,11 @@ function normalizeGoogleReview(review) {
     reviewerProfileUrl: review.authorAttribution?.uri ?? null,
     rating: typeof review.rating === "number" ? review.rating : 0,
     comment: review.text?.text ?? review.originalText?.text ?? "",
+    // Places API (New) doesn't reliably expose reviewer-uploaded review
+    // photos — never fabricate one from unrelated business photography.
+    // Swap this for the real field once a source that exposes review
+    // media (e.g. Business Profile API) is connected.
+    reviewImage: null,
     createTime: review.publishTime ?? null,
     updateTime: null,
     reviewUrl: null,
@@ -36,10 +42,17 @@ function normalizePlaceDetails(place) {
   };
 }
 
-export default async function handler(req, res) {
-  if (req.method !== "GET") {
-    res.setHeader("Allow", "GET");
-    return res.status(405).json({ error: "Method not allowed." });
+function json(statusCode, body, extraHeaders = {}) {
+  return {
+    statusCode,
+    headers: { "Content-Type": "application/json", ...extraHeaders },
+    body: JSON.stringify(body),
+  };
+}
+
+export async function handler(event) {
+  if (event.httpMethod !== "GET") {
+    return json(405, { error: "Method not allowed." }, { Allow: "GET" });
   }
 
   const apiKey = process.env.GOOGLE_PLACES_API_KEY;
@@ -47,9 +60,9 @@ export default async function handler(req, res) {
 
   if (!apiKey || !placeId) {
     console.error(
-      "[api/google-reviews] Missing GOOGLE_PLACES_API_KEY or TORONTO_BUFFING_PLACE_ID environment variable.",
+      "[netlify/functions/google-reviews] Missing GOOGLE_PLACES_API_KEY or TORONTO_BUFFING_PLACE_ID environment variable.",
     );
-    return res.status(500).json({ error: "Reviews are temporarily unavailable." });
+    return json(500, { error: "Reviews are temporarily unavailable." });
   }
 
   try {
@@ -62,18 +75,19 @@ export default async function handler(req, res) {
 
     if (!placesResponse.ok) {
       const errorBody = await placesResponse.text();
-      console.error(`[api/google-reviews] Places API ${placesResponse.status}: ${errorBody}`);
-      return res.status(502).json({ error: "Reviews are temporarily unavailable." });
+      console.error(`[netlify/functions/google-reviews] Places API ${placesResponse.status}: ${errorBody}`);
+      return json(502, { error: "Reviews are temporarily unavailable." });
     }
 
     const place = await placesResponse.json();
 
     // Short edge cache so we're not hitting Places on every page load —
     // the review data doesn't need to be second-by-second fresh.
-    res.setHeader("Cache-Control", "s-maxage=900, stale-while-revalidate=300");
-    return res.status(200).json(normalizePlaceDetails(place));
+    return json(200, normalizePlaceDetails(place), {
+      "Cache-Control": "s-maxage=900, stale-while-revalidate=300",
+    });
   } catch (error) {
-    console.error("[api/google-reviews] Unexpected error:", error);
-    return res.status(500).json({ error: "Reviews are temporarily unavailable." });
+    console.error("[netlify/functions/google-reviews] Unexpected error:", error);
+    return json(500, { error: "Reviews are temporarily unavailable." });
   }
 }

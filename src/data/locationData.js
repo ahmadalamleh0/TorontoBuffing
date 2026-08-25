@@ -11,12 +11,12 @@
  */
 export const BUSINESS_LOCATION = {
   name: "Toronto Buffing Inc.",
-  addressLine: "99 Rodinea Rd Unit 14, Maple, ON L6A 1R3",
+  addressLine: "99 Rodinea Rd Unit 14, Vaughan, ON L6A 1R3",
   lat: 43.8726035,
   lng: -79.5087235,
   zoom: 17,
   mapsUrl:
-    "https://www.google.com/maps/search/?api=1&query=Toronto+Buffing+Inc,+99+Rodinea+Rd+Unit+14,+Maple,+ON+L6A+1R3",
+    "https://www.google.com/maps/search/?api=1&query=Toronto+Buffing+Inc,+99+Rodinea+Rd+Unit+14,+Vaughan,+ON+L6A+1R3",
   directionsUrl:
-    "https://www.google.com/maps/dir/?api=1&destination=99+Rodinea+Rd+Unit+14,+Maple,+ON+L6A+1R3,+Canada",
+    "https://www.google.com/maps/dir/?api=1&destination=99+Rodinea+Rd+Unit+14,+Vaughan,+ON+L6A+1R3,+Canada",
 };

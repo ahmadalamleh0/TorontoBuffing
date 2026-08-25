@@ -37,9 +37,9 @@
 }
 
 .mobile-action-bar__btn--call {
-  background: var(--color-black);
-  color: var(--color-white);
-  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  background: var(--color-white);
+  color: var(--color-black);
+  border-right: 1px solid var(--color-border-gray);
 }
 
 .mobile-action-bar__btn--book {

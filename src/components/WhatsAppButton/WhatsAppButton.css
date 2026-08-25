@@ -40,6 +40,12 @@
   }
 }
 
+@media (min-width: 1024px) {
+  .whatsapp-button {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .whatsapp-button {
     transition: none;

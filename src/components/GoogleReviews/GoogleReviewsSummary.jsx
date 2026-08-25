@@ -1,49 +1,58 @@
-import GoogleLogo from "./GoogleLogo";
+import GoogleWordmark from "./GoogleWordmark";
 import StarRating from "./StarRating";
 import "./GoogleReviewsSummary.css";
+
+// Matches Google's own qualitative labeling convention closely enough
+// for a marketing summary bar — this isn't pulled from the API.
+function ratingLabelFor(rating) {
+  if (rating == null) return null;
+  if (rating >= 4.5) return "Excellent";
+  if (rating >= 3.5) return "Great";
+  if (rating >= 2.5) return "Good";
+  return "Average";
+}
 
 /**
  * @param {{
  *   averageRating: number | null,
  *   totalReviewCount: number | null,
  *   writeReviewUrl: string | null,
- *   mapsUrl: string | null,
  *   isLoading: boolean,
  * }} props
  */
-function GoogleReviewsSummary({ averageRating, totalReviewCount, writeReviewUrl, mapsUrl, isLoading }) {
+function GoogleReviewsSummary({ averageRating, totalReviewCount, writeReviewUrl, isLoading }) {
+  const label = ratingLabelFor(averageRating);
+
   return (
-    <div className="reviews-summary">
-      <div className="reviews-summary__rating">
-        <StarRating rating={averageRating ?? 0} size="md" />
-        <span className="reviews-summary__value">
-          {isLoading ? "…" : averageRating != null ? averageRating.toFixed(1) : "N/A"}
-        </span>
-        <span className="reviews-summary__sep" aria-hidden="true">
-          •
-        </span>
-        <span className="reviews-summary__count">
-          {isLoading
-            ? "Loading reviews…"
-            : totalReviewCount != null
-              ? `${totalReviewCount.toLocaleString()} Google Reviews`
-              : "Review count unavailable"}
-        </span>
-        <GoogleLogo size={16} className="reviews-summary__mark" />
+    <div className="reviews-bar">
+      <div className="reviews-bar__info">
+        <GoogleWordmark className="reviews-bar__logo" />
+        {isLoading ? (
+          <span className="reviews-bar__loading">Loading reviews…</span>
+        ) : (
+          <>
+            {label && <span className="reviews-bar__label">{label}</span>}
+            <StarRating rating={averageRating ?? 0} size="md" />
+            {averageRating != null && (
+              <span className="reviews-bar__value">{averageRating.toFixed(1)}</span>
+            )}
+            {totalReviewCount != null && (
+              <>
+                <span className="reviews-bar__sep" aria-hidden="true">
+                  |
+                </span>
+                <span className="reviews-bar__count">{totalReviewCount.toLocaleString()} reviews</span>
+              </>
+            )}
+          </>
+        )}
       </div>
 
-      <div className="reviews-summary__actions">
-        {writeReviewUrl && (
-          <a href={writeReviewUrl} target="_blank" rel="noreferrer" className="btn btn-primary">
-            Write a Review
-          </a>
-        )}
-        {mapsUrl && (
-          <a href={mapsUrl} target="_blank" rel="noreferrer" className="btn-text">
-            View All Reviews
-          </a>
-        )}
-      </div>
+      {writeReviewUrl && (
+        <a href={writeReviewUrl} target="_blank" rel="noreferrer" className="reviews-bar__cta">
+          Write a review
+        </a>
+      )}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { fetchGoogleReviews, mergeManualReviews } from "../../services/reviewsService";
+import { fetchGoogleReviews, mergeManualReviews, selectFeaturedReviews } from "../../services/reviewsService";
 import { MANUAL_REVIEWS } from "../../data/manualReviews";
 import { SAMPLE_REVIEWS_SUMMARY } from "../../data/sampleReviews";
 import GoogleReviewsSummary from "./GoogleReviewsSummary";
@@ -55,7 +55,7 @@ function useMatchMedia(query) {
 }
 
 function GoogleReviewsSection() {
-  const [state, setState] = useState({ status: "loading", data: null });
+  const [state, setState] = useState({ status: "loading", data: null, isSample: false });
   const sectionRef = useSectionReveal();
   const isMobile = useMatchMedia("(max-width: 767px)");
   const prefersReducedMotion = useMatchMedia("(prefers-reduced-motion: reduce)");
@@ -66,36 +66,40 @@ function GoogleReviewsSection() {
     fetchGoogleReviews({ signal: controller.signal })
       .then((liveSummary) => {
         const merged = mergeManualReviews(liveSummary, MANUAL_REVIEWS);
-        setState({ status: "ready", data: merged });
+        setState({ status: "ready", data: merged, isSample: false });
       })
       .catch((error) => {
         if (controller.signal.aborted) return;
 
-        // TEMPORARY: /api/google-reviews doesn't exist yet, so this
-        // always fails today. In dev, fall back to sample data so the
-        // section can be built and reviewed visually. In production
-        // this deliberately shows the error state instead — real
-        // failures should never be masked with fake reviews.
+        // /api/google-reviews failed — log the real reason loudly so it's
+        // never mistaken for "not implemented yet". In dev only, fall back
+        // to sample data so the section stays visually buildable, but flag
+        // it as sample data (both here and in the UI below) so a failing
+        // endpoint is never mistaken for a working one during local dev.
+        // Production never falls back — a real failure always shows the
+        // error state instead of masking it with fake reviews.
         if (import.meta.env.DEV) {
-          console.info(
-            "[GoogleReviewsSection] /api/google-reviews not implemented yet — using temporary sample data.",
+          console.warn(
+            "[GoogleReviewsSection] Live /api/google-reviews request failed — showing SAMPLE data instead. " +
+              "This is a dev-only fallback; it does NOT mean the endpoint works. Real error:",
+            error,
           );
           const merged = mergeManualReviews(SAMPLE_REVIEWS_SUMMARY, MANUAL_REVIEWS);
-          setState({ status: "ready", data: merged });
+          setState({ status: "ready", data: merged, isSample: true });
           return;
         }
 
         console.error("[GoogleReviewsSection]", error);
-        setState({ status: "error", data: null });
+        setState({ status: "error", data: null, isSample: false });
       });
 
     return () => controller.abort();
   }, []);
 
   const isLoading = state.status === "loading";
-  // Only show reviews that actually have written text — a star-only
-  // rating doesn't give visitors anything to read in this layout.
-  const reviews = (state.data?.reviews ?? []).filter((review) => review.comment?.trim());
+  // Only reviews with both written text and a customer-uploaded photo
+  // are featured here — see reviewsService.selectFeaturedReviews.
+  const reviews = selectFeaturedReviews(state.data?.reviews ?? []);
   const showRows = !isLoading && reviews.length > 0 && !prefersReducedMotion;
   const showStaticGrid = !isLoading && reviews.length > 0 && prefersReducedMotion;
 
@@ -103,18 +107,14 @@ function GoogleReviewsSection() {
     <section id="reviews" className="google-reviews section" ref={sectionRef}>
       <div className="container">
         <div className="google-reviews__heading">
-          <span className="eyebrow google-reviews__eyebrow">Client Experiences</span>
           <h2 className="google-reviews__title">Our Reviews.</h2>
-          <p className="google-reviews__subline">
-            Real feedback from Toronto Buffing clients on Google.
-          </p>
+          <p className="google-reviews__rated">Rated 5 Stars</p>
         </div>
 
         <GoogleReviewsSummary
           averageRating={state.data?.averageRating ?? null}
           totalReviewCount={state.data?.totalReviewCount ?? null}
           writeReviewUrl={state.data?.writeReviewUrl ?? null}
-          mapsUrl={state.data?.mapsUrl ?? null}
           isLoading={isLoading}
         />
 
