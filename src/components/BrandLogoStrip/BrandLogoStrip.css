@@ -9,7 +9,7 @@
 .brand-strip__track {
   display: flex;
   width: max-content;
-  animation: brand-strip-scroll 60s linear infinite;
+  animation: brand-strip-scroll 42s linear infinite;
   will-change: transform;
 }
 
@@ -63,8 +63,13 @@
   }
 }
 
+/* Exempted from the site-wide prefers-reduced-motion kill switch
+   (global.css) — this marquee is purely decorative and must keep
+   looping continuously on phones regardless of that OS setting.
+   Matches specificity against the global `*` !important rule. */
 @media (prefers-reduced-motion: reduce) {
   .brand-strip__track {
-    animation: none;
+    animation-duration: 42s !important;
+    animation-iteration-count: infinite !important;
   }
 }
