@@ -5,15 +5,18 @@
  * Flow: 1 Vehicle -> 2 Service -> 3 Options (dynamic per service,
  * auto-skipped if nothing applies) -> 4 Photos + Details -> 5 Review.
  */
-import ppfImage from "../../assets/images/services/ppf.jpg";
-import paintCorrectionImage from "../../assets/images/services/paint-correction.jpg";
-import ceramicCoatingImage from "../../assets/images/services/ceramic-coating.jpg";
-import panelRefinishingImage from "../../assets/images/services/panel-refinishing.jpg";
-import headlightRestorationImage from "../../assets/images/services/headlight-restoration.jpg";
-import paintChipRepairImage from "../../assets/images/services/paint-chip-repair.webp";
 import coupeSedanIcon from "../../assets/images/quote/coupe-sedan.png";
 import suvTruckIcon from "../../assets/images/quote/suv-truck.png";
-import xlSuvSpecialtyIcon from "../../assets/images/quote/xl-suv-specialty.png";
+import xlSuvIcon from "../../assets/images/quote/xl-suv.png";
+import exoticsIcon from "../../assets/images/quote/exotics.png";
+import ppfIcon from "../../assets/images/quote/services/ppf-icon.webp";
+import paintCorrectionIcon from "../../assets/images/quote/services/paint-correction-icon.png";
+import ceramicCoatingIcon from "../../assets/images/quote/services/ceramic-coating-icon.png";
+import sprayGunIcon from "../../assets/images/quote/services/spray-gun-icon.png";
+import headlightIcon from "../../assets/images/quote/services/headlight-icon.png";
+import scratchRepairIcon from "../../assets/images/quote/services/scratch-repair-icon.png";
+import rockchipsIcon from "../../assets/images/quote/services/rockchips-icon.png";
+import autoBodyIcon from "../../assets/images/quote/services/auto-body-icon.png";
 
 export const TOTAL_STEPS = 5;
 
@@ -21,13 +24,9 @@ export const STEP_LABELS = ["Vehicle", "Service", "Options", "Details", "Review"
 
 export const VEHICLE_TYPES = [
   { id: "coupe-sedan", label: "Coupe / Sedan", examples: "M3, S5, 911...", image: coupeSedanIcon },
-  { id: "suv-truck", label: "SUV / Truck", examples: "X5, Cayenne, F-150...", image: suvTruckIcon },
-  {
-    id: "xl-suv-specialty",
-    label: "Specialty / XL SUV",
-    examples: "Escalade, exotics...",
-    image: xlSuvSpecialtyIcon,
-  },
+  { id: "suv-truck", label: "SUV / Truck", examples: "Macan, X5, F-150...", image: suvTruckIcon },
+  { id: "xl-suv", label: "XL SUV", examples: "Escalade, Navigator...", image: xlSuvIcon },
+  { id: "exotics", label: "Exotics", examples: "Ferrari, Lamborghini...", image: exoticsIcon },
 ];
 
 const CURRENT_YEAR = new Date().getFullYear();
@@ -75,18 +74,16 @@ export const VEHICLE_MAKES = [
 ];
 
 // Order here is the order dynamic Step 3 sections render in when
-// multiple services are selected. `image` is optional — tiles render
-// fine without one (see .quote-service-card in QuoteSteps.css).
+// multiple services are selected. Clean PNG/WebP icons are used.
 export const SERVICES = [
-  { id: "ppf", label: "Paint Protection Film (PPF)", image: ppfImage },
-  { id: "ceramic-coating", label: "Ceramic Coating", image: ceramicCoatingImage },
-  { id: "paint-correction", label: "Paint Correction", image: paintCorrectionImage },
-  { id: "auto-body", label: "Auto Body Work", image: null },
-  { id: "panel-repainting", label: "Panel Repainting", image: panelRefinishingImage },
-  { id: "headlight-restoration", label: "Headlight Restoration", image: headlightRestorationImage },
-  { id: "paint-chip-repair", label: "Paint Chip Repair", image: paintChipRepairImage },
-  { id: "scratch-repair", label: "Scratch Repair", image: null },
-  { id: "watersanding", label: "Watersanding", image: null },
+  { id: "ppf", label: "Paint Protection Film (PPF)", image: ppfIcon },
+  { id: "ceramic-coating", label: "Ceramic Coating", image: ceramicCoatingIcon },
+  { id: "paint-correction", label: "Paint Correction", image: paintCorrectionIcon },
+  { id: "auto-body", label: "Auto Body Work", image: autoBodyIcon },
+  { id: "panel-repainting", label: "Panel Repainting", image: sprayGunIcon },
+  { id: "headlight-restoration", label: "Headlight Restoration", image: headlightIcon },
+  { id: "paint-chip-repair", label: "Paint Chip Repair", image: rockchipsIcon },
+  { id: "scratch-repair", label: "Scratch Repair", image: scratchRepairIcon },
 ];
 
 // Services with no Step 3 section at all — minimum relevant info only,
@@ -95,7 +92,6 @@ export const SIMPLE_SERVICES = new Set([
   "headlight-restoration",
   "paint-chip-repair",
   "scratch-repair",
-  "watersanding",
 ]);
 
 export const PPF_COVERAGE_OPTIONS = [
@@ -142,7 +138,7 @@ export const initialQuoteFormData = {
   vehicle: { year: "", make: "", model: "" },
   services: [],
   options: {
-    ppf: { coverage: null },
+    ppf: { coverage: "full-front" },
     ceramicCoating: { duration: null, condition: null },
     paintCorrection: { stage: null },
     bodyWork: { areas: [] },

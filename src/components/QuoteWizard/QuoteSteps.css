@@ -119,20 +119,20 @@
 .quote-vehicle-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.625rem;
-  margin-bottom: 0.5rem;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 
 .quote-vehicle-card {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 0.875rem;
-  padding: 0.75rem 1rem;
+  gap: 1rem;
+  padding: 0.9375rem 1.125rem;
   text-align: left;
   background: var(--color-white);
   border: 1px solid var(--color-border-gray);
-  border-radius: 12px;
+  border-radius: 14px;
   transition: border-color var(--duration-fast) var(--ease-standard),
     background-color var(--duration-fast) var(--ease-standard),
     box-shadow var(--duration-fast) var(--ease-standard);
@@ -150,8 +150,8 @@
 
 .quote-vehicle-card__media {
   display: block;
-  width: 72px;
-  height: 48px;
+  width: 90px;
+  height: 60px;
   margin-bottom: 0;
   flex-shrink: 0;
   object-fit: contain;
@@ -160,27 +160,27 @@
 .quote-vehicle-card__text {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
   text-align: left;
   flex: 1;
 }
 
 .quote-vehicle-card__label {
-  font-size: 0.9375rem;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.005em;
   color: var(--color-black);
 }
 
 .quote-vehicle-card__examples {
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: var(--fw-regular);
   color: var(--color-muted-gray);
 }
 
 @media (min-width: 640px) {
   .quote-vehicle-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--space-3);
     margin-bottom: var(--space-6);
   }
@@ -195,29 +195,45 @@
 
   .quote-vehicle-card__media {
     width: 100%;
-    height: 200px;
+    height: 140px;
     margin-bottom: var(--space-2);
   }
 
   .quote-vehicle-card__label {
-    font-size: var(--fs-lg);
+    font-size: var(--fs-base);
+  }
+}
+
+@media (min-width: 768px) {
+  .quote-vehicle-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .quote-vehicle-card__media {
+    height: 150px;
   }
 }
 
 /* ---- Step 2: service selection tiles (with optional thumbnail) ---- */
 
+/* Mobile-first compact: small, consistent icons so more services fit
+   on one screen without any single icon dominating a card. Desktop
+   (see 560px block) gets a bit more room to breathe. */
+
 .quote-service-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-3);
+  gap: var(--space-2);
 }
 
 .quote-service-card {
   position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
   overflow: hidden;
-  text-align: left;
+  padding: var(--space-3) var(--space-2) var(--space-2);
+  text-align: center;
   background: var(--color-white);
   border: 1px solid var(--color-border-gray);
   border-radius: var(--radius-sm);
@@ -234,19 +250,28 @@
   border-color: var(--color-accent);
 }
 
-.quote-service-card__media {
-  height: 64px;
-  background-color: var(--color-off-white);
-  background-size: cover;
-  background-position: center;
+.quote-service-card__icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 40px;
+  margin-bottom: var(--space-2);
+}
+
+.quote-service-card__icon {
+  display: block;
+  width: auto;
+  height: 100%;
+  max-width: 40px;
+  object-fit: contain;
 }
 
 .quote-service-card__label {
-  padding: var(--space-3);
-  font-size: var(--fs-sm);
+  font-size: var(--fs-xs);
   font-weight: 700;
   letter-spacing: 0.005em;
-  line-height: 1.25;
+  line-height: 1.2;
   color: var(--color-black);
 }
 
@@ -272,6 +297,24 @@
 @media (min-width: 560px) {
   .quote-service-grid {
     grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+  }
+
+  .quote-service-card {
+    padding: var(--space-4) var(--space-3) var(--space-3);
+  }
+
+  .quote-service-card__icon-wrap {
+    height: 56px;
+    margin-bottom: var(--space-3);
+  }
+
+  .quote-service-card__icon {
+    max-width: 56px;
+  }
+
+  .quote-service-card__label {
+    font-size: var(--fs-sm);
   }
 }
 
@@ -347,22 +390,58 @@
    what plugs into .coverage-visualizer__frame once the Porsche PPF
    asset is supplied. */
 .coverage-visualizer {
-  margin-top: var(--space-5);
+  margin-top: var(--space-4);
+  text-align: center;
 }
 
 .coverage-visualizer__frame {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 16 / 9;
-  background: var(--color-off-white);
-  border: 1px dashed var(--color-border-gray);
-  border-radius: var(--radius-md);
+  width: 100%;
+  min-height: 200px;
+  background: var(--color-white);
+  border: 1px solid var(--color-border-gray);
+  border-radius: 14px;
+  padding: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+
+.coverage-visualizer__img {
+  width: 100%;
+  height: auto;
+  max-height: 260px;
+  object-fit: contain;
+  animation: coverage-fade-in 0.3s var(--ease-standard);
+}
+
+@keyframes coverage-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .coverage-visualizer__placeholder {
   font-size: var(--fs-sm);
+  font-weight: 500;
   color: var(--color-muted-gray);
+}
+
+.coverage-visualizer__caption {
+  display: block;
+  margin-top: 0.625rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-brand-blue);
 }
 
 /* ---- Form fields (Steps 2-4) ---- */
@@ -379,14 +458,14 @@
 .quote-field-stack {
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
+  gap: 0.875rem;
 }
 
 .quote-field {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-  margin-bottom: var(--space-5);
+  gap: 0.375rem;
+  margin-bottom: 0.875rem;
 }
 
 .quote-field-grid .quote-field,
@@ -395,11 +474,12 @@
 }
 
 .quote-field__label {
-  font-size: var(--fs-xs);
-  font-weight: var(--fw-semibold);
-  letter-spacing: var(--ls-wide);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--color-text-faint);
+  color: #4a5060;
 }
 
 .quote-field__label em {
@@ -411,17 +491,26 @@
 
 .quote-field__input {
   width: 100%;
-  padding: var(--space-4);
-  font-size: var(--fs-base);
+  padding: 0.6875rem 0.875rem;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
   color: var(--color-black);
   background: var(--color-white);
-  border: 1px solid var(--color-border-gray);
-  border-radius: var(--radius-sm);
-  transition: border-color var(--duration-base) var(--ease-standard);
+  border: 1px solid #dce0eb;
+  border-radius: 10px;
+  transition: border-color var(--duration-base) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard);
+}
+
+.quote-field__input::placeholder {
+  color: #a0a5b8;
+  font-weight: 400;
 }
 
 .quote-field__input:focus {
-  border-color: var(--color-accent);
+  border-color: var(--color-brand-blue);
+  box-shadow: 0 0 0 3px rgba(30, 40, 132, 0.1);
   outline: none;
 }
 
@@ -436,13 +525,14 @@
 
 .quote-field__textarea {
   resize: vertical;
-  min-height: 96px;
+  min-height: 64px;
   font-family: var(--font-body);
 }
 
 @media (min-width: 640px) {
   .quote-field-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 0.875rem;
   }
 }
 
@@ -477,58 +567,77 @@
   border-color: var(--color-accent);
 }
 
-/* ---- Step 4: photo upload ---- */
+/* ---- Step 4: compact photo upload block ---- */
 
-.quote-upload {
+.quote-upload-block {
+  margin-top: 0.75rem;
   display: flex;
   flex-direction: column;
+  gap: 0.375rem;
+}
+
+.quote-upload-block__header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.quote-upload-block__subtext {
+  font-size: 0.75rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.quote-upload--compact {
+  display: flex;
+  flex-direction: row;
   align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-7) var(--space-5);
-  margin-bottom: var(--space-5);
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0;
   text-align: center;
-  color: var(--color-text-faint);
-  background: var(--color-off-white);
-  border: 1px dashed var(--color-border-gray);
-  border-radius: var(--radius-md);
+  background: #f9fafb;
+  border: 1px dashed #d1d5db;
+  border-radius: 10px;
   cursor: pointer;
-  transition: border-color var(--duration-base) var(--ease-standard);
+  transition: border-color var(--duration-base) var(--ease-standard),
+    background-color var(--duration-base) var(--ease-standard);
 }
 
-.quote-upload:hover,
-.quote-upload:focus-visible {
-  border-color: var(--color-accent);
+.quote-upload--compact:hover,
+.quote-upload--compact:focus-visible {
+  border-color: var(--color-brand-blue);
+  background: #f0f4ff;
 }
 
-.quote-upload.is-disabled {
+.quote-upload--compact.is-disabled {
   cursor: default;
   opacity: 0.6;
 }
 
-.quote-upload.is-disabled:hover {
-  border-color: var(--color-border-gray);
-}
-
 .quote-upload__icon {
-  color: var(--color-accent);
+  color: var(--color-brand-blue);
+  display: inline-flex;
+  align-items: center;
 }
 
 .quote-upload__title {
-  font-size: var(--fs-sm);
-  font-weight: var(--fw-medium);
+  font-size: 0.8125rem;
+  font-weight: 600;
   color: var(--color-black);
 }
 
-.quote-upload__hint {
-  font-size: var(--fs-xs);
-  color: var(--color-muted-gray);
+.quote-upload__sub {
+  font-size: 0.75rem;
+  color: #9ca3af;
 }
 
 .quote-upload__list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-  margin-bottom: var(--space-6);
+  gap: 0.375rem;
+  margin-top: 0.5rem;
 }
 
 .quote-upload__item {
@@ -536,11 +645,11 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
-  padding: var(--space-2) var(--space-4);
-  font-size: var(--fs-sm);
+  padding: 0.375rem 0.75rem;
+  font-size: 0.8125rem;
   color: var(--color-black);
   background: var(--color-off-white);
-  border-radius: var(--radius-sm);
+  border-radius: 8px;
 }
 
 .quote-upload__item-name {

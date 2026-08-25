@@ -154,8 +154,7 @@ function QuoteWizardSection() {
         return Boolean(
           formData.contact.fullName.trim() &&
             formData.contact.phone.trim() &&
-            formData.contact.email.trim() &&
-            formData.photos.length >= MIN_PHOTOS,
+            formData.contact.email.trim()
         );
       default:
         return true;
@@ -246,23 +245,25 @@ function QuoteWizardSection() {
                 {step === 5 && <ReviewStep formData={formData} onEditStep={goToStep} />}
               </div>
 
-              <div className="quote-wizard__nav">
-                {step > 1 ? (
-                  <button type="button" className="btn btn-secondary" onClick={goBack}>
-                    Back
+              {!(step === 1 && !formData.vehicleType) && (
+                <div className="quote-wizard__nav">
+                  {step > 1 ? (
+                    <button type="button" className="btn btn-secondary" onClick={goBack}>
+                      Back
+                    </button>
+                  ) : (
+                    <span />
+                  )}
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    disabled={!canProceed}
+                    onClick={step === TOTAL_STEPS ? handleSubmit : goNext}
+                  >
+                    {step === TOTAL_STEPS ? "Get My Quote" : "Continue"}
                   </button>
-                ) : (
-                  <span />
-                )}
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  disabled={!canProceed}
-                  onClick={step === TOTAL_STEPS ? handleSubmit : goNext}
-                >
-                  {step === TOTAL_STEPS ? "Get My Quote" : "Continue"}
-                </button>
-              </div>
+                </div>
+              )}
             </>
           )}
         </div>

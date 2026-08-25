@@ -22,15 +22,14 @@ function ServiceSelectionStep({ selected, onToggle }) {
               onClick={() => onToggle(service.id)}
               aria-pressed={isSelected}
             >
-              {service.image ? (
-                <span
-                  className="quote-service-card__media"
-                  style={{ backgroundImage: `url(${service.image})` }}
+              <div className="quote-service-card__icon-wrap">
+                <img
+                  src={service.image}
+                  alt=""
+                  className="quote-service-card__icon"
                   aria-hidden="true"
                 />
-              ) : (
-                <span className="quote-service-card__media quote-service-card__media--empty" aria-hidden="true" />
-              )}
+              </div>
               <span className="quote-service-card__label">{service.label}</span>
               {isSelected && (
                 <span className="quote-service-card__check" aria-hidden="true">

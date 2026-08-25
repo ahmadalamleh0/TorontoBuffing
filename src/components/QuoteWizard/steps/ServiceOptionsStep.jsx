@@ -9,9 +9,8 @@ import CoverageVisualizer from "./CoverageVisualizer";
 
 /**
  * Step 3 is entirely dynamic: one section per selected service that
- * actually has configuration to collect. Services with nothing to
- * configure (headlight restoration, paint chip repair, scratch
- * repair, watersanding) contribute no section — see SIMPLE_SERVICES
+ * actually has configuration to collect. Simple services (headlight restoration, paint chip repair, scratch
+ * repair) contribute no section — see SIMPLE_SERVICES
  * and hasServiceOptions() in quoteData/QuoteWizardSection, which skip
  * this step entirely when none of the selected services need it.
  *
