@@ -1,8 +1,7 @@
 .brand-strip {
   overflow: hidden;
   width: 100%;
-  padding-block: var(--space-4);
-  background: var(--color-bg);
+  padding-block: var(--space-3);
   -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
   mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
 }
@@ -33,6 +32,7 @@
   height: 100%;
   width: auto;
   object-fit: contain;
+  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.7));
 }
 
 .brand-strip__logo--large {

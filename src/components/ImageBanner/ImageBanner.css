@@ -1,27 +1,10 @@
 .image-banner {
-  position: relative;
   display: block;
-  min-height: 50svh;
-  overflow: hidden;
+  background: var(--color-bg);
 }
 
 .image-banner__media {
-  position: absolute;
-  inset: 0;
-  background-color: var(--color-bg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-@media (min-width: 640px) {
-  .image-banner {
-    min-height: 65svh;
-  }
-}
-
-@media (min-width: 1024px) {
-  .image-banner {
-    min-height: 80vh;
-  }
+  display: block;
+  width: 100%;
+  height: auto;
 }

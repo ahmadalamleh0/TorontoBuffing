@@ -79,28 +79,50 @@
   color: var(--color-brand-blue);
 }
 
-/* Utility Row */
-.editorial-footer__utility {
+/* Social icons */
+.editorial-footer__socials {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding-top: 2rem;
-  font-family: var(--font-body);
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #71717a;
+  gap: 0.85rem;
 }
 
-.editorial-footer__handle {
+.editorial-footer__social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.375rem;
+  height: 1.375rem;
   color: var(--color-black);
+  transition: color 0.2s ease;
+}
+
+.editorial-footer__social svg {
+  width: 100%;
+  height: 100%;
+}
+
+.editorial-footer__social:hover {
+  color: var(--color-brand-blue);
+}
+
+/* Bottom sign-off, under the wordmark */
+.editorial-footer__bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding-block: 1.75rem;
+  font-family: var(--font-body);
 }
 
 .editorial-footer__legal {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .editorial-footer__legal a {
@@ -115,6 +137,25 @@
 
 .editorial-footer__sep {
   color: #a1a1aa;
+}
+
+.editorial-footer__credit {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #a1a1aa;
+}
+
+.editorial-footer__credit a {
+  color: #71717a;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.editorial-footer__credit a:hover {
+  color: var(--color-brand-blue);
 }
 
 /* Massive Brand Wordmark */

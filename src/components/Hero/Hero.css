@@ -1,7 +1,7 @@
 .hero {
   position: relative;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
   min-height: 100svh;
   overflow: hidden;
 }
@@ -17,7 +17,7 @@
 }
 
 .hero__media--mobile {
-  background-position: center 78%;
+  background-position: center 40%;
 }
 
 .hero__media--desktop {
@@ -40,8 +40,8 @@
   background: linear-gradient(
       to top,
       rgba(0, 0, 0, 0.88) 0%,
-      rgba(0, 0, 0, 0.2) 55%,
-      rgba(0, 0, 0, 0.35) 100%
+      rgba(0, 0, 0, 0.28) 45%,
+      rgba(0, 0, 0, 0.6) 100%
     ),
     linear-gradient(to right, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 62%);
 }
@@ -49,12 +49,24 @@
 .hero__content {
   position: relative;
   z-index: 1;
-  padding-bottom: var(--space-7);
-  padding-top: calc(var(--header-height) + var(--space-8));
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hero__text {
+  /* Fixed (not centered) offset from the header — this is what keeps
+     the copy "high" regardless of how much room the button's own
+     margin-top: auto below ends up claiming. */
+  padding-top: calc(var(--header-height) + var(--space-7) + 7svh);
 }
 
 .hero__eyebrow {
   margin-bottom: var(--space-2);
+  color: var(--color-accent-on-dark);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9);
 }
 
 .hero__headline {
@@ -69,7 +81,18 @@
 }
 
 .hero__actions {
-  margin-top: var(--space-6);
+  /* Absorbs all the leftover space in .hero__content, so the button
+     always lands at the content block's own bottom edge — right above
+     the brand strip — no matter how tall .hero__text is. */
+  margin-top: auto;
+  padding-top: var(--space-6);
+}
+
+.hero__brands {
+  position: relative;
+  z-index: 1;
+  margin-top: var(--space-5);
+  padding-bottom: var(--space-5);
 }
 
 .hero__cta {
@@ -92,11 +115,6 @@
 }
 
 @media (min-width: 640px) {
-  .hero__content {
-    padding-bottom: var(--space-9);
-    padding-top: calc(var(--header-height) + var(--space-8));
-  }
-
   .hero__eyebrow {
     margin-bottom: var(--space-4);
   }
@@ -113,21 +131,46 @@
   }
 
   .hero__actions {
-    margin-top: var(--space-7);
+    padding-top: var(--space-7);
   }
 
   .hero__cta {
     padding: var(--space-4) var(--space-7);
     font-size: var(--fs-sm);
   }
+
+  .hero__brands {
+    margin-top: var(--space-6);
+    padding-bottom: var(--space-6);
+  }
 }
 
 @media (min-width: 1024px) {
+  .hero {
+    justify-content: flex-end;
+  }
+
   .hero__headline {
     font-size: var(--fs-6xl);
   }
 
   .hero__content {
-    padding-bottom: var(--space-10);
+    flex: 0 1 auto;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .hero__text {
+    padding-top: 0;
+  }
+
+  .hero__actions {
+    margin-top: 0;
+    padding-top: var(--space-7);
+  }
+
+  .hero__brands {
+    margin-top: var(--space-7);
+    padding-bottom: var(--space-7);
   }
 }

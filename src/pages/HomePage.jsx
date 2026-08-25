@@ -2,7 +2,6 @@ import Header from "../components/Header/Header";
 import Hero from "../components/Hero/Hero";
 import BrandStatement from "../components/BrandStatement/BrandStatement";
 import ServicesSection from "../components/ServicesSection/ServicesSection";
-import BrandLogoStrip from "../components/BrandLogoStrip/BrandLogoStrip";
 import GoogleReviewsSection from "../components/GoogleReviews/GoogleReviewsSection";
 import ImageBanner from "../components/ImageBanner/ImageBanner";
 import LocationSection from "../components/LocationSection/LocationSection";
@@ -19,7 +18,6 @@ function HomePage() {
       <Header />
       <main>
         <Hero />
-        <BrandLogoStrip />
         <BrandStatement />
         <ServicesSection />
         <GoogleReviewsSection />

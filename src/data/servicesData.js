@@ -27,5 +27,12 @@ export const SUPPORTING_SERVICES = [
   { id: "classic-restoration", title: "Classic Restoration", subtitle: "Heritage Vehicle Care", image: classicRestorationImage },
 ];
 
-/** Every service across both groups, for lookups by id/slug (e.g. the per-service page route). */
-export const ALL_SERVICES = [...FEATURED_SERVICES, ...SUPPORTING_SERVICES];
+// Linked from the footer/nav service menus but not shown as a homepage
+// card yet — kept out of FEATURED/SUPPORTING so it doesn't add a card
+// to that grid, while still resolving to a real title on its /services/:slug page.
+const UNLISTED_SERVICES = [
+  { id: "plastic-restoration", title: "Plastic Restoration", subtitle: "Trim & Plastic Renewal", image: null },
+];
+
+/** Every service across all groups, for lookups by id/slug (e.g. the per-service page route). */
+export const ALL_SERVICES = [...FEATURED_SERVICES, ...SUPPORTING_SERVICES, ...UNLISTED_SERVICES];

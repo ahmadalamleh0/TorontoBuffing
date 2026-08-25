@@ -40,7 +40,7 @@ function ServicesSection() {
       <div className="container services__layout">
         <div className="services__intro">
           <span className="eyebrow">Services</span>
-          <h2 className="services__headline">Precision paintwork, built to last.</h2>
+          <h2 className="services__headline">Built to last.</h2>
           <p className="services__copy">
             From correction to protection, every job is carried out with the
             same level of care, refined finishes, durable coatings, and
