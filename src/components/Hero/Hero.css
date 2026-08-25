@@ -92,7 +92,7 @@
   position: relative;
   z-index: 1;
   margin-top: var(--space-5);
-  padding-bottom: var(--space-5);
+  padding-bottom: calc(var(--space-5) + 12px);
 }
 
 .hero__cta {
