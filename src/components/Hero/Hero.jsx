@@ -37,7 +37,7 @@ function Hero() {
 
         <div className="hero__actions">
           <a href="#contact" className="btn btn-secondary hero__cta">
-            Book Consultation
+            Start Your Quote
           </a>
         </div>
       </div>

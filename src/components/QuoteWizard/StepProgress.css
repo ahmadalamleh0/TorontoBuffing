@@ -1,15 +1,11 @@
 .step-progress {
-  margin-bottom: var(--space-7);
+  margin-bottom: var(--space-4);
 }
 
-.step-progress__label {
-  display: block;
-  margin-bottom: var(--space-4);
-  font-family: var(--font-heading);
-  font-size: var(--fs-sm);
-  letter-spacing: var(--ls-widest);
-  text-transform: uppercase;
-  color: var(--color-black);
+@media (min-width: 640px) {
+  .step-progress {
+    margin-bottom: var(--space-5);
+  }
 }
 
 .step-progress__bar {
@@ -19,12 +15,12 @@
 
 .step-progress__segment {
   flex: 1;
-  height: 3px;
+  height: 4px;
   border-radius: 999px;
   background: var(--color-border-gray);
   transition: background-color var(--duration-base) var(--ease-standard);
 }
 
 .step-progress__segment.is-complete {
-  background: var(--color-accent);
+  background: var(--color-brand-blue);
 }

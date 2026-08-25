@@ -1,14 +1,56 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import StepProgress from "./StepProgress";
+import VehicleTypeStep from "./steps/VehicleTypeStep";
 import ServiceSelectionStep from "./steps/ServiceSelectionStep";
-import VehicleDetailsStep from "./steps/VehicleDetailsStep";
-import ProjectDetailsStep from "./steps/ProjectDetailsStep";
-import PhotosAndContactStep from "./steps/PhotosAndContactStep";
-import ReviewSubmitStep from "./steps/ReviewSubmitStep";
+import ServiceOptionsStep from "./steps/ServiceOptionsStep";
+import PhotosAndDetailsStep from "./steps/PhotosAndDetailsStep";
+import ReviewStep from "./steps/ReviewStep";
 import { CheckIcon } from "./icons";
-import { TOTAL_STEPS, initialQuoteFormData } from "./quoteData";
+import { TOTAL_STEPS, initialQuoteFormData, MIN_PHOTOS, SIMPLE_SERVICES } from "./quoteData";
 import "./QuoteWizardSection.css";
 import "./QuoteSteps.css";
+
+gsap.registerPlugin(ScrollTrigger);
+
+// Eyebrow -> headline -> supporting line -> card, each landing softly
+// on top of the last. Runs once, the moment the section's intro
+// enters view; skipped for prefers-reduced-motion.
+function useIntroReveal() {
+  const eyebrowRef = useRef(null);
+  const titleRef = useRef(null);
+  const sublineRef = useRef(null);
+  const cardRef = useRef(null);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const targets = [eyebrowRef.current, titleRef.current, sublineRef.current, cardRef.current];
+    if (targets.some((el) => !el)) return;
+
+    const ctx = gsap.context(() => {
+      gsap.set(eyebrowRef.current, { opacity: 0, y: 14 });
+      gsap.set(titleRef.current, { opacity: 0, y: 28 });
+      gsap.set(sublineRef.current, { opacity: 0, y: 12 });
+      gsap.set(cardRef.current, { opacity: 0, y: 24 });
+
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.out" },
+        scrollTrigger: { trigger: eyebrowRef.current, start: "top 85%", once: true },
+      });
+
+      tl.to(eyebrowRef.current, { opacity: 1, y: 0, duration: 0.28 })
+        .to(titleRef.current, { opacity: 1, y: 0, duration: 0.38 }, "-=0.14")
+        .to(sublineRef.current, { opacity: 1, y: 0, duration: 0.26 }, "-=0.16")
+        .to(cardRef.current, { opacity: 1, y: 0, duration: 0.3 }, "-=0.08");
+    });
+
+    return () => ctx.revert();
+  }, []);
+
+  return { eyebrowRef, titleRef, sublineRef, cardRef };
+}
 
 function SuccessState({ onStartOver }) {
   return (
@@ -33,6 +75,21 @@ function QuoteWizardSection() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState(initialQuoteFormData);
   const [submitted, setSubmitted] = useState(false);
+  const { eyebrowRef, titleRef, sublineRef, cardRef } = useIntroReveal();
+
+  // Step 3 only exists when at least one selected service actually has
+  // configuration to collect — otherwise Next/Back jump straight over
+  // it (see goNext/goBack), matching "no unnecessary package screens."
+  const hasStep3Content = useMemo(
+    () => formData.services.some((id) => !SIMPLE_SERVICES.has(id)),
+    [formData.services],
+  );
+
+  const updateVehicleType = (id) => setFormData((data) => ({ ...data, vehicleType: id }));
+
+  const updateVehicle = (field, value) => {
+    setFormData((data) => ({ ...data, vehicle: { ...data.vehicle, [field]: value } }));
+  };
 
   const toggleService = (id) => {
     setFormData((data) => ({
@@ -43,12 +100,19 @@ function QuoteWizardSection() {
     }));
   };
 
-  const updateVehicle = (field, value) => {
-    setFormData((data) => ({ ...data, vehicle: { ...data.vehicle, [field]: value } }));
+  const updateOption = (group, field, value) => {
+    setFormData((data) => ({
+      ...data,
+      options: { ...data.options, [group]: { ...data.options[group], [field]: value } },
+    }));
   };
 
-  const updateProject = (field, value) => {
-    setFormData((data) => ({ ...data, project: { ...data.project, [field]: value } }));
+  const toggleBodyArea = (area) => {
+    setFormData((data) => {
+      const areas = data.options.bodyWork.areas;
+      const nextAreas = areas.includes(area) ? areas.filter((a) => a !== area) : [...areas, area];
+      return { ...data, options: { ...data.options, bodyWork: { ...data.options.bodyWork, areas: nextAreas } } };
+    });
   };
 
   const updatePhotos = (photos) => {
@@ -62,21 +126,59 @@ function QuoteWizardSection() {
   const canProceed = useMemo(() => {
     switch (step) {
       case 1:
-        return formData.services.length > 0;
+        return Boolean(
+          formData.vehicleType &&
+            formData.vehicle.year &&
+            formData.vehicle.make.trim() &&
+            formData.vehicle.model.trim(),
+        );
       case 2:
-        return Boolean(formData.vehicle.year && formData.vehicle.make.trim() && formData.vehicle.model.trim());
+        return formData.services.length > 0;
+      case 3: {
+        const checks = [];
+        if (formData.services.includes("ppf")) checks.push(Boolean(formData.options.ppf.coverage));
+        if (formData.services.includes("ceramic-coating")) {
+          checks.push(
+            Boolean(formData.options.ceramicCoating.duration) && Boolean(formData.options.ceramicCoating.condition),
+          );
+        }
+        if (formData.services.includes("paint-correction")) {
+          checks.push(Boolean(formData.options.paintCorrection.stage));
+        }
+        if (formData.services.includes("auto-body") || formData.services.includes("panel-repainting")) {
+          checks.push(formData.options.bodyWork.areas.length > 0);
+        }
+        return checks.every(Boolean);
+      }
       case 4:
         return Boolean(
-          formData.contact.fullName.trim() && formData.contact.phone.trim() && formData.contact.email.trim(),
+          formData.contact.fullName.trim() &&
+            formData.contact.phone.trim() &&
+            formData.contact.email.trim() &&
+            formData.photos.length >= MIN_PHOTOS,
         );
       default:
         return true;
     }
   }, [step, formData]);
 
-  const goNext = () => setStep((current) => Math.min(TOTAL_STEPS, current + 1));
-  const goBack = () => setStep((current) => Math.max(1, current - 1));
-  const goToStep = (target) => setStep(target);
+  const goNext = () => {
+    setStep((current) => {
+      let next = current + 1;
+      if (next === 3 && !hasStep3Content) next += 1;
+      return Math.min(TOTAL_STEPS, next);
+    });
+  };
+
+  const goBack = () => {
+    setStep((current) => {
+      let prev = current - 1;
+      if (prev === 3 && !hasStep3Content) prev -= 1;
+      return Math.max(1, prev);
+    });
+  };
+
+  const goToStep = (target) => setStep(target === 3 && !hasStep3Content ? 2 : target);
 
   const handleSubmit = () => {
     // TODO: replace with a real submission call, e.g.
@@ -97,14 +199,18 @@ function QuoteWizardSection() {
     <section id="contact" className="quote-wizard section">
       <div className="container quote-wizard__container">
         <div className="quote-wizard__heading">
-          <span className="eyebrow">Get A Quote</span>
-          <h2 className="quote-wizard__title">Let's Get You A Quote.</h2>
-          <p className="quote-wizard__subline">
-            A few quick steps and we'll have everything we need to put together your estimate.
+          <span className="eyebrow" ref={eyebrowRef}>
+            Get A Quote
+          </span>
+          <h2 className="quote-wizard__title" ref={titleRef}>
+            Build Your Quote.
+          </h2>
+          <p className="quote-wizard__subline" ref={sublineRef}>
+            A few quick steps to your quote.
           </p>
         </div>
 
-        <div className="quote-wizard__card">
+        <div className="quote-wizard__card" ref={cardRef}>
           {submitted ? (
             <SuccessState onStartOver={startOver} />
           ) : (
@@ -113,23 +219,31 @@ function QuoteWizardSection() {
 
               <div className="quote-wizard__step-body" key={step}>
                 {step === 1 && (
-                  <ServiceSelectionStep selected={formData.services} onToggle={toggleService} />
+                  <VehicleTypeStep
+                    vehicleType={formData.vehicleType}
+                    onVehicleTypeChange={updateVehicleType}
+                    vehicle={formData.vehicle}
+                    onVehicleChange={updateVehicle}
+                  />
                 )}
-                {step === 2 && (
-                  <VehicleDetailsStep vehicle={formData.vehicle} onChange={updateVehicle} />
-                )}
+                {step === 2 && <ServiceSelectionStep selected={formData.services} onToggle={toggleService} />}
                 {step === 3 && (
-                  <ProjectDetailsStep project={formData.project} onChange={updateProject} />
+                  <ServiceOptionsStep
+                    services={formData.services}
+                    options={formData.options}
+                    onOptionChange={updateOption}
+                    onBodyAreaToggle={toggleBodyArea}
+                  />
                 )}
                 {step === 4 && (
-                  <PhotosAndContactStep
+                  <PhotosAndDetailsStep
                     photos={formData.photos}
                     onPhotosChange={updatePhotos}
                     contact={formData.contact}
                     onContactChange={updateContact}
                   />
                 )}
-                {step === 5 && <ReviewSubmitStep formData={formData} onEditStep={goToStep} />}
+                {step === 5 && <ReviewStep formData={formData} onEditStep={goToStep} />}
               </div>
 
               <div className="quote-wizard__nav">
@@ -146,7 +260,7 @@ function QuoteWizardSection() {
                   disabled={!canProceed}
                   onClick={step === TOTAL_STEPS ? handleSubmit : goNext}
                 >
-                  {step === TOTAL_STEPS ? "Request Quote" : "Continue"}
+                  {step === TOTAL_STEPS ? "Get My Quote" : "Continue"}
                 </button>
               </div>
             </>

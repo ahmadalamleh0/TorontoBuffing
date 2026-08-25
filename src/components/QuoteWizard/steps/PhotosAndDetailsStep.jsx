@@ -1,19 +1,21 @@
 import { useRef } from "react";
 import { UploadIcon } from "../icons";
+import { MIN_PHOTOS, MAX_PHOTOS } from "../quoteData";
 
 /**
  * @param {{
  *   photos: File[],
  *   onPhotosChange: (photos: File[]) => void,
- *   contact: { fullName: string, phone: string, email: string },
+ *   contact: { fullName: string, phone: string, email: string, notes: string },
  *   onContactChange: (field: string, value: string) => void,
  * }} props
  */
-function PhotosAndContactStep({ photos, onPhotosChange, contact, onContactChange }) {
+function PhotosAndDetailsStep({ photos, onPhotosChange, contact, onContactChange }) {
   const inputRef = useRef(null);
 
   const addFiles = (fileList) => {
-    onPhotosChange([...photos, ...Array.from(fileList)]);
+    const room = Math.max(0, MAX_PHOTOS - photos.length);
+    onPhotosChange([...photos, ...Array.from(fileList).slice(0, room)]);
   };
 
   const removePhoto = (index) => {
@@ -26,23 +28,24 @@ function PhotosAndContactStep({ photos, onPhotosChange, contact, onContactChange
   };
 
   const openPicker = () => inputRef.current?.click();
+  const atMax = photos.length >= MAX_PHOTOS;
 
   return (
     <div className="quote-step">
-      <h3 className="quote-step__heading">Add photos and your details</h3>
+      <h3 className="quote-step__heading">Photos &amp; Details</h3>
       <p className="quote-step__helper">
-        Photos help us quote faster and more accurately. Optional, but appreciated.
+        Add {MIN_PHOTOS}–{MAX_PHOTOS} photos of the vehicle so we can quote accurately, then leave your details.
       </p>
 
       <div
-        className="quote-upload"
+        className={`quote-upload${atMax ? " is-disabled" : ""}`}
         onDragOver={(e) => e.preventDefault()}
-        onDrop={handleDrop}
-        onClick={openPicker}
+        onDrop={atMax ? undefined : handleDrop}
+        onClick={atMax ? undefined : openPicker}
         role="button"
-        tabIndex={0}
+        tabIndex={atMax ? -1 : 0}
         onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
+          if (!atMax && (e.key === "Enter" || e.key === " ")) {
             e.preventDefault();
             openPicker();
           }
@@ -51,8 +54,12 @@ function PhotosAndContactStep({ photos, onPhotosChange, contact, onContactChange
         <span className="quote-upload__icon" aria-hidden="true">
           <UploadIcon />
         </span>
-        <span className="quote-upload__title">Drop photos here or click to browse</span>
-        <span className="quote-upload__hint">Optional: JPG or PNG, multiple photos supported</span>
+        <span className="quote-upload__title">
+          {atMax ? `${MAX_PHOTOS} photos added` : "Drop photos here or click to browse"}
+        </span>
+        <span className="quote-upload__hint">
+          {photos.length} of {MAX_PHOTOS} added &middot; JPG or PNG
+        </span>
         <input
           ref={inputRef}
           type="file"
@@ -115,8 +122,21 @@ function PhotosAndContactStep({ photos, onPhotosChange, contact, onContactChange
           />
         </label>
       </div>
+
+      <label className="quote-field">
+        <span className="quote-field__label">
+          Notes <em>(optional)</em>
+        </span>
+        <textarea
+          className="quote-field__input quote-field__textarea"
+          rows={3}
+          placeholder="Anything else we should know?"
+          value={contact.notes}
+          onChange={(e) => onContactChange("notes", e.target.value)}
+        />
+      </label>
     </div>
   );
 }
 
-export default PhotosAndContactStep;
+export default PhotosAndDetailsStep;

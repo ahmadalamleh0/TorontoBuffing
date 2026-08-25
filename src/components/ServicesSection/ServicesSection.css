@@ -1,50 +1,18 @@
 .services {
-  background: var(--color-bg);
+  background: var(--color-white);
+  /* No intro block anymore — keep the top inset light so the section
+     picks up right where BrandStatement leaves off, no second
+     "introduction" beat before the cards begin. */
+  padding-top: var(--space-6);
   opacity: 0;
   transform: translateY(16px);
   transition: opacity var(--duration-slow) var(--ease-standard),
     transform var(--duration-slow) var(--ease-standard);
 }
 
-/* Trim just the top inset on phone/tablet — paired with
-   BrandStatement's own tightened padding above, so the hero -> Services
-   transition feels immediate instead of leaving a big blank gap. */
-@media (max-width: 1023px) {
-  .services {
-    padding-top: var(--space-6);
-  }
-}
-
 .services.is-visible {
   opacity: 1;
   transform: translateY(0);
-}
-
-.services__layout {
-  display: block;
-}
-
-/* ---- Intro column ---- */
-
-.services__intro {
-  margin-bottom: var(--space-7);
-  max-width: 44ch;
-}
-
-.services__headline {
-  margin-top: var(--space-3);
-  font-size: var(--fs-3xl);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  line-height: var(--lh-tight);
-  color: var(--color-white);
-}
-
-.services__copy {
-  margin-top: var(--space-4);
-  color: var(--color-white);
-  font-size: var(--fs-base);
-  line-height: var(--lh-normal);
 }
 
 /* ---- Card grids ---- */
@@ -184,7 +152,7 @@
   }
 }
 
-/* ---- Tablet: featured cards pair up, still stacked above intro flow ---- */
+/* ---- Tablet: featured cards pair up ---- */
 
 @media (min-width: 640px) {
   .services__featured {
@@ -211,10 +179,10 @@
   }
 }
 
-/* Headlight Restoration and Paint Chip Repair bumped further on
-   mobile only, where each is stacked alone (no row-mate to leave a
-   gap under). Comes after the shared pair-row rule above so it wins
-   at <640px. */
+/* Headlight Restoration, Paint Chip Repair, and Classic Restoration
+   bumped further on mobile only, where each is stacked alone (no
+   row-mate to leave a gap under). Comes after the shared pair-row
+   rule above so it wins at <640px. */
 @media (max-width: 639px) {
   .service-card--headlight-restoration {
     height: 380px;
@@ -223,39 +191,18 @@
   .service-card--paint-chip-repair {
     height: 320px;
   }
+
+  .service-card--classic-restoration {
+    height: 340px;
+  }
 }
 
-/* ---- Desktop: editorial left/right split, sized up for real presence ---- */
+/* ---- Desktop: sized up for real presence ---- */
 
 @media (min-width: 1024px) {
   .services {
-    padding-block: var(--space-10);
-  }
-
-  .services__layout {
-    display: grid;
-    grid-template-columns: 300px 1fr;
-    gap: var(--space-8);
-    align-items: start;
-  }
-
-  .services__intro {
-    position: sticky;
-    top: calc(var(--header-height) + var(--space-7));
-    margin-bottom: 0;
-    max-width: none;
-  }
-
-  .services__headline {
-    margin-top: var(--space-5);
-    font-size: var(--fs-5xl);
-    letter-spacing: -0.015em;
-  }
-
-  .services__copy {
-    margin-top: var(--space-6);
-    max-width: 30ch;
-    font-size: var(--fs-lg);
+    padding-top: var(--space-7);
+    padding-bottom: var(--space-10);
   }
 
   .services__featured {

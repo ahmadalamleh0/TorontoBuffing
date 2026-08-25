@@ -37,17 +37,7 @@ function ServicesSection() {
 
   return (
     <section id="services" className="services section" ref={sectionRef}>
-      <div className="container services__layout">
-        <div className="services__intro">
-          <span className="eyebrow">Services</span>
-          <h2 className="services__headline">Built to last.</h2>
-          <p className="services__copy">
-            From correction to protection, every job is carried out with the
-            same level of care, refined finishes, durable coatings, and
-            repairs that hold up over time.
-          </p>
-        </div>
-
+      <div className="container">
         <div className="services__cards">
           <div className="services__featured">
             {FEATURED_SERVICES.map((service) => (

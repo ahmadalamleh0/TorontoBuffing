@@ -4,7 +4,6 @@ import { ALL_SERVICES } from "../../data/servicesData";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import WhatsAppButton from "../../components/WhatsAppButton/WhatsAppButton";
-import MobileActionBar from "../../components/MobileActionBar/MobileActionBar";
 import "./ServicePage.css";
 
 function ServicePage() {
@@ -29,7 +28,6 @@ function ServicePage() {
       </main>
       <Footer />
       <WhatsAppButton />
-      <MobileActionBar />
     </>
   );
 }

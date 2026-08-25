@@ -1,22 +1,51 @@
 /* ---- Shared step heading ---- */
 
 .quote-step__heading {
+  font-family: var(--font-heading);
   font-size: var(--fs-2xl);
-  font-weight: var(--fw-semibold);
-  letter-spacing: -0.01em;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
   color: var(--color-black);
 }
 
 .quote-step__helper {
-  margin-top: var(--space-2);
-  margin-bottom: var(--space-5);
+  margin-top: var(--space-1);
+  margin-bottom: var(--space-3);
   font-size: var(--fs-sm);
   color: var(--color-text-faint);
 }
 
+@media (min-width: 640px) {
+  .quote-step__heading {
+    font-size: var(--fs-3xl);
+  }
+
+  .quote-step__helper {
+    margin-top: var(--space-2);
+    margin-bottom: var(--space-5);
+  }
+}
+
+/* Sub-step back-link — e.g. "change vehicle type" within Step 1,
+   which auto-advances from tiles to the year/make/model form. */
+.quote-step__back-link {
+  display: inline-block;
+  margin-bottom: var(--space-4);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.quote-step__back-link:hover {
+  text-decoration: underline;
+}
+
 /* ---- Step 1: service selection tiles ----
-   Plain typographic tiles, no icons — bold condensed labels carry the
-   whole selection, not framed artwork. */
+   Plain typographic tiles, no icons — a clean bold sans-serif label
+   carries the whole selection, not framed artwork. The condensed
+   display font is reserved for the one major heading per screen. */
 
 .quote-option-grid {
   display: grid;
@@ -53,11 +82,10 @@
 }
 
 .quote-option-card__label {
-  font-family: var(--font-heading);
-  font-size: var(--fs-lg);
+  font-size: var(--fs-base);
+  font-weight: 700;
   letter-spacing: 0.01em;
-  text-transform: uppercase;
-  line-height: 1.1;
+  line-height: 1.2;
   color: var(--color-black);
 }
 
@@ -82,6 +110,259 @@
   .quote-option-grid {
     grid-template-columns: repeat(3, 1fr);
   }
+}
+
+/* ---- Step 1: vehicle type tiles ----
+   Mobile-first compact: all 3 cards should read at a glance without
+   scrolling. Desktop (see 640px block) gets the spacious treatment. */
+
+.quote-vehicle-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.625rem;
+  margin-bottom: 0.5rem;
+}
+
+.quote-vehicle-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  background: var(--color-white);
+  border: 1px solid var(--color-border-gray);
+  border-radius: 12px;
+  transition: border-color var(--duration-fast) var(--ease-standard),
+    background-color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.quote-vehicle-card:hover {
+  border-color: var(--color-accent);
+}
+
+.quote-vehicle-card.is-selected {
+  background: rgba(30, 40, 132, 0.04);
+  border-color: var(--color-accent);
+  box-shadow: inset 0 0 0 1px var(--color-accent);
+}
+
+.quote-vehicle-card__media {
+  display: block;
+  width: 72px;
+  height: 48px;
+  margin-bottom: 0;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.quote-vehicle-card__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+  flex: 1;
+}
+
+.quote-vehicle-card__label {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  letter-spacing: 0.005em;
+  color: var(--color-black);
+}
+
+.quote-vehicle-card__examples {
+  font-size: 0.75rem;
+  font-weight: var(--fw-regular);
+  color: var(--color-muted-gray);
+}
+
+@media (min-width: 640px) {
+  .quote-vehicle-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+  }
+
+  .quote-vehicle-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+    padding: var(--space-4) var(--space-5) var(--space-5);
+    border-radius: var(--radius-sm);
+  }
+
+  .quote-vehicle-card__media {
+    width: 100%;
+    height: 200px;
+    margin-bottom: var(--space-2);
+  }
+
+  .quote-vehicle-card__label {
+    font-size: var(--fs-lg);
+  }
+}
+
+/* ---- Step 2: service selection tiles (with optional thumbnail) ---- */
+
+.quote-service-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+.quote-service-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  text-align: left;
+  background: var(--color-white);
+  border: 1px solid var(--color-border-gray);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--duration-fast) var(--ease-standard),
+    background-color var(--duration-fast) var(--ease-standard);
+}
+
+.quote-service-card:hover {
+  border-color: var(--color-accent);
+}
+
+.quote-service-card.is-selected {
+  background: rgba(30, 40, 132, 0.05);
+  border-color: var(--color-accent);
+}
+
+.quote-service-card__media {
+  height: 64px;
+  background-color: var(--color-off-white);
+  background-size: cover;
+  background-position: center;
+}
+
+.quote-service-card__label {
+  padding: var(--space-3);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.005em;
+  line-height: 1.25;
+  color: var(--color-black);
+}
+
+.quote-service-card__check {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: var(--color-accent-contrast);
+  background: var(--color-accent);
+  border-radius: 50%;
+}
+
+.quote-service-card__check svg {
+  width: 11px;
+  height: 11px;
+}
+
+@media (min-width: 560px) {
+  .quote-service-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ---- Step 3: dynamic per-service options ---- */
+
+.quote-options-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+}
+
+.quote-options-section__title {
+  margin-bottom: var(--space-3);
+  font-size: var(--fs-base);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-black);
+}
+
+.quote-options-section__title--spaced {
+  margin-top: var(--space-6);
+}
+
+.quote-options-section__helper {
+  margin-top: calc(-1 * var(--space-2));
+  margin-bottom: var(--space-3);
+  font-size: var(--fs-sm);
+  color: var(--color-text-faint);
+}
+
+.quote-stage-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.quote-stage-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-4);
+  text-align: left;
+  background: var(--color-white);
+  border: 1px solid var(--color-border-gray);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--duration-fast) var(--ease-standard),
+    background-color var(--duration-fast) var(--ease-standard);
+}
+
+.quote-stage-card:hover {
+  border-color: var(--color-accent);
+}
+
+.quote-stage-card.is-selected {
+  background: rgba(30, 40, 132, 0.05);
+  border-color: var(--color-accent);
+}
+
+.quote-stage-card__label {
+  font-size: var(--fs-base);
+  font-weight: 700;
+  letter-spacing: 0.005em;
+  color: var(--color-black);
+}
+
+.quote-stage-card__description {
+  font-size: var(--fs-sm);
+  color: var(--color-text-faint);
+}
+
+/* Coverage visualizer placeholder — see CoverageVisualizer.jsx for
+   what plugs into .coverage-visualizer__frame once the Porsche PPF
+   asset is supplied. */
+.coverage-visualizer {
+  margin-top: var(--space-5);
+}
+
+.coverage-visualizer__frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 9;
+  background: var(--color-off-white);
+  border: 1px dashed var(--color-border-gray);
+  border-radius: var(--radius-md);
+}
+
+.coverage-visualizer__placeholder {
+  font-size: var(--fs-sm);
+  color: var(--color-muted-gray);
 }
 
 /* ---- Form fields (Steps 2-4) ---- */
@@ -142,6 +423,15 @@
 .quote-field__input:focus {
   border-color: var(--color-accent);
   outline: none;
+}
+
+.quote-field__select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: var(--space-8);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%236b6b6b' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-4) center;
 }
 
 .quote-field__textarea {
@@ -208,6 +498,15 @@
 .quote-upload:hover,
 .quote-upload:focus-visible {
   border-color: var(--color-accent);
+}
+
+.quote-upload.is-disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.quote-upload.is-disabled:hover {
+  border-color: var(--color-border-gray);
 }
 
 .quote-upload__icon {
@@ -307,6 +606,22 @@
   margin-top: var(--space-2);
   font-size: var(--fs-base);
   color: var(--color-black);
+}
+
+.quote-review__row-value--muted {
+  font-size: var(--fs-sm);
+  color: var(--color-text-faint);
+}
+
+.quote-review__list {
+  margin: var(--space-2) 0 0;
+  padding-left: 1.1em;
+  font-size: var(--fs-base);
+  color: var(--color-black);
+}
+
+.quote-review__list li {
+  margin-bottom: var(--space-1);
 }
 
 /* ---- Success state ---- */

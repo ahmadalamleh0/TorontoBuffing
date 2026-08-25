@@ -10,6 +10,17 @@ import "./GoogleReviewsSection.css";
 
 const SKELETON_COUNT = 4;
 
+// Used when the live Places request fails in production — no rating,
+// count, or links to enrich the bar with, but reviews still gets
+// filled in by mergeManualReviews so the curated cards always render.
+const EMPTY_LIVE_SUMMARY = {
+  averageRating: null,
+  totalReviewCount: null,
+  mapsUrl: null,
+  writeReviewUrl: null,
+  reviews: [],
+};
+
 function useSectionReveal() {
   const ref = useRef(null);
 
@@ -71,26 +82,24 @@ function GoogleReviewsSection() {
       .catch((error) => {
         if (controller.signal.aborted) return;
 
-        // /api/google-reviews failed — log the real reason loudly so it's
-        // never mistaken for "not implemented yet". In dev only, fall back
-        // to sample data so the section stays visually buildable, but flag
-        // it as sample data (both here and in the UI below) so a failing
-        // endpoint is never mistaken for a working one during local dev.
-        // Production never falls back — a real failure always shows the
-        // error state instead of masking it with fake reviews.
-        if (import.meta.env.DEV) {
-          console.warn(
-            "[GoogleReviewsSection] Live /api/google-reviews request failed — showing SAMPLE data instead. " +
-              "This is a dev-only fallback; it does NOT mean the endpoint works. Real error:",
-            error,
-          );
-          const merged = mergeManualReviews(SAMPLE_REVIEWS_SUMMARY, MANUAL_REVIEWS);
-          setState({ status: "ready", data: merged, isSample: true });
-          return;
-        }
+        // The live Places request only ever *enriches* this section
+        // (rating, review count, reviewer profile data, links) — the
+        // curated reviews (manualReviews.js) are static, bundled data
+        // that must render regardless of whether that request
+        // succeeds. So a failure here never drops to an error state;
+        // it just merges the curated reviews onto an empty summary
+        // instead of the live one, same design either way.
+        console.error(
+          "[GoogleReviewsSection] Live /api/google-reviews request failed — showing curated reviews without " +
+            "live rating/count/links. Error:",
+          error,
+        );
 
-        console.error("[GoogleReviewsSection]", error);
-        setState({ status: "error", data: null, isSample: false });
+        // Dev-only: also lets the section preview with a rating/count
+        // instead of the section looking rating-less locally.
+        const baseSummary = import.meta.env.DEV ? SAMPLE_REVIEWS_SUMMARY : EMPTY_LIVE_SUMMARY;
+        const merged = mergeManualReviews(baseSummary, MANUAL_REVIEWS);
+        setState({ status: "ready", data: merged, isSample: import.meta.env.DEV });
       });
 
     return () => controller.abort();
@@ -117,12 +126,6 @@ function GoogleReviewsSection() {
           writeReviewUrl={state.data?.writeReviewUrl ?? null}
           isLoading={isLoading}
         />
-
-        {state.status === "error" && (
-          <p className="google-reviews__error">
-            We couldn't load reviews right now. Please check back soon.
-          </p>
-        )}
 
         {isLoading && (
           <div className="google-reviews__grid">

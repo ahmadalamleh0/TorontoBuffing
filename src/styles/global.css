@@ -54,7 +54,9 @@ p {
   font-weight: var(--fw-medium);
   letter-spacing: var(--ls-widest);
   text-transform: uppercase;
-  color: var(--color-text-faint);
+  /* Tuned for the dark sections most eyebrows sit on; light sections
+     (e.g. QuoteWizardSection) override with the deeper brand blue. */
+  color: var(--color-accent-on-dark);
 }
 
 /* ---- Layout utilities ---- */

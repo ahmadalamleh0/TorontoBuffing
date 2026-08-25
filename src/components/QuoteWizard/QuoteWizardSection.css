@@ -1,30 +1,70 @@
 .quote-wizard {
   background: var(--color-off-white);
+  padding-block: var(--space-6);
 }
 
-/* .btn-text / :focus-visible are tuned for dark backgrounds
-   (accent-on-dark) elsewhere on the site; this section is light, so
-   override locally rather than touch the shared globals. */
+@media (min-width: 640px) {
+  .quote-wizard {
+    padding-block: var(--space-8);
+  }
+}
+
 .quote-wizard :focus-visible {
   outline-color: var(--color-accent);
+}
+
+.quote-wizard .eyebrow {
+  color: var(--color-brand-blue);
 }
 
 .quote-wizard__heading {
   max-width: 60ch;
   margin-inline: auto;
-  margin-bottom: var(--space-7);
+  margin-bottom: var(--space-4);
   text-align: center;
 }
 
 .quote-wizard__title {
-  margin-top: var(--space-3);
+  margin-top: var(--space-1);
+  font-size: var(--fs-3xl);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
   color: var(--color-black);
 }
 
 .quote-wizard__subline {
-  margin-top: var(--space-4);
-  font-size: var(--fs-lg);
+  margin-top: var(--space-2);
+  font-size: var(--fs-sm);
   color: var(--color-text-faint);
+}
+
+@media (min-width: 640px) {
+  .quote-wizard__heading {
+    margin-bottom: var(--space-6);
+  }
+
+  .quote-wizard__title {
+    margin-top: var(--space-2);
+    font-size: var(--fs-4xl);
+  }
+}
+
+@media (min-width: 1024px) {
+  .quote-wizard__heading {
+    margin-bottom: var(--space-7);
+  }
+
+  .quote-wizard__title {
+    margin-top: var(--space-4);
+    font-size: var(--fs-6xl);
+    letter-spacing: -0.02em;
+  }
+
+  .quote-wizard__subline {
+    margin-top: var(--space-4);
+    font-size: var(--fs-lg);
+  }
 }
 
 .quote-wizard__container {
@@ -34,9 +74,16 @@
 .quote-wizard__card {
   background: var(--color-white);
   border: 1px solid var(--color-border-gray);
-  border-radius: var(--radius-md);
-  padding: var(--space-5);
-  box-shadow: 0 20px 48px rgba(11, 11, 13, 0.06);
+  border-radius: 16px;
+  padding: 1.25rem 1rem;
+  box-shadow: 0 16px 40px rgba(11, 11, 13, 0.05);
+}
+
+@media (min-width: 640px) {
+  .quote-wizard__card {
+    padding: var(--space-6) var(--space-7);
+    border-radius: 20px;
+  }
 }
 
 .quote-wizard__step-body {
@@ -54,28 +101,88 @@
   }
 }
 
+/* ---- Nav & CTA buttons ---- */
 .quote-wizard__nav {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-4);
-  margin-top: var(--space-7);
-  padding-top: var(--space-6);
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding-top: 0.875rem;
   border-top: 1px solid var(--color-border-gray);
 }
 
-.quote-wizard .btn:disabled {
-  color: var(--color-muted-gray);
-  background: var(--color-off-white);
-  border-color: var(--color-border-gray);
+@media (min-width: 640px) {
+  .quote-wizard__nav {
+    gap: var(--space-4);
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+  }
+}
+
+/* Premium Primary CTA (Continue / Submit) */
+.quote-wizard .btn-primary {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9375rem 1.5rem;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: var(--color-brand-blue);
+  border: 1px solid var(--color-brand-blue);
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(30, 40, 132, 0.28);
+  transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.quote-wizard .btn-primary:not(:disabled):hover {
+  background: #151b5c;
+  border-color: #151b5c;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(30, 40, 132, 0.4);
+}
+
+.quote-wizard .btn-primary:not(:disabled):active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(30, 40, 132, 0.25);
+}
+
+/* Refined, Elegant Disabled State */
+.quote-wizard .btn-primary:disabled {
+  background: #f0f3fa;
+  color: #9aa1bc;
+  border: 1px solid #dde2f0;
+  box-shadow: none;
   opacity: 1;
   cursor: not-allowed;
 }
 
-@media (min-width: 640px) {
-  .quote-wizard__card {
-    padding: var(--space-7);
-  }
+/* Refined Back Button */
+.quote-wizard .btn-secondary {
+  flex: 0 0 auto;
+  min-width: 90px;
+  padding: 0.9375rem 1.25rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-black);
+  background: #f8f9fc;
+  border: 1px solid #e2e6f0;
+  border-radius: 12px;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.quote-wizard .btn-secondary:hover {
+  background: #edf1fa;
+  border-color: var(--color-brand-blue);
+  color: var(--color-brand-blue);
 }
 
 @media (prefers-reduced-motion: reduce) {

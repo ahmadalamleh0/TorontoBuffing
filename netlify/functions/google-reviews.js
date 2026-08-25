@@ -59,9 +59,10 @@ export async function handler(event) {
   const placeId = process.env.TORONTO_BUFFING_PLACE_ID;
 
   if (!apiKey || !placeId) {
-    console.error(
-      "[netlify/functions/google-reviews] Missing GOOGLE_PLACES_API_KEY or TORONTO_BUFFING_PLACE_ID environment variable.",
-    );
+    const missing = [!apiKey && "GOOGLE_PLACES_API_KEY", !placeId && "TORONTO_BUFFING_PLACE_ID"]
+      .filter(Boolean)
+      .join(", ");
+    console.error(`[netlify/functions/google-reviews] Missing environment variable(s): ${missing}.`);
     return json(500, { error: "Reviews are temporarily unavailable." });
   }
 
@@ -75,7 +76,10 @@ export async function handler(event) {
 
     if (!placesResponse.ok) {
       const errorBody = await placesResponse.text();
-      console.error(`[netlify/functions/google-reviews] Places API ${placesResponse.status}: ${errorBody}`);
+      console.error(
+        `[netlify/functions/google-reviews] Places API request failed — status ${placesResponse.status} ` +
+          `for placeId "${placeId}". Response body: ${errorBody}`,
+      );
       return json(502, { error: "Reviews are temporarily unavailable." });
     }
 
@@ -87,7 +91,10 @@ export async function handler(event) {
       "Cache-Control": "s-maxage=900, stale-while-revalidate=300",
     });
   } catch (error) {
-    console.error("[netlify/functions/google-reviews] Unexpected error:", error);
+    console.error(
+      `[netlify/functions/google-reviews] Unexpected error while fetching placeId "${placeId}":`,
+      error,
+    );
     return json(500, { error: "Reviews are temporarily unavailable." });
   }
 }

@@ -7,13 +7,10 @@ import { CheckIcon } from "../icons";
 function ServiceSelectionStep({ selected, onToggle }) {
   return (
     <div className="quote-step">
-      <h3 className="quote-step__heading">What do you need done?</h3>
-      <p className="quote-step__helper">
-        Choose the service that best matches your vehicle. Select as many as apply. You can
-        always add more detail later.
-      </p>
+      <h3 className="quote-step__heading">Choose Your Service</h3>
+      <p className="quote-step__helper">Select everything you'd like done — most builds combine services.</p>
 
-      <div className="quote-option-grid">
+      <div className="quote-service-grid">
         {SERVICES.map((service) => {
           const isSelected = selected.includes(service.id);
 
@@ -21,13 +18,22 @@ function ServiceSelectionStep({ selected, onToggle }) {
             <button
               type="button"
               key={service.id}
-              className={`quote-option-card${isSelected ? " is-selected" : ""}`}
+              className={`quote-service-card${isSelected ? " is-selected" : ""}`}
               onClick={() => onToggle(service.id)}
               aria-pressed={isSelected}
             >
-              <span className="quote-option-card__label">{service.label}</span>
+              {service.image ? (
+                <span
+                  className="quote-service-card__media"
+                  style={{ backgroundImage: `url(${service.image})` }}
+                  aria-hidden="true"
+                />
+              ) : (
+                <span className="quote-service-card__media quote-service-card__media--empty" aria-hidden="true" />
+              )}
+              <span className="quote-service-card__label">{service.label}</span>
               {isSelected && (
-                <span className="quote-option-card__check" aria-hidden="true">
+                <span className="quote-service-card__check" aria-hidden="true">
                   <CheckIcon />
                 </span>
               )}

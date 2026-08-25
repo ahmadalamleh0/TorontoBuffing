@@ -9,7 +9,6 @@ import QuoteWizardSection from "../components/QuoteWizard/QuoteWizardSection";
 import Footer from "../components/Footer/Footer";
 import IntroAnimation from "../components/IntroAnimation/IntroAnimation";
 import WhatsAppButton from "../components/WhatsAppButton/WhatsAppButton";
-import MobileActionBar from "../components/MobileActionBar/MobileActionBar";
 
 function HomePage() {
   return (
@@ -27,7 +26,6 @@ function HomePage() {
       </main>
       <Footer />
       <WhatsAppButton />
-      <MobileActionBar />
     </>
   );
 }

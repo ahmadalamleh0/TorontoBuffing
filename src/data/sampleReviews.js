@@ -22,7 +22,7 @@ import ppfPhoto from "../assets/images/services/ppf.jpg";
 
 /** @type {import('../types/reviews').ReviewsSummary} */
 export const SAMPLE_REVIEWS_SUMMARY = {
-  averageRating: 4.9,
+  averageRating: 5,
   totalReviewCount: 397,
   mapsUrl: "#",
   writeReviewUrl: "#",
