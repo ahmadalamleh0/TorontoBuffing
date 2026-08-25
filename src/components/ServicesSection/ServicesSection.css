@@ -131,6 +131,41 @@
   color: rgba(255, 255, 255, 0.7);
 }
 
+/* Minimal tap/click affordance — bottom-right corner, out of the way
+   of the title/subtitle block on the opposite side. */
+.service-card__arrow {
+  position: absolute;
+  right: var(--space-4);
+  bottom: var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: var(--color-white);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: transform var(--duration-base) var(--ease-standard),
+    background-color var(--duration-base) var(--ease-standard),
+    border-color var(--duration-base) var(--ease-standard);
+}
+
+.service-card__arrow svg {
+  width: 15px;
+  height: 15px;
+}
+
+.service-card:hover .service-card__arrow,
+.service-card:focus-visible .service-card__arrow,
+.service-card:active .service-card__arrow {
+  transform: translate(3px, -3px);
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .services {
     opacity: 1;
@@ -139,7 +174,8 @@
   }
 
   .service-card,
-  .service-card__media {
+  .service-card__media,
+  .service-card__arrow {
     transition: none;
   }
 }
@@ -171,12 +207,17 @@
   }
 }
 
-/* Headlight Restoration bumped further on mobile only, where it's
-   stacked alone (no row-mate to leave a gap under). Comes after the
-   shared pair-row rule above so it wins at <640px. */
+/* Headlight Restoration and Paint Chip Repair bumped further on
+   mobile only, where each is stacked alone (no row-mate to leave a
+   gap under). Comes after the shared pair-row rule above so it wins
+   at <640px. */
 @media (max-width: 639px) {
   .service-card--headlight-restoration {
     height: 380px;
+  }
+
+  .service-card--paint-chip-repair {
+    height: 320px;
   }
 }
 
