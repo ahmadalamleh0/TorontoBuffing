@@ -42,7 +42,6 @@ function PhotosAndDetailsStep({ photos, onPhotosChange, contact, onContactChange
           <input
             className="quote-field__input"
             type="text"
-            placeholder="John Doe"
             value={contact.fullName}
             onChange={(e) => onContactChange("fullName", e.target.value)}
             required
@@ -54,7 +53,6 @@ function PhotosAndDetailsStep({ photos, onPhotosChange, contact, onContactChange
           <input
             className="quote-field__input"
             type="tel"
-            placeholder="(647) 000-0000"
             value={contact.phone}
             onChange={(e) => onContactChange("phone", e.target.value)}
             required
@@ -64,11 +62,10 @@ function PhotosAndDetailsStep({ photos, onPhotosChange, contact, onContactChange
 
       <div className="quote-field">
         <label className="quote-field">
-          <span className="quote-field__label">Email Address</span>
+          <span className="quote-field__label">Email</span>
           <input
             className="quote-field__input"
             type="email"
-            placeholder="john@example.com"
             value={contact.email}
             onChange={(e) => onContactChange("email", e.target.value)}
             required

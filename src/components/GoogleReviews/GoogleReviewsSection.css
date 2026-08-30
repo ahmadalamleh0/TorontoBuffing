@@ -1,5 +1,5 @@
 .google-reviews {
-  background: var(--color-white);
+  background: var(--color-brand-blue);
   opacity: 0;
   transform: translateY(16px);
   transition: opacity var(--duration-slow) var(--ease-standard),
@@ -12,7 +12,16 @@
 }
 
 .google-reviews__heading {
+  max-width: 46ch;
+  margin-inline: auto;
   margin-bottom: var(--space-6);
+  text-align: center;
+}
+
+/* .eyebrow's default color is already tuned for dark sections, which
+   this one is — no override needed here. */
+.google-reviews__eyebrow {
+  margin-bottom: var(--space-2);
 }
 
 .google-reviews__title {
@@ -21,22 +30,22 @@
   font-weight: 800;
   letter-spacing: -0.01em;
   text-transform: uppercase;
-  color: var(--color-black);
+  color: var(--color-white);
 }
 
-.google-reviews__rated {
-  margin: var(--space-1) 0 0;
-  font-family: var(--font-heading);
-  font-size: var(--fs-3xl);
-  letter-spacing: 0;
-  text-transform: uppercase;
-  color: var(--color-black);
+.google-reviews__subline {
+  margin: var(--space-3) 0 0;
+  font-size: var(--fs-base);
+  line-height: var(--lh-normal);
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .google-reviews__grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-5);
+  max-width: 1080px;
+  margin-inline: auto;
   margin-top: var(--space-7);
 }
 
@@ -51,7 +60,7 @@
 .google-reviews__empty {
   margin-top: var(--space-6);
   text-align: center;
-  color: var(--color-text-faint);
+  color: rgba(255, 255, 255, 0.65);
 }
 
 @media (max-width: 767px) {
@@ -79,8 +88,8 @@
     font-size: var(--fs-5xl);
   }
 
-  .google-reviews__rated {
-    font-size: var(--fs-4xl);
+  .google-reviews__subline {
+    font-size: var(--fs-lg);
   }
 
   .google-reviews__grid {

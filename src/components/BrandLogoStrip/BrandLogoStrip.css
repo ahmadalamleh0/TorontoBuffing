@@ -2,8 +2,13 @@
   overflow: hidden;
   width: 100%;
   padding-block: var(--space-3);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
-  mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  /* Wide fade zone (not just a narrow 6% sliver) — a logo crossing
+     the edge needs to be most of the way to fully transparent before
+     it reaches the container's hard overflow:hidden clip, or it
+     reads as an abrupt cut (e.g. "XPEL" losing its X) instead of a
+     smooth fade. */
+  -webkit-mask-image: linear-gradient(to right, transparent, black 22%, black 78%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 22%, black 78%, transparent);
 }
 
 .brand-strip__track {

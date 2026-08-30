@@ -82,6 +82,11 @@
   border-radius: 16px;
   padding: 1.25rem 1rem;
   box-shadow: 0 16px 40px rgba(11, 11, 13, 0.05);
+  /* Answering a question inside here (e.g. picking a vehicle type)
+     changes this card's height — without this, the browser's own
+     scroll-anchoring heuristics can add an extra, unrelated scroll
+     jump on top of that natural reflow. */
+  overflow-anchor: none;
 }
 
 @media (min-width: 640px) {

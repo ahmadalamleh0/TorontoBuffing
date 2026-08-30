@@ -26,7 +26,14 @@ function VehicleTypeStep({ vehicleType, onVehicleTypeChange, vehicle, onVehicleC
               type="button"
               key={type.id}
               className={`quote-vehicle-card ${vehicleType === type.id ? "is-selected" : ""}`}
-              onClick={() => onVehicleTypeChange(type.id)}
+              onClick={(e) => {
+                // This button unmounts the instant the click swaps to
+                // the year/make/model form — blur first, or the
+                // browser's focus-follow scroll-into-view can add its
+                // own extra jump on top of the layout reflow.
+                e.currentTarget.blur();
+                onVehicleTypeChange(type.id);
+              }}
             >
               <img className="quote-vehicle-card__media" src={type.image} alt="" aria-hidden="true" />
               <div className="quote-vehicle-card__text">

@@ -1,6 +1,6 @@
 .editorial-footer {
-  background: var(--color-off-white);
-  color: var(--color-black);
+  background: #060a24 url("../../assets/images/footer/footer-bg.jpg") center / cover no-repeat;
+  color: var(--color-white);
   padding-top: clamp(4rem, 8vw, 7rem);
   padding-bottom: 0;
   overflow: hidden;
@@ -44,7 +44,7 @@
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #71717a;
+  color: rgba(255, 255, 255, 0.55);
 }
 
 .editorial-footer__content {
@@ -55,13 +55,13 @@
   font-size: 0.9375rem;
   font-weight: 500;
   line-height: 1.5;
-  color: var(--color-black);
+  color: var(--color-white);
   letter-spacing: 0.02em;
 }
 
 .editorial-footer__text {
   margin: 0;
-  color: var(--color-black);
+  color: var(--color-white);
 }
 
 .editorial-footer__text--bold {
@@ -69,14 +69,14 @@
 }
 
 .editorial-footer__link {
-  color: var(--color-black);
+  color: var(--color-white);
   text-decoration: none;
   transition: color 0.2s ease;
   width: fit-content;
 }
 
 .editorial-footer__link:hover {
-  color: var(--color-brand-blue);
+  color: var(--color-accent-on-dark);
 }
 
 /* Social icons */
@@ -92,7 +92,7 @@
   justify-content: center;
   width: 1.375rem;
   height: 1.375rem;
-  color: var(--color-black);
+  color: var(--color-white);
   transition: color 0.2s ease;
 }
 
@@ -102,7 +102,7 @@
 }
 
 .editorial-footer__social:hover {
-  color: var(--color-brand-blue);
+  color: var(--color-accent-on-dark);
 }
 
 /* Bottom sign-off, under the wordmark */
@@ -126,17 +126,17 @@
 }
 
 .editorial-footer__legal a {
-  color: #71717a;
+  color: rgba(255, 255, 255, 0.55);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .editorial-footer__legal a:hover {
-  color: var(--color-black);
+  color: var(--color-white);
 }
 
 .editorial-footer__sep {
-  color: #a1a1aa;
+  color: rgba(255, 255, 255, 0.35);
 }
 
 .editorial-footer__credit {
@@ -145,17 +145,17 @@
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #a1a1aa;
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .editorial-footer__credit a {
-  color: #71717a;
+  color: rgba(255, 255, 255, 0.55);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .editorial-footer__credit a:hover {
-  color: var(--color-brand-blue);
+  color: var(--color-accent-on-dark);
 }
 
 /* Massive Brand Wordmark */
@@ -175,7 +175,7 @@
   line-height: 0.82;
   letter-spacing: -0.03em;
   text-transform: uppercase;
-  color: var(--color-brand-blue);
+  color: var(--color-white);
   margin: 0;
   padding: 0;
   display: flex;
@@ -199,6 +199,30 @@
 
 @media (max-width: 767px) {
   .editorial-footer {
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 76px);
+    padding-top: 2.5rem;
+    /* No longer offsetting for MobileActionBar — that fixed bar was
+       removed from the page, so the old +76px clearance here was
+       just dead space at the very bottom of the footer. */
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .editorial-footer__inner {
+    gap: 2.25rem;
+  }
+
+  .editorial-footer__info-grid {
+    gap: 1.5rem;
+  }
+
+  .editorial-footer__col {
+    gap: 0.5rem;
+  }
+
+  .editorial-footer__content {
+    line-height: 1.35;
+  }
+
+  .editorial-footer__bottom {
+    padding-block: 1.25rem;
   }
 }

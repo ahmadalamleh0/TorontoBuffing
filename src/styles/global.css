@@ -2,6 +2,16 @@
    Global base styles
    ========================================================================== */
 
+/* Self-hosted, client-supplied — used for the "Toronto Buffing"
+   wordmark in the nav bar (see NovaNavbar.css). */
+@font-face {
+  font-family: "Primate";
+  src: url("/fonts/Primate.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
   background: var(--color-bg);
   color: var(--color-text);

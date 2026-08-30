@@ -4,10 +4,12 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-4);
+  max-width: 720px;
+  margin-inline: auto;
   padding: 1rem 1.5rem;
-  background: var(--color-brand-blue);
+  background: var(--color-white);
   border-radius: 14px;
-  box-shadow: 0 8px 24px rgba(30, 40, 132, 0.25);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
 }
 
 .reviews-bar__content {
@@ -17,7 +19,7 @@
   gap: 0.625rem;
   font-family: var(--font-body);
   font-size: 0.9375rem;
-  color: var(--color-white);
+  color: var(--color-black);
 }
 
 .reviews-bar__brand {
@@ -32,13 +34,13 @@
 
 .reviews-bar__brand-name {
   font-weight: 700;
-  color: var(--color-white);
+  color: var(--color-black);
   letter-spacing: -0.01em;
 }
 
 .reviews-bar__label {
   font-weight: 700;
-  color: var(--color-white);
+  color: var(--color-black);
 }
 
 .reviews-bar__stars {
@@ -58,24 +60,24 @@
 
 .reviews-bar__score {
   font-weight: 800;
-  color: var(--color-white);
+  color: var(--color-black);
 }
 
 .reviews-bar__count {
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--color-text-faint);
 }
 
 .reviews-bar__dot {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--color-muted-gray);
   font-weight: 700;
 }
 
 .reviews-bar__cta {
   flex-shrink: 0;
   padding: 0.625rem 1.25rem;
-  background: var(--color-white);
-  color: var(--color-brand-blue);
+  background: var(--color-brand-blue);
+  color: var(--color-white);
   font-family: var(--font-body);
   font-size: 0.8125rem;
   font-weight: 700;
@@ -88,7 +90,7 @@
 }
 
 .reviews-bar__cta:hover {
-  background: var(--color-off-white);
+  background: var(--color-navy);
   transform: translateY(-1px);
 }
 

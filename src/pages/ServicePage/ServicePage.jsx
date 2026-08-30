@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { ALL_SERVICES } from "../../data/servicesData";
-import Header from "../../components/Header/Header";
+import NovaNavbar from "../../components/NovaNavbar/NovaNavbar";
 import Footer from "../../components/Footer/Footer";
 import WhatsAppButton from "../../components/WhatsAppButton/WhatsAppButton";
 import "./ServicePage.css";
@@ -16,7 +16,7 @@ function ServicePage() {
 
   return (
     <>
-      <Header />
+      <NovaNavbar />
       <main>
         <section className="service-page section">
           <div className="container service-page__inner">

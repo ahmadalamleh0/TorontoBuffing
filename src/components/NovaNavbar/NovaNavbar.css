@@ -1,0 +1,508 @@
+/* Values below are ported directly from the source Framer component's
+   generated styles (gradients, blur, shadow, radii, bar height/
+   padding, rotor size/position, shimmer geometry, animation timing/
+   easing) — only content/branding changed. The accent hue was swapped
+   from the source's purple to a Toronto Buffing icy blue (same alpha/
+   structure, same animation) per a later revision — the glow's
+   motion, timing and darkness stay exactly as ported. */
+
+.nova {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  z-index: 100;
+  transform: translateX(-50%);
+  width: min(390px, calc(100vw - 24px));
+  animation: nova-enter 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  transition: opacity var(--duration-slow) var(--ease-standard),
+    transform var(--duration-slow) var(--ease-standard);
+}
+
+.nova--hidden {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-16px);
+  pointer-events: none;
+}
+
+@keyframes nova-enter {
+  from {
+    opacity: 0.001;
+    transform: translateX(-50%) translateY(-40px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+/* ---- Border Glow Wrap: the 1px gap around the Glass Pill is what
+   reveals the rotating conic gradient underneath as a thin animated
+   border. ---- */
+
+.nova__glow-wrap {
+  position: relative;
+  overflow: hidden;
+  padding: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 31px;
+}
+
+.nova__border-rotor {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  top: -800px;
+  bottom: -800px;
+  left: -300px;
+  right: -300px;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    rgba(120, 190, 255, 0) 0deg,
+    rgba(120, 190, 255, 0) 60deg,
+    rgba(70, 160, 255, 0.7) 78deg,
+    rgb(190, 225, 255) 86deg,
+    rgb(255, 255, 255) 90deg,
+    rgba(120, 190, 255, 0) 100deg
+  );
+  animation: nova-rotate 5s linear infinite;
+}
+
+@keyframes nova-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---- Glass Pill ---- */
+
+.nova__glass {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 30px;
+  background: linear-gradient(180deg, rgba(24, 24, 34, 0.9) 0%, rgba(8, 8, 14, 0.88) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0px 30px 80px 0px rgba(0, 0, 0, 0.65), inset 0px 1px 0px 0px rgba(255, 255, 255, 0.22),
+    0px 12px 60px 0px rgba(60, 150, 255, 0.35);
+}
+
+.nova__hairline {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 16px;
+  width: 70%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(120, 190, 255, 0.9) 50%, rgba(255, 255, 255, 0) 100%);
+}
+
+.nova__shimmer {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: -160px;
+  width: 120px;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.06) 45%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.06) 55%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: nova-shimmer 4.7s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+/* Sweeps left -> right over 2.2s, then holds off-screen for 2.5s
+   before repeating — matching the source's loop + repeatDelay. */
+@keyframes nova-shimmer {
+  0% {
+    transform: translateX(0);
+  }
+  46.81% {
+    transform: translateX(900px);
+  }
+  46.82%,
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* ---- Top row ---- */
+
+.nova__top-row {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  padding: 0 16px;
+}
+
+.nova__logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+.nova__logo-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.nova__logo-mark img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.nova__logo-label {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: var(--fw-regular);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-white);
+  white-space: nowrap;
+}
+
+/* True bar-center: positioned relative to .nova__top-row (not
+   flex-centered between the logo icon and hamburger, whose differing
+   widths would throw off a simple space-between centering) so the
+   wordmark sits mathematically centered in the navbar itself. */
+@media (max-width: 1023px) {
+  .nova__top-row {
+    height: 48px;
+  }
+
+  .nova__logo-label {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .nova__logo-mark img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .nova__toggle {
+    width: 26px;
+    height: 26px;
+  }
+
+  .nova__toggle-line {
+    left: 3px;
+    width: 20px;
+  }
+
+  .nova__toggle-line--top {
+    top: 8px;
+  }
+
+  .nova__toggle-line--bottom {
+    top: 16px;
+  }
+
+  .nova--open .nova__toggle-line--top,
+  .nova--open .nova__toggle-line--bottom {
+    top: 12px;
+  }
+}
+
+.nova__links {
+  display: none;
+}
+
+.nova__right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nova__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  padding: 0.6rem 1.1rem;
+  background: linear-gradient(180deg, rgba(70, 165, 255, 0.95) 0%, rgba(30, 110, 230, 0.98) 100%);
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  white-space: nowrap;
+  border-radius: 999px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 4px 20px -2px rgba(60, 150, 255, 0.6);
+  transition: box-shadow var(--duration-base) var(--ease-standard),
+    transform var(--duration-base) var(--ease-standard);
+}
+
+.nova__cta:hover {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 6px 26px -2px rgba(60, 150, 255, 0.8);
+  transform: translateY(-1px);
+}
+
+/* ---- Mobile toggle (hamburger <-> X) ---- */
+
+.nova__toggle {
+  position: relative;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.nova__toggle-line {
+  position: absolute;
+  left: 6px;
+  width: 20px;
+  height: 2px;
+  background: var(--color-white);
+  border-radius: 2px;
+  transition: top var(--duration-base) var(--ease-standard), transform var(--duration-base) var(--ease-standard);
+}
+
+.nova__toggle-line--top {
+  top: 11px;
+}
+
+.nova__toggle-line--bottom {
+  top: 19px;
+}
+
+.nova--open .nova__toggle-line--top {
+  top: 15px;
+  transform: rotate(45deg);
+}
+
+.nova--open .nova__toggle-line--bottom {
+  top: 15px;
+  transform: rotate(-45deg);
+}
+
+/* ---- Drawer ---- */
+
+.nova__drawer-wrap {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--duration-base) var(--ease-standard);
+}
+
+.nova--open .nova__drawer-wrap {
+  grid-template-rows: 1fr;
+}
+
+.nova__drawer-clip {
+  overflow: hidden;
+}
+
+.nova__drawer {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 4px 8px 16px;
+}
+
+/* ---- Expandable service categories (Protection / Correction /
+   Restoration), matching the old header's mobile behaviour ---- */
+
+.nova__drawer-categories {
+  display: flex;
+  flex-direction: column;
+}
+
+.nova__drawer-category {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* No border-bottom on the last category — it sits flush against
+   .nova__drawer-links below (see the negative margin there), so the
+   links list's own border-top is the single shared divider between
+   the two groups, keeping all six rows reading as one seamless list. */
+
+.nova__drawer-category-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 8px;
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.85);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.nova__drawer-category-toggle:hover,
+.nova__drawer-category.is-open .nova__drawer-category-toggle {
+  color: var(--color-white);
+}
+
+.nova__drawer-category-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.4);
+  transition: transform var(--duration-base) var(--ease-standard);
+}
+
+.nova__drawer-category.is-open .nova__drawer-category-icon {
+  transform: rotate(45deg);
+}
+
+.nova__drawer-category-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--duration-base) var(--ease-standard);
+}
+
+.nova__drawer-category.is-open .nova__drawer-category-panel {
+  grid-template-rows: 1fr;
+}
+
+.nova__drawer-category-panel-clip {
+  overflow: hidden;
+}
+
+.nova__drawer-category-links {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 2px 8px 10px 16px;
+}
+
+.nova__drawer-category-links a {
+  padding: 6px 8px;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  border-radius: 8px;
+  transition: color var(--duration-fast) var(--ease-standard),
+    background-color var(--duration-fast) var(--ease-standard);
+}
+
+.nova__drawer-category-links a:hover {
+  color: var(--color-white);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.nova__drawer-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.nova__drawer-categories + .nova__drawer-links {
+  margin-top: -14px;
+}
+
+.nova__drawer-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 8px;
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.85);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.nova__drawer-link:last-child {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.nova__drawer-link:hover {
+  color: var(--color-white);
+}
+
+.nova__cta--block {
+  width: 100%;
+  justify-content: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nova {
+    animation: none;
+  }
+
+  .nova__border-rotor,
+  .nova__shimmer,
+  .nova__toggle-line,
+  .nova__drawer-wrap,
+  .nova__cta {
+    transition: none;
+    animation-duration: 0.001ms;
+  }
+}
+
+/* ---- Desktop ---- */
+
+@media (min-width: 1024px) {
+  .nova {
+    top: 22px;
+    width: min(800px, calc(100vw - 48px));
+  }
+
+  .nova__glow-wrap {
+    border-radius: 31px;
+  }
+
+  .nova__top-row {
+    padding: 0 10px 0 24px;
+  }
+
+  .nova__hairline {
+    left: 60px;
+  }
+
+  .nova__logo-label {
+    position: static;
+    transform: none;
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    text-transform: none;
+  }
+
+  .nova__links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .nova__link {
+    padding: 0.5rem 0.9rem;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.75);
+    border-radius: 999px;
+    transition: background-color var(--duration-fast) var(--ease-standard),
+      color var(--duration-fast) var(--ease-standard);
+  }
+
+  .nova__link:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--color-white);
+  }
+
+  .nova__cta {
+    padding: 0.7rem 1.4rem;
+    font-size: 0.875rem;
+  }
+}
