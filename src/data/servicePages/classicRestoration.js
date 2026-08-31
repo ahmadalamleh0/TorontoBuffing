@@ -1,4 +1,4 @@
-import heroImage from "../../assets/images/services/classic-restoration.jpg";
+import heroImage from "../../assets/images/services/classic-restoration-new.jpg";
 import supraDetail from "../../assets/images/projects/supra/1.webp";
 import supraResult from "../../assets/images/projects/supra/2.webp";
 
@@ -8,9 +8,9 @@ export const classicRestorationPage = {
     copy:
       "Preservation, correction and protection for vehicles that deserve more than a standard detailing package.",
     image: heroImage,
-    imageAlt: "A restored vintage green Ford Mustang fastback in the Toronto Buffing studio",
-    imageWidth: 1400,
-    imageHeight: 1400,
+    imageAlt: "A restored silver 1963 Chevrolet Corvette Sting Ray split-window coupe in the Toronto Buffing studio",
+    imageWidth: 1440,
+    imageHeight: 1085,
   },
   sections: [
     {

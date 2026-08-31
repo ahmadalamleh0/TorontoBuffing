@@ -1,0 +1,136 @@
+.instagram-section {
+  background: var(--color-white);
+}
+
+.instagram-section__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.instagram-section__avatar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--color-off-white);
+  color: var(--color-brand-blue);
+  border: 1px solid var(--color-border-gray);
+}
+
+.instagram-section__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.instagram-section__identity {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.instagram-section__handle {
+  /* Hidden per request — kept in the DOM, not removed, in case it
+     comes back later. */
+  display: none;
+  margin: 0;
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-lg);
+  font-weight: 800;
+  letter-spacing: -0.005em;
+  color: var(--color-black);
+}
+
+.instagram-section__follow {
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--color-brand-blue);
+  text-decoration: none;
+}
+
+/* Mobile: horizontal swipe, one large post + a peek of the next.
+   Desktop: a plain grid, ~4 across — same technique used by
+   BlogSection/SelectedWorkSection, no plugin/carousel chrome. */
+.instagram-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 78vw;
+  gap: var(--space-3);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.instagram-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.instagram-post {
+  display: block;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 10px;
+  background: var(--color-off-white);
+  scroll-snap-align: start;
+}
+
+.instagram-post img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-slow) var(--ease-standard);
+}
+
+.instagram-post:hover img {
+  transform: scale(1.03);
+}
+
+.instagram-post--skeleton {
+  animation: instagram-skeleton-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes instagram-skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@media (min-width: 640px) {
+  .instagram-grid {
+    grid-auto-columns: 46vw;
+  }
+}
+
+@media (min-width: 768px) {
+  .instagram-grid {
+    grid-auto-flow: unset;
+    grid-template-columns: repeat(3, 1fr);
+    overflow-x: visible;
+  }
+}
+
+@media (min-width: 1024px) {
+  .instagram-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .instagram-post--skeleton {
+    animation: none;
+  }
+}

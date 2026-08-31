@@ -38,10 +38,10 @@ function IntroAnimation() {
       tl.fromTo(
         barFillRef.current,
         { scaleX: 0 },
-        { scaleX: 1, duration: 1.35, ease: "power2.out" }
+        { scaleX: 1, duration: 1.7, ease: "power2.out" }
       )
-        .to({}, { duration: 0.35 }) // brief hold on the completed bar
-        .to(screenRef.current, { yPercent: -100, duration: 0.8, ease: "power3.inOut" });
+        .to({}, { duration: 0.5 }) // brief hold on the completed bar
+        .to(screenRef.current, { yPercent: -100, duration: 0.9, ease: "power3.inOut" });
     }
 
     // Wait for the logo to actually be decoded before starting, so the

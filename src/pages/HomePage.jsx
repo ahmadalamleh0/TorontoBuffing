@@ -11,10 +11,13 @@ import SelectedWorkSection from "../components/SelectedWorkSection/SelectedWorkS
 import TextReveal from "../components/TextReveal/TextReveal";
 import LocationSection from "../components/LocationSection/LocationSection";
 import QuoteWizardSection from "../components/QuoteWizard/QuoteWizardSection";
+import InstagramSection from "../components/InstagramSection/InstagramSection";
+import BlogSection from "../components/BlogSection/BlogSection";
 import FaqSection from "../components/FaqSection/FaqSection";
 import Footer from "../components/Footer/Footer";
 import Seo from "../components/Seo/Seo";
 import { HOME_SEO, buildLocalBusinessSchema, buildFaqPageSchema } from "../data/seoData";
+import "./HomePage.css";
 
 // Service pages link back here with "/#contact" (the quote wizard
 // only exists on the homepage) — a plain hash on load doesn't
@@ -69,9 +72,13 @@ function HomePage() {
         <ImageBanner />
         <SelectedWorkSection />
         <QuoteWizardSection />
-        <GoogleReviewsSection />
-        <StatsSection />
+        <div className="dark-showcase">
+          <GoogleReviewsSection />
+          <StatsSection />
+        </div>
         <LocationSection />
+        <InstagramSection />
+        <BlogSection />
         <FaqSection />
       </main>
       <Footer />

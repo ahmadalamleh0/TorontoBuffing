@@ -1,0 +1,8 @@
+/* Reviews + Stats share one continuous background photo — wrapped
+   together here rather than each section carrying its own copy, so
+   the image reads as a single backdrop spanning both instead of two
+   separately-cropped repeats. */
+.dark-showcase {
+  background: linear-gradient(rgba(0, 10, 55, 0.6), rgba(0, 10, 55, 0.6)),
+    #001771 url("../assets/images/reviews/reviews-bg.png") center / cover no-repeat;
+}

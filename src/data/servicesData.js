@@ -1,6 +1,6 @@
 import paintCorrectionImage from "../assets/images/services/paint-correction.jpg";
 import ppfImage from "../assets/images/services/ppf.jpg";
-import classicRestorationImage from "../assets/images/services/classic-restoration.jpg";
+import classicRestorationImage from "../assets/images/services/classic-restoration-new.jpg";
 import ceramicCoatingImage from "../assets/images/services/ceramic-coating.jpg";
 import panelRefinishingImage from "../assets/images/services/panel-refinishing.jpg";
 import headlightRestorationImage from "../assets/images/services/headlight-restoration.jpg";

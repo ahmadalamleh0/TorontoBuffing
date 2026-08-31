@@ -84,6 +84,32 @@ export function buildBreadcrumbSchema({ slug, title }) {
   };
 }
 
+export function buildBlogPostSchema({ slug, post }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.date,
+    dateModified: post.date,
+    url: `${SITE_URL}/insights/${slug}`,
+    author: { "@type": "Organization", name: BUSINESS_INFO.name },
+    publisher: { "@type": "Organization", name: BUSINESS_INFO.name },
+  };
+}
+
+export function buildBlogBreadcrumbSchema({ slug, title }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Insights", item: `${SITE_URL}/#insights` },
+      { "@type": "ListItem", position: 3, name: title, item: `${SITE_URL}/insights/${slug}` },
+    ],
+  };
+}
+
 export function buildLocalBusinessSchema() {
   return {
     "@context": "https://schema.org",
