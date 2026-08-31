@@ -22,12 +22,6 @@ export const ceramicCoatingPage = {
   },
   sections: [
     {
-      type: "reveal-intro",
-      eyebrow: "Ceramic Coating",
-      heading: "A showroom finish that keeps its edge.",
-      body: "Applied panel by panel in a controlled environment, the result is a deep, glass-like clarity that keeps working long after you've left the studio.",
-    },
-    {
       type: "feature-cards",
       cards: [
         {
@@ -49,6 +43,13 @@ export const ceramicCoatingPage = {
           body: "A durable hydrophobic layer keeps the paint beading, self-cleaning and glossy for years, not weeks.",
         },
       ],
+    },
+    {
+      type: "reveal-intro",
+      spacious: true,
+      eyebrow: "Ceramic Coating",
+      heading: "A showroom finish that keeps its edge.",
+      body: "Applied panel by panel in a controlled environment, the result is a deep, glass-like clarity that keeps working long after you've left the studio.",
     },
     {
       type: "process",

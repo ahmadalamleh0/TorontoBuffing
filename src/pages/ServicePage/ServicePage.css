@@ -269,6 +269,14 @@
   padding-bottom: clamp(16px, 2vw, 24px);
 }
 
+/* Opt-in per section (reveal-intro.spacious) — when this statement
+   isn't the immediate hero-flow opener (e.g. it now follows the
+   feature cards instead), give it real room before whatever comes
+   next rather than the tight hero-to-cards gap. */
+.service-reveal-intro--spacious {
+  padding-bottom: clamp(48px, 6vw, 72px);
+}
+
 .service-reveal-intro__note {
   margin: var(--space-4) auto 0;
   max-width: 52ch;
@@ -950,26 +958,26 @@
 
 /* Scroll reveal — same decoupled opacity/transform timing as the
    reveal-intro above: opacity settles quickly, the upward glide
-   keeps easing a while after, staggered per step via inline delay.
-   The connector icon reveals separately via the shared .reveal-up
-   utility, since the connector wrapper itself now handles static
-   positioning (see below) rather than the reveal transform. */
+   keeps easing a while after, staggered per step via inline delay. */
 .service-process__title,
-.service-process__step {
+.service-process__step,
+.service-process__connector {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 320ms ease-out, transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .service-process.is-visible .service-process__title,
-.service-process.is-visible .service-process__step {
+.service-process.is-visible .service-process__step,
+.service-process.is-visible .service-process__connector {
   opacity: 1;
   transform: translateY(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .service-process__title,
-  .service-process__step {
+  .service-process__step,
+  .service-process__connector {
     opacity: 1;
     transform: none;
     transition: none;
@@ -977,18 +985,10 @@
 }
 
 .service-process__row {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--space-3);
-}
-
-/* The connecting line + arrow chips are desktop-only (see below) —
-   inert on mobile, where steps stack vertically and read as
-   connected simply by being adjacent in the flow. */
-.service-process__line {
-  display: none;
 }
 
 .service-process__step {
@@ -1114,13 +1114,7 @@
   color: var(--color-accent-on-dark);
 }
 
-.service-process__connector-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.service-process__connector-icon svg {
+.service-process__connector svg {
   transform: rotate(90deg);
 }
 
@@ -1134,32 +1128,6 @@
     align-items: flex-start;
     justify-content: center;
     gap: 0;
-  }
-
-  /* A thin line runs between the first and last circle's centers
-     (inset by half a step-width on each side), sitting behind the
-     circles so the connector chips read as markers directly on it —
-     one continuous journey rather than three floating nodes. */
-  .service-process__line {
-    display: block;
-    position: absolute;
-    top: 38px;
-    left: calc(50% / var(--step-count));
-    right: calc(50% / var(--step-count));
-    height: 1px;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(122, 128, 184, 0.55) 8%,
-      rgba(122, 128, 184, 0.55) 92%,
-      transparent
-    );
-    opacity: 0;
-    transition: opacity 700ms ease-out 300ms;
-  }
-
-  .service-process.is-visible .service-process__line {
-    opacity: 1;
   }
 
   .service-process__step {
@@ -1176,23 +1144,12 @@
     font-size: var(--fs-xl);
   }
 
-  /* Removed from flex flow and pinned directly to the line at the
-     boundary between the two steps it connects — a small marker
-     sitting naturally on the journey, not a floating icon in a gap. */
   .service-process__connector {
-    position: absolute;
-    top: 38px;
-    z-index: 1;
-    width: 28px;
-    height: 28px;
-    margin: 0;
-    transform: translate(-50%, -50%);
-    background: var(--color-black);
-    border: 1px solid rgba(122, 128, 184, 0.5);
-    border-radius: 50%;
+    width: 72px;
+    height: 76px;
   }
 
-  .service-process__connector-icon svg {
+  .service-process__connector svg {
     transform: none;
   }
 }
@@ -1361,6 +1318,14 @@
   height: auto;
   min-height: 0;
   max-height: none;
+}
+
+/* Tall variant — a bigger crop window so more of a portrait source
+   shows through, for a single banner that wants extra presence. */
+.service-banner--tall img {
+  height: 72vh;
+  min-height: 420px;
+  max-height: 860px;
 }
 
 /* Boxed variant — matches the before/after slider's contained
@@ -1543,6 +1508,16 @@
 
 .service-before-after .service-heading {
   margin-bottom: var(--space-6);
+}
+
+/* Back-to-back before/after pairs read as one showcase — tighten the
+   gap between them instead of stacking two full section paddings. */
+.service-before-after:has(+ .service-before-after) {
+  padding-bottom: clamp(16px, 2vw, 24px);
+}
+
+.service-before-after + .service-before-after {
+  padding-top: clamp(16px, 2vw, 24px);
 }
 
 /* ---- Draggable before/after slider ---- */

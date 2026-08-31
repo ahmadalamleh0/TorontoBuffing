@@ -62,9 +62,7 @@ function BlogPostPage() {
               &larr; Back to Insights
             </Link>
 
-            <p className="blog-post__meta">
-              {post.category} <span aria-hidden="true">&middot;</span> {post.dateDisplay}
-            </p>
+            <p className="blog-post__meta">{post.category}</p>
             <h1 className="blog-post__title">{post.title}</h1>
 
             <div className="blog-post__media">

@@ -17,12 +17,6 @@ export const paintChipRepairPage = {
   },
   sections: [
     {
-      type: "reveal-intro",
-      eyebrow: "Paint Chip Repair",
-      heading: "Repaired first, protected always.",
-      body: "Every chip is treated as a corrosion risk before it's treated as a cosmetic one, so what gets protected is worth protecting.",
-    },
-    {
       type: "feature-cards",
       cards: [
         {
@@ -44,6 +38,13 @@ export const paintChipRepairPage = {
           body: "Detail work is done by hand, blending each repair into the surrounding paint until the transition disappears.",
         },
       ],
+    },
+    {
+      type: "reveal-intro",
+      spacious: true,
+      eyebrow: "Paint Chip Repair",
+      heading: "Repaired first, protected always.",
+      body: "Every chip is treated as a corrosion risk before it's treated as a cosmetic one, so what gets protected is worth protecting.",
     },
     {
       type: "process",

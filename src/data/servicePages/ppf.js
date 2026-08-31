@@ -18,12 +18,6 @@ export const ppfPage = {
   },
   sections: [
     {
-      type: "reveal-intro",
-      eyebrow: "Paint Protection Film",
-      heading: "Protected paint, untouched appearance.",
-      body: "Precision-cut and hand-finished, every panel is wrapped to disappear into the factory line, so the protection never announces itself.",
-    },
-    {
       type: "feature-cards",
       cards: [
         {
@@ -45,6 +39,13 @@ export const ppfPage = {
           body: "Self-healing technology and premium materials help maintain a flawless finish for years to come.",
         },
       ],
+    },
+    {
+      type: "reveal-intro",
+      spacious: true,
+      eyebrow: "Paint Protection Film",
+      heading: "Protected paint, untouched appearance.",
+      body: "Precision-cut and hand-finished, every panel is wrapped to disappear into the factory line, so the protection never announces itself.",
     },
     {
       type: "banner",

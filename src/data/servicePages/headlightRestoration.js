@@ -17,12 +17,6 @@ export const headlightRestorationPage = {
   },
   sections: [
     {
-      type: "reveal-intro",
-      eyebrow: "Headlight Restoration",
-      heading: "Clear again, the right way.",
-      body: "No shortcuts, no sprays. Just careful, hands-on polishing until the lens looks the way it did the day it left the factory.",
-    },
-    {
       type: "feature-cards",
       cards: [
         {
@@ -44,6 +38,13 @@ export const headlightRestorationPage = {
           body: "The result is clarity restored in hours, backed by a 2-year warranty against premature yellowing.",
         },
       ],
+    },
+    {
+      type: "reveal-intro",
+      spacious: true,
+      eyebrow: "Headlight Restoration",
+      heading: "Clear again, the right way.",
+      body: "No shortcuts, no sprays. Just careful, hands-on polishing until the lens looks the way it did the day it left the factory.",
     },
     {
       type: "process",
@@ -85,6 +86,7 @@ export const headlightRestorationPage = {
       alt: "A restored, crystal-clear Porsche headlight lens at Toronto Buffing",
       imageWidth: 947,
       imageHeight: 1840,
+      fit: "tall",
     },
     {
       type: "trust",

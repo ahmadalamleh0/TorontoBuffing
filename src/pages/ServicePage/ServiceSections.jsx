@@ -94,9 +94,16 @@ export function ServiceHero({ hero }) {
 // place together as the section enters view.
 function RevealIntroSection({ section }) {
   const ref = useRevealOnView();
+  const classes = [
+    "service-reveal-intro",
+    section.compact && "service-reveal-intro--compact",
+    section.spacious && "service-reveal-intro--spacious",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
-    <section className={`service-reveal-intro${section.compact ? " service-reveal-intro--compact" : ""}`} ref={ref}>
+    <section className={classes} ref={ref}>
       <div className="container service-reveal-intro__inner">
         <span className="eyebrow service-reveal-intro__eyebrow">{section.eyebrow}</span>
         <h2 className="service-reveal-intro__title">{section.heading}</h2>
@@ -357,13 +364,15 @@ function StepsSection({ section }) {
   );
 }
 
-// A single clean chevron — no curve. Sits directly on the connecting
-// line between two circles, marking direction without pretending to
-// be its own decorative arc.
+// Gentle curved arrow linking one process step to the next — a
+// symmetric arc (level start/end, centered peak) with an unambiguous
+// chevron right at the tip, so it sits naturally on the circles' own
+// centerline and clearly points into the next node.
 function ProcessArrowIcon() {
   return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M5 2 10 7 5 12" />
+    <svg width="48" height="20" viewBox="0 0 48 20" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M2 11c14-6 30-6 40 0" />
+      <path d="M34 5.5c3 1.5 5.5 3 8 5.5-2.5 2.5-5 4-8 5.5" />
     </svg>
   );
 }
@@ -382,22 +391,12 @@ function ProcessSection({ section }) {
       <div className="container service-process__inner">
         <h2 className="service-process__title">{section.heading}</h2>
 
-        <div
-          className="service-process__row"
-          style={{ "--step-count": section.steps.length }}
-        >
-          <span className="service-process__line" aria-hidden="true" />
+        <div className="service-process__row">
           {section.steps.map((step, i) => (
             <Fragment key={step.title}>
               {i > 0 && (
-                <span
-                  className="service-process__connector"
-                  aria-hidden="true"
-                  style={{ left: `${(i / section.steps.length) * 100}%` }}
-                >
-                  <span className="service-process__connector-icon reveal-up" style={{ transitionDelay: `${i * 140 + 60}ms` }}>
-                    <ProcessArrowIcon />
-                  </span>
+                <span className="service-process__connector" aria-hidden="true" style={{ transitionDelay: `${i * 140 + 60}ms` }}>
+                  <ProcessArrowIcon />
                 </span>
               )}
               <div className="service-process__step" style={{ transitionDelay: `${i * 140}ms` }}>
@@ -486,6 +485,7 @@ function BannerSection({ section }) {
     "service-banner",
     section.fit === "contain" && "service-banner--contain",
     section.fit === "boxed" && "service-banner--boxed",
+    section.fit === "tall" && "service-banner--tall",
     section.overlay && "service-banner--has-overlay",
   ]
     .filter(Boolean)
