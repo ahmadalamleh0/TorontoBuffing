@@ -19,6 +19,12 @@ export const panelRefinishingPage = {
   },
   sections: [
     {
+      type: "reveal-intro",
+      eyebrow: "Panel Refinishing",
+      heading: "A factory finish, not a repair.",
+      body: "Every panel is carefully matched, blended, and refined to restore a seamless finish that looks like it was never touched.",
+    },
+    {
       type: "feature-cards",
       cards: [
         {
@@ -40,13 +46,6 @@ export const panelRefinishingPage = {
           body: "Freshly refinished panels are wet sanded and polished to match the texture and gloss of the surrounding paint.",
         },
       ],
-    },
-    {
-      type: "reveal-intro",
-      spacious: true,
-      eyebrow: "Panel Refinishing",
-      heading: "A factory finish, not a repair.",
-      body: "Every panel is carefully matched, blended, and refined to restore a seamless finish that looks like it was never touched.",
     },
     {
       type: "process",

@@ -20,6 +20,12 @@ export const paintCorrectionPage = {
   },
   sections: [
     {
+      type: "reveal-intro",
+      eyebrow: "Paint Correction",
+      heading: "Depth and clarity, brought back to the surface.",
+      body: "Every stage is judged by eye and by hand, only stopping once the reflection reads flawless, not just improved.",
+    },
+    {
       type: "feature-cards",
       cards: [
         {
@@ -41,13 +47,6 @@ export const paintCorrectionPage = {
           body: "The result is depth and clarity restored, paint that reflects the way it did before it was ever touched by a wash mitt.",
         },
       ],
-    },
-    {
-      type: "reveal-intro",
-      spacious: true,
-      eyebrow: "Paint Correction",
-      heading: "Depth and clarity, brought back to the surface.",
-      body: "Every stage is judged by eye and by hand, only stopping once the reflection reads flawless, not just improved.",
     },
     {
       type: "process",

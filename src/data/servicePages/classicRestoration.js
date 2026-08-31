@@ -16,8 +16,15 @@ export const classicRestorationPage = {
     imageAlt: "Detail of a restored Chevrolet Corvette Sting Ray's rear end",
     imageWidth: 1280,
     imageHeight: 960,
+    centered: true,
   },
   sections: [
+    {
+      type: "reveal-intro",
+      eyebrow: "Classic Restoration",
+      heading: "Some cars aren't just driven. They're preserved.",
+      body: "Every classic gets the patience, respect, and time it takes to protect a finish decades in the making.",
+    },
     {
       type: "feature-cards",
       cards: [
@@ -40,13 +47,6 @@ export const classicRestorationPage = {
           body: "The goal isn't just shine. It's preserving and protecting as much of the original finish as safely possible.",
         },
       ],
-    },
-    {
-      type: "reveal-intro",
-      spacious: true,
-      eyebrow: "Classic Restoration",
-      heading: "Some cars aren't just driven. They're preserved.",
-      body: "Every classic gets the patience, respect, and time it takes to protect a finish decades in the making.",
     },
     {
       type: "process",
