@@ -1,23 +1,67 @@
-import heroImage from "../../assets/images/services/paint-correction.jpg";
+import heroImage from "../../assets/images/servicePages/paint-correction/pc-1.jpeg";
+import pc3 from "../../assets/images/servicePages/paint-correction/pc-3.webp";
+import pc4 from "../../assets/images/servicePages/paint-correction/pc-4.jpeg";
+import pc9 from "../../assets/images/servicePages/paint-correction/pc-9.jpg";
+import pcBefore from "../../assets/images/servicePages/paint-correction/pc-1-after.jpg";
+import pcAfter from "../../assets/images/servicePages/paint-correction/pc-1-before.jpg";
 import garageBanner from "../../assets/images/banner/garage-showcase.jpg";
 
 export const paintCorrectionPage = {
   hero: {
-    title: "True Paint Correction.",
+    title: "Paint Correction.",
     copy:
-      "Paint correction removes defects from the finish by carefully leveling a small amount of clearcoat through machine polishing, compounds and, where necessary, fine wet sanding.",
+      "Swirls and haze aren't hidden. They're removed. True paint correction restores the depth and clarity your paint had before it was ever touched by a wash mitt.",
     image: heroImage,
-    imageAlt: "A Porsche 911 being machine-polished during paint correction at Toronto Buffing",
-    imageWidth: 1054,
-    imageHeight: 1600,
+    imageAlt: "Vehicles staged in the Toronto Buffing studio ahead of paint correction",
+    imageWidth: 1281,
+    imageHeight: 1998,
   },
   sections: [
     {
-      type: "intro",
-      heading: "The Right Process, Not The Easy Process",
-      body: [
-        "We do not simply let customers choose a “light” correction if the paint requires more work. Every vehicle is assessed first, and the appropriate correction process is recommended based on its actual condition.",
-        "Our goal is to remove as many defects as safely possible — without compromising the long-term integrity of the clearcoat.",
+      type: "reveal-intro",
+      eyebrow: "Paint Correction",
+      heading: "Depth and clarity, brought back to the surface.",
+      body: "True paint correction removes swirls and haze rather than masking them, restoring the finish your paint had before it was ever touched by a wash mitt.",
+    },
+    {
+      type: "feature-cards",
+      cards: [
+        {
+          image: pc9,
+          alt: "Swirl-free reflections revealed during paint correction at Toronto Buffing",
+          title: "Thorough Assessment",
+          body: "Every vehicle is inspected first. The correction process is built around its actual paint condition, not a fixed package.",
+        },
+        {
+          image: pc3,
+          alt: "Machine polishing during a multi-stage paint correction at Toronto Buffing",
+          title: "Multi-Stage Correction",
+          body: "Separate cutting and refinement stages remove defects safely while preserving the long-term integrity of the clearcoat.",
+        },
+        {
+          image: pc4,
+          alt: "The finished, corrected result on a vehicle at Toronto Buffing",
+          title: "Swirl-Free Clarity",
+          body: "The result is depth and clarity restored, paint that reflects the way it did before it was ever touched by a wash mitt.",
+        },
+      ],
+    },
+    {
+      type: "process",
+      heading: "Correction Process",
+      steps: [
+        {
+          title: "Preparation",
+          body: "Chemical pre-wash, hand wash, clay-bar decontamination and paint-thickness measurement set the foundation.",
+        },
+        {
+          title: "Test Spot & Strategy",
+          body: "A test spot confirms the right correction strategy before work begins on the full vehicle.",
+        },
+        {
+          title: "Multi-Stage Correction",
+          body: "Cutting and refinement stages progressively remove defects and maximize gloss and clarity.",
+        },
       ],
     },
     {
@@ -42,78 +86,28 @@ export const paintCorrectionPage = {
       imageHeight: 1564,
     },
     {
-      type: "steps",
-      heading: "Preparation Matters",
-      steps: [
-        "Chemical pre-wash",
-        "Hand wash",
-        "Clay-bar and bonded contaminant removal",
-        "Iron and tar treatment when required",
-        "Drying and compressed-air purge",
-        "Masking sensitive trim",
-        "Paint-thickness measurement where needed",
-        "Test spot and correction strategy",
-      ],
-    },
-    {
-      type: "packages",
+      type: "stage-list",
       heading: "Correction Levels",
-      groups: [
+      stages: [
         {
-          tiers: [
-            {
-              name: "2-Stage Polish",
-              priceNote: "Starting at",
-              price: "$899.99",
-              duration: "Approx. 1 day",
-              description:
-                "For minor to moderate defects on new or lightly used vehicles. A cutting and refinement process.",
-            },
-            {
-              name: "3-Stage Cut & Polish",
-              priceNote: "Starting at",
-              price: "$1,099.99",
-              duration: "Approx. 2 days",
-              description:
-                "Toronto Buffing’s most common restoration package. Three stages of machining, with approximately 90–95% removal of safely removable visible defects depending on the finish.",
-              featured: true,
-              badge: "Most Common",
-            },
-            {
-              name: "Complete Paint Correction",
-              priceNote: "Starting at",
-              price: "$1,499.99",
-              duration: "Approx. 3 days",
-              description:
-                "Designed for heavily defected finishes requiring maximum safe correction and additional finishing and jeweling.",
-            },
-            {
-              name: "Full Vehicle 3000-Grit Watersand",
-              priceNote: "Starting at",
-              price: "$2,999.99",
-              duration: "Approx. 4 days",
-              description:
-                "For severe defects, paint texture or compromised coatings where advanced correction is required.",
-            },
-          ],
+          title: "Paint Enhancement",
+          body: "Even brand-new vehicles arrive from the factory with paint defects. Our Stage 1 enhancement is typically enough to bring paint with little to no swirl marks up to our standard, depending on paint hardness and defect severity.",
+        },
+        {
+          title: "Paint Correction",
+          body: "If your vehicle has lived through automatic car washes and winter snow brushes and carries a moderate amount of swirls and scratches, a two-stage correction is typically what's required to return the paint to defect-free perfection.",
+        },
+        {
+          title: "Heavy Correction",
+          body: "For paint that has lost its depth of colour and gloss and is moderately to heavily swirled, three stages of correction cut through the defects to bring back its former shine and glory.",
         },
       ],
     },
     {
-      type: "intro",
-      heading: "3-Stage Is The Flagship",
-      body: "A true 3-stage correction uses separate cutting and refinement combinations depending on the paint’s hardness and condition. It allows aggressive defects to be corrected first, then progressively refined to eliminate haze and maximize gloss.",
-      note: "Depending on the vehicle and paint condition, a 3-stage correction can range from roughly 8 hours to over 30 hours.",
-    },
-    {
-      type: "intro",
-      heading: "Preserve The Clearcoat",
-      body: "Correction does remove a small amount of clearcoat. We measure the paint and use the gentlest effective process for the job — and if safely removing a defect would compromise the finish, we stop and recommend an alternative repair.",
-    },
-    {
-      type: "intro",
-      heading: "Protect The Result",
-      body: "Corrected paint should be protected. Every correction package includes a 30-day sealant, and ceramic coating or PPF can be added separately for longer-term protection.",
+      type: "before-after",
+      heading: "The Difference Correction Makes",
+      before: { src: pcBefore, alt: "A dull, hazy roof panel before paint correction" },
+      after: { src: pcAfter, alt: "The same panel after paint correction, with a clear, glossy reflection" },
     },
   ],
   cta: {

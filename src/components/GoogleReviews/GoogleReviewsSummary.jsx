@@ -11,7 +11,7 @@ import "./GoogleReviewsSummary.css";
  * }} props
  */
 function GoogleReviewsSummary({ averageRating, totalReviewCount, writeReviewUrl }) {
-  const ratingVal = averageRating ?? 4.9;
+  const ratingVal = averageRating ?? 5.0;
   const countVal = totalReviewCount ?? 397;
 
   return (

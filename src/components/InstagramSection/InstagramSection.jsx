@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
 import { fetchInstagramFeed } from "../../services/instagramService";
 import { BUSINESS_INFO } from "../../data/businessInfo";
-import InstagramGlyph from "./InstagramGlyph";
 import "./InstagramSection.css";
 
 const INSTAGRAM_URL = BUSINESS_INFO.sameAs.find((url) => url.includes("instagram.com"));
-const FALLBACK_HANDLE = "torontobuffing";
 const SKELETON_COUNT = 4;
 
 // Live feed via the Instagram API (see netlify/functions/instagram-feed.js)
-// — never hardcoded, so new posts show up automatically. Until
-// INSTAGRAM_ACCESS_TOKEN is configured (or if the API request fails),
-// the profile header still renders with a static fallback so "Follow
-// on Instagram" always works; only the post grid depends on the feed.
+// — never hardcoded, so new posts show up automatically. No header/
+// fallback content: until INSTAGRAM_ACCESS_TOKEN is configured (or if
+// the request fails), this renders nothing at all rather than leaving
+// empty section padding on the page.
 function InstagramSection() {
   const [state, setState] = useState({ status: "loading", data: null });
 
@@ -31,26 +29,16 @@ function InstagramSection() {
   }, []);
 
   const posts = state.data?.posts ?? [];
-  const handle = state.data?.username ?? FALLBACK_HANDLE;
-  const avatarUrl = state.data?.profilePictureUrl ?? null;
   const isLoading = state.status === "loading";
   const hasPosts = state.status === "ready" && posts.length > 0;
+
+  // Nothing to show and nothing pending — collapse the section
+  // entirely instead of leaving empty section padding on the page.
+  if (!isLoading && !hasPosts) return null;
 
   return (
     <section id="instagram" className="instagram-section section">
       <div className="container">
-        <div className="instagram-section__header">
-          <span className="instagram-section__avatar">
-            {avatarUrl ? <img src={avatarUrl} alt="" /> : <InstagramGlyph />}
-          </span>
-          <div className="instagram-section__identity">
-            <p className="instagram-section__handle">@{handle.toUpperCase()}</p>
-            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="instagram-section__follow">
-              Follow on Instagram <span aria-hidden="true">&rarr;</span>
-            </a>
-          </div>
-        </div>
-
         {isLoading && (
           <div className="instagram-grid" aria-hidden="true">
             {Array.from({ length: SKELETON_COUNT }, (_, i) => (

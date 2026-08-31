@@ -139,6 +139,7 @@ function NovaNavbar() {
   const isHidden = useHiddenOverQuote();
   const { pathname } = useLocation();
   const isHome = pathname === "/";
+  const isServicePage = pathname.startsWith("/services/");
   const [isOpen, setIsOpen] = useState(false);
   const [openCategory, setOpenCategory] = useState(null);
 
@@ -168,12 +169,19 @@ function NovaNavbar() {
           <div className="nova__shimmer" aria-hidden="true" />
 
           <div className="nova__top-row">
-            <Link to="/" className="nova__logo" onClick={closeMenu} aria-label="Toronto Buffing home">
-              <span className="nova__logo-mark">
-                <Logo variant="white" />
-              </span>
-              <span className="nova__logo-label">Toronto Buffing</span>
-            </Link>
+            <div className="nova__left">
+              {isServicePage && (
+                <Link to="/#services" className="nova__back" onClick={closeMenu} aria-label="Back to services">
+                  <span aria-hidden="true">&larr;</span>
+                </Link>
+              )}
+              <Link to="/" className="nova__logo" onClick={closeMenu} aria-label="Toronto Buffing home">
+                <span className="nova__logo-mark">
+                  <Logo variant="white" />
+                </span>
+                <span className="nova__logo-label">Toronto Buffing</span>
+              </Link>
+            </div>
 
             {!isMobile && (
               <ul className="nova__links">

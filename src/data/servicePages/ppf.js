@@ -1,25 +1,49 @@
-import heroImage from "../../assets/images/services/ppf.jpg";
-import benefitsBanner from "../../assets/images/banner/ppf-benefits.webp";
-import stekLogo from "../../assets/images/brands/stek.svg";
-import suntekLogo from "../../assets/images/brands/suntek.svg";
-import xpelLogo from "../../assets/images/brands/xpel.png";
-import hexisLogo from "../../assets/images/brands/hexis.svg";
+import heroImage from "../../assets/images/servicePages/ppf/ppf-1.jpeg";
+import ppf2 from "../../assets/images/servicePages/ppf/ppf-2.jpeg";
+import ppf4 from "../../assets/images/servicePages/ppf/ppf-4.jpg";
+import ppf5 from "../../assets/images/servicePages/ppf/ppf-5.webp";
+import ppf6 from "../../assets/images/servicePages/ppf/ppf-6.webp";
+import ppfInstallShowcase from "../../assets/images/services/ppf.jpg";
 
 export const ppfPage = {
   hero: {
     title: "Paint Protection Film.",
     copy:
-      "PPF is a clear physical barrier designed to protect automotive paint from rock chips, scratches, UV exposure and environmental damage. It is long-term, removable and self-healing.",
+      "Protection without changing the character of the car. Premium PPF creates an invisible barrier against stone chips, road debris and daily wear while preserving the depth and finish of the paint beneath it.",
     image: heroImage,
-    imageAlt: "Paint protection film being installed on a yellow BMW M4 at Toronto Buffing",
-    imageWidth: 1120,
-    imageHeight: 1400,
+    imageAlt: "Technicians installing paint protection film on a vehicle at Toronto Buffing",
+    imageWidth: 1278,
+    imageHeight: 2048,
   },
   sections: [
     {
-      type: "intro",
-      heading: "Built For Real Protection",
-      body: "Toronto Buffing recommends PPF especially for new vehicles, specialty vehicles and vehicles with complex or unique paint colours. Unlike ceramic coating, PPF provides physical impact protection — a barrier against rock chips and scratches that a coating alone cannot offer.",
+      type: "reveal-intro",
+      eyebrow: "Paint Protection Film",
+      heading: "Invisible protection built for the road ahead.",
+      body: "Premium PPF creates a durable, self-healing barrier that protects the vehicle's finish while preserving its original appearance.",
+    },
+    {
+      type: "feature-cards",
+      cards: [
+        {
+          image: ppfInstallShowcase,
+          alt: "A technician carefully applying paint protection film to a BMW M4 at Toronto Buffing",
+          title: "Precision Installation",
+          body: "Every panel is carefully measured, cut, and installed to create seamless protection while preserving the original design of the vehicle.",
+        },
+        {
+          image: ppf4,
+          alt: "A fully wrapped vehicle finished with paint protection film at Toronto Buffing",
+          title: "Invisible Defense",
+          body: "Advanced paint protection film shields against chips, scratches, and daily road damage while keeping the original finish untouched.",
+        },
+        {
+          image: ppf5,
+          alt: "A technician preparing paint protection film for a precise, lasting install at Toronto Buffing",
+          title: "Long-Term Protection",
+          body: "Self-healing technology and premium materials help maintain a flawless finish for years to come.",
+        },
+      ],
     },
     {
       type: "intro",
@@ -37,74 +61,26 @@ export const ppfPage = {
     },
     {
       type: "banner",
-      image: benefitsBanner,
-      alt: "Toronto Buffing PPF benefits: self-healing protection, hydrophobic surface, warranty coverage, and crystal gloss finish",
-      fit: "contain",
-      imageWidth: 1448,
-      imageHeight: 1086,
+      image: ppf2,
+      alt: "Detail work during a paint protection film installation at Toronto Buffing",
+      imageWidth: 1188,
+      imageHeight: 2048,
     },
     {
-      type: "steps",
+      type: "process",
       heading: "Installation Process",
       steps: [
-        "Vehicle cleaning and decontamination",
-        "Paint inspection",
-        "Paint correction, chip repair or refinishing where required",
-        "PPF positioned using installation solution",
-        "Film stretched and formed around contours",
-        "Water removed and edges finished and tucked",
-        "Final inspection",
-      ],
-    },
-    {
-      type: "brands",
-      heading: "Film Matters",
-      body: "Toronto Buffing does not use no-name or offshore film. We install premium, proven films — and stand behind every install.",
-      brands: [
-        { name: "STEK", logo: stekLogo },
-        { name: "SunTek", logo: suntekLogo },
-        { name: "XPEL", logo: xpelLogo },
-        { name: "Hexis", logo: hexisLogo },
-      ],
-      highlight:
-        "Our most trusted films, based on our own long-term use and testing, are STEK Dynoshield and SunTek Ultra.",
-    },
-    {
-      type: "packages",
-      heading: "Packages",
-      groups: [
         {
-          tiers: [
-            {
-              name: "Full Front End PPF",
-              priceNote: "Starting at",
-              price: "$2,100",
-              duration: "Approx. 2–4 business days",
-              features: [
-                "Hood",
-                "Fenders",
-                "Front bumper",
-                "One additional selected area",
-                "Basic correction before installation",
-                "Up to 5 basic chip repairs",
-                "Wrapped and tucked edges",
-                "Disassembly when required",
-              ],
-            },
-            {
-              name: "Full Body Custom PPF",
-              priceNote: "Starting at",
-              price: "$8,000",
-              duration: "Normally 2+ weeks",
-              features: [
-                "All exterior painted panels",
-                "Basic paint correction",
-                "Up to 10 chip repairs",
-                "Wrapped and tucked edges",
-                "Professional disassembly when required",
-              ],
-            },
-          ],
+          title: "Preparation",
+          body: "Vehicle inspection, cleaning, and surface preparation to ensure the perfect foundation.",
+        },
+        {
+          title: "Precision Installation",
+          body: "Film is carefully positioned and installed to follow the vehicle's exact contours.",
+        },
+        {
+          title: "Final Refinement",
+          body: "Edges are finished and the installation is inspected for a seamless result.",
         },
       ],
     },
@@ -117,6 +93,14 @@ export const ppfPage = {
         "In-house workmanship guarantee",
         "Complimentary 2-week post-install inspection",
       ],
+    },
+    {
+      type: "banner",
+      image: ppf6,
+      alt: "Diagram of PPF's layered construction: cap sheet, self-healing top coat, TPU, adhesive and release liner",
+      fit: "contain",
+      imageWidth: 600,
+      imageHeight: 300,
     },
   ],
   cta: {

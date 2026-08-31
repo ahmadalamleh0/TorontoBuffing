@@ -2,10 +2,11 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { ALL_SERVICES } from "../../data/servicesData";
 import NovaNavbar from "../../components/NovaNavbar/NovaNavbar";
+import QuoteWizardSection from "../../components/QuoteWizard/QuoteWizardSection";
 import Footer from "../../components/Footer/Footer";
 import Seo from "../../components/Seo/Seo";
 import { SERVICE_SEO, buildServiceSchema, buildBreadcrumbSchema } from "../../data/seoData";
-import { ServiceHero, ServiceSection, ServiceCta } from "./ServiceSections";
+import { ServiceHero, ServiceSection } from "./ServiceSections";
 import "./ServicePage.css";
 
 function ServicePage() {
@@ -48,7 +49,7 @@ function ServicePage() {
             {service.page.sections.map((section, i) => (
               <ServiceSection section={section} key={i} />
             ))}
-            <ServiceCta cta={service.page.cta} />
+            <QuoteWizardSection />
           </>
         ) : (
           <section className="service-page section">

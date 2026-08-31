@@ -77,9 +77,9 @@ function HomePage() {
           <StatsSection />
         </div>
         <LocationSection />
+        <FaqSection />
         <InstagramSection />
         <BlogSection />
-        <FaqSection />
       </main>
       <Footer />
     </>

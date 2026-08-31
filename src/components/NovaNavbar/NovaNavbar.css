@@ -143,11 +143,41 @@
   padding: 0 16px;
 }
 
+.nova__left {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 4px;
+}
+
 .nova__logo {
   display: flex;
   align-items: center;
   flex-shrink: 0;
   gap: 8px;
+}
+
+/* Back-to-services arrow — only rendered on service pages, replaces
+   the old in-hero "Back to Services" link so it stays reachable while
+   scrolled past the hero. */
+.nova__back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  margin-right: 2px;
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.75);
+  border-radius: 50%;
+  transition: color var(--duration-fast) var(--ease-standard),
+    background-color var(--duration-fast) var(--ease-standard);
+}
+
+.nova__back:hover {
+  color: var(--color-white);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .nova__logo-mark {
