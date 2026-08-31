@@ -3,12 +3,13 @@ import ppf2 from "../../assets/images/servicePages/ppf/ppf-2.jpeg";
 import ppf4 from "../../assets/images/servicePages/ppf/ppf-4.jpg";
 import ppf5 from "../../assets/images/servicePages/ppf/ppf-5.webp";
 import ppf6 from "../../assets/images/servicePages/ppf/ppf-6.webp";
-import ceramic3 from "../../assets/images/servicePages/ceramic-coating/ceramic-3.webp";
+import ppfCraftsmanship from "../../assets/images/servicePages/ppf/ppf-craftsmanship2.jpeg";
 
 export const ppfPage = {
   hero: {
     title: "Paint Protection Film.",
     copy: "Paint protection film applies a clear, self-healing layer over vulnerable panels, shielding the paint from stone chips, road debris and daily wear without changing its appearance.",
+    centered: true,
     titleNoWrap: true,
     image: heroImage,
     imageAlt: "Technicians installing paint protection film on a vehicle at Toronto Buffing",
@@ -26,8 +27,8 @@ export const ppfPage = {
       type: "feature-cards",
       cards: [
         {
-          image: ceramic3,
-          alt: "A technician applying ceramic coating to a Porsche at Toronto Buffing",
+          image: ppf2,
+          alt: "Detail work during a paint protection film installation at Toronto Buffing",
           title: "Precision Installation",
           body: "Every panel is carefully measured, cut, and installed to create seamless protection while preserving the original design of the vehicle.",
         },
@@ -47,10 +48,10 @@ export const ppfPage = {
     },
     {
       type: "banner",
-      image: ppf2,
-      alt: "Detail work during a paint protection film installation at Toronto Buffing",
-      imageWidth: 1188,
-      imageHeight: 2048,
+      image: ppfCraftsmanship,
+      alt: "A row of vehicles staged for detail work in the Toronto Buffing studio",
+      imageWidth: 1281,
+      imageHeight: 1998,
       overlay: "16+ Years Craftsmanship",
     },
     {

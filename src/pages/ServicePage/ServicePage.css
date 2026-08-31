@@ -105,6 +105,48 @@
   color: rgba(255, 255, 255, 0.78);
 }
 
+/* The hero is above the fold at load, so its title/copy get a plain
+   fade-up entrance on mount (title first, copy just after) rather
+   than the scroll-triggered .reveal-up used further down the page. */
+@keyframes service-hero-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.service-hero__title--reveal,
+.service-hero__copy--reveal {
+  animation: service-hero-reveal 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.service-hero__copy--reveal {
+  animation-delay: 160ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-hero__title--reveal,
+  .service-hero__copy--reveal {
+    animation: none;
+  }
+}
+
+/* Opt-in per page (hero.centered) — centers the whole hero content
+   block (title + description) as one unit in the middle of the
+   photo, instead of the default left-aligned composition. */
+.service-hero__inner--center {
+  text-align: center;
+}
+
+.service-hero__inner--center .service-hero__title,
+.service-hero__inner--center .service-hero__copy {
+  margin-inline: auto;
+}
+
 @media (min-width: 640px) {
   .service-hero__title {
     font-size: var(--fs-5xl);
@@ -151,18 +193,21 @@
 .service-reveal-intro__title,
 .service-reveal-intro__body {
   opacity: 0;
-  transform: translateY(28px);
   /* Opacity resolves quickly so dark text never lingers in a
      translucent "grey" phase; the transform keeps easing in well
      after that for the smooth upward glide. */
   transition: opacity 360ms ease-out, transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Eyebrow -> headline -> body land in sequence (matching the quote
+   section's intro-reveal cadence), each with its own subtle rise
+   rather than all three arriving in lockstep. */
 .service-reveal-intro__eyebrow {
   display: block;
   margin-bottom: var(--space-3);
   font-family: var(--font-sans-premium);
   color: var(--color-brand-blue);
+  transform: translateY(14px);
 }
 
 .service-reveal-intro__title {
@@ -173,7 +218,8 @@
   letter-spacing: 0.005em;
   text-transform: none;
   color: var(--color-black);
-  transition-delay: 90ms;
+  transform: translateY(28px);
+  transition-delay: 140ms;
 }
 
 .service-reveal-intro__body {
@@ -183,7 +229,12 @@
   font-size: var(--fs-lg);
   line-height: var(--lh-normal);
   color: var(--color-text-muted);
-  transition-delay: 90ms;
+  transform: translateY(16px);
+  transition-delay: 280ms;
+}
+
+.service-reveal-intro__list {
+  text-align: left;
 }
 
 .service-reveal-intro.is-visible .service-reveal-intro__eyebrow,
@@ -201,6 +252,30 @@
     transform: none;
     transition: none;
   }
+}
+
+/* Opt-in per section (reveal-intro.compact) — same eyebrow/title/body
+   reveal treatment, but a much smaller headline for a secondary
+   statement further down a page rather than the hero-scale opener. */
+.service-reveal-intro--compact .service-reveal-intro__title {
+  font-size: clamp(1.875rem, 4.5vw, 2.75rem);
+  line-height: 1.05;
+}
+
+/* A compact section's own list/note can be its last visible content
+   before an edge-to-edge banner (zero top padding of its own), so
+   give it real breathing room rather than the tight hero-flow gap. */
+.service-reveal-intro--compact {
+  padding-bottom: clamp(16px, 2vw, 24px);
+}
+
+.service-reveal-intro__note {
+  margin: var(--space-4) auto 0;
+  max-width: 52ch;
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-sm);
+  font-style: italic;
+  color: var(--color-text-faint);
 }
 
 /* ---- Feature cards — premium 3-up grid directly after the reveal
@@ -300,6 +375,33 @@
 
 @media (prefers-reduced-motion: reduce) {
   .service-feature-card__media img {
+    transition: none;
+  }
+}
+
+/* ---- Shared scroll-reveal utility — the same fade-up-on-scroll
+   treatment used across the site (quote section, reveal-intro):
+   hidden and offset until the ancestor section's useRevealOnView()
+   hook adds "is-visible", then a smooth fade + slight upward
+   settle. Drop this class on any heading/paragraph/item and pair it
+   with an inline transitionDelay for a subtle, staggered entrance —
+   no bespoke per-section reveal CSS needed. ---- */
+
+.reveal-up {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 420ms ease-out, transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.is-visible .reveal-up {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-up {
+    opacity: 1;
+    transform: none;
     transition: none;
   }
 }
@@ -838,35 +940,36 @@
 }
 
 .service-process__title {
-  margin: 0 0 var(--space-6);
-  font-family: var(--font-heading);
-  font-size: clamp(1.75rem, 4.5vw, 2.5rem);
-  letter-spacing: 0.02em;
+  margin: 0 0 var(--space-7);
+  font-family: var(--font-display-strong);
+  font-size: clamp(2.25rem, 5.5vw, 3.25rem);
+  letter-spacing: 0.005em;
+  text-transform: none;
   color: var(--color-white);
 }
 
 /* Scroll reveal — same decoupled opacity/transform timing as the
    reveal-intro above: opacity settles quickly, the upward glide
-   keeps easing a while after, staggered per step via inline delay. */
+   keeps easing a while after, staggered per step via inline delay.
+   The connector icon reveals separately via the shared .reveal-up
+   utility, since the connector wrapper itself now handles static
+   positioning (see below) rather than the reveal transform. */
 .service-process__title,
-.service-process__step,
-.service-process__connector {
+.service-process__step {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 320ms ease-out, transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .service-process.is-visible .service-process__title,
-.service-process.is-visible .service-process__step,
-.service-process.is-visible .service-process__connector {
+.service-process.is-visible .service-process__step {
   opacity: 1;
   transform: translateY(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .service-process__title,
-  .service-process__step,
-  .service-process__connector {
+  .service-process__step {
     opacity: 1;
     transform: none;
     transition: none;
@@ -874,10 +977,18 @@
 }
 
 .service-process__row {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-3);
+}
+
+/* The connecting line + arrow chips are desktop-only (see below) —
+   inert on mobile, where steps stack vertically and read as
+   connected simply by being adjacent in the flow. */
+.service-process__line {
+  display: none;
 }
 
 .service-process__step {
@@ -893,9 +1004,12 @@
    around a solid inner disc — reads as a gauge marker, not a plain
    outlined circle. The ring lives on ::before (not the wrapper
    itself) so it can rotate independently — the number inside stays
-   perfectly static instead of spinning with it. */
+   perfectly static instead of spinning with it. Tinted brand-blue and
+   given a slow breathing glow so it reads as this section's one
+   signature flourish, not just a step marker. */
 .service-process__circle {
   position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -903,7 +1017,7 @@
   flex-shrink: 0;
   width: 62px;
   height: 62px;
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-2);
   padding: 6px;
 }
 
@@ -911,7 +1025,7 @@
   content: "";
   position: absolute;
   inset: -2px;
-  border: 2px dashed rgba(255, 255, 255, 0.85);
+  border: 2px dashed rgba(122, 128, 184, 0.9);
   border-radius: 50%;
   animation: service-process-ring-spin 16s linear infinite, service-process-ring-pulse 3.6s ease-in-out infinite;
   animation-delay: var(--ring-delay, 0ms);
@@ -932,9 +1046,11 @@
   0%,
   100% {
     opacity: 0.55;
+    box-shadow: 0 0 0 0 rgba(122, 128, 184, 0);
   }
   50% {
-    opacity: 0.95;
+    opacity: 1;
+    box-shadow: 0 0 14px 1px rgba(122, 128, 184, 0.45);
   }
 }
 
@@ -960,25 +1076,32 @@
   color: var(--color-white);
 }
 
-.service-process__step-title {
-  margin: 0 0 var(--space-1);
-  font-family: var(--font-heading);
-  font-size: var(--fs-xl);
-  letter-spacing: 0.01em;
-  text-transform: none;
-  color: var(--color-white);
+.service-process__step-index {
+  display: block;
+  margin-bottom: 2px;
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent-on-dark);
 }
 
-.service-process__step-index {
-  color: var(--color-accent-on-dark);
+.service-process__step-title {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-display-strong);
+  font-size: clamp(1.375rem, 2.6vw, 1.625rem);
+  letter-spacing: 0.005em;
+  text-transform: none;
+  color: var(--color-white);
 }
 
 .service-process__step-body {
   margin: 0;
   font-family: var(--font-sans-premium);
   font-size: var(--fs-sm);
-  line-height: var(--lh-normal);
-  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.62);
 }
 
 .service-process__connector {
@@ -991,9 +1114,13 @@
   color: var(--color-accent-on-dark);
 }
 
-/* Rotated on the icon itself, not the connector wrapper — the
-   wrapper's own `transform` is reserved for the reveal animation. */
-.service-process__connector svg {
+.service-process__connector-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.service-process__connector-icon svg {
   transform: rotate(90deg);
 }
 
@@ -1007,6 +1134,32 @@
     align-items: flex-start;
     justify-content: center;
     gap: 0;
+  }
+
+  /* A thin line runs between the first and last circle's centers
+     (inset by half a step-width on each side), sitting behind the
+     circles so the connector chips read as markers directly on it —
+     one continuous journey rather than three floating nodes. */
+  .service-process__line {
+    display: block;
+    position: absolute;
+    top: 38px;
+    left: calc(50% / var(--step-count));
+    right: calc(50% / var(--step-count));
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(122, 128, 184, 0.55) 8%,
+      rgba(122, 128, 184, 0.55) 92%,
+      transparent
+    );
+    opacity: 0;
+    transition: opacity 700ms ease-out 300ms;
+  }
+
+  .service-process.is-visible .service-process__line {
+    opacity: 1;
   }
 
   .service-process__step {
@@ -1023,12 +1176,23 @@
     font-size: var(--fs-xl);
   }
 
+  /* Removed from flex flow and pinned directly to the line at the
+     boundary between the two steps it connects — a small marker
+     sitting naturally on the journey, not a floating icon in a gap. */
   .service-process__connector {
-    width: 72px;
-    height: 76px;
+    position: absolute;
+    top: 38px;
+    z-index: 1;
+    width: 28px;
+    height: 28px;
+    margin: 0;
+    transform: translate(-50%, -50%);
+    background: var(--color-black);
+    border: 1px solid rgba(122, 128, 184, 0.5);
+    border-radius: 50%;
   }
 
-  .service-process__connector svg {
+  .service-process__connector-icon svg {
     transform: none;
   }
 }
@@ -1222,6 +1386,27 @@
   }
 }
 
+/* ---- Video showcase — full-bleed, edge to edge, no container. The
+   video takes over the screen width like a real cinematic process
+   shot; object-fit: cover crops the portrait source's top/bottom as
+   needed rather than shrinking it to fit inside a card. No card, no
+   background stage, no text — just a scroll reveal fade-in like
+   every other section. ---- */
+
+.service-video__media {
+  display: block;
+  width: 100%;
+  height: min(80vh, 780px);
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (min-width: 1024px) {
+  .service-video__media {
+    height: min(85vh, 860px);
+  }
+}
+
 /* ---- Two-image editorial pairing (side by side / stacked) ---- */
 
 .service-two-image {
@@ -1255,40 +1440,57 @@
   }
 }
 
-/* ---- Editorial gallery — asymmetric staggered collage, not a basic
-   even grid. Positions are fixed per nth-child (up to 5 photos): one
-   large portrait, one smaller offset square, one full-width wide
-   shot, then a closing pair with a slight overlap for depth. Stacks
-   plainly on mobile. ---- */
+/* ---- Moving collection showcase — two continuously scrolling rows
+   of wide, short, rounded cards (row 1 left, row 2 right), the same
+   seamless-loop marquee technique as the homepage review strip.
+   Reads as a premium collection reel rather than a static gallery
+   grid — motion is the point, so cards don't also scroll-reveal. ---- */
 
 .service-gallery {
   background: var(--color-white);
+  padding-block: clamp(40px, 6vw, 64px);
 }
 
 .service-gallery .service-heading {
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-5);
 }
 
-.service-gallery__grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-5);
+.service-gallery__rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.service-gallery__row {
+  overflow: hidden;
+  width: 100%;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
+}
+
+.service-gallery__track {
+  display: flex;
+  align-items: stretch;
+  width: max-content;
+  gap: var(--space-4);
+  padding-inline: var(--space-4);
+  animation-name: service-gallery-scroll;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+.service-gallery__row[data-direction="right"] .service-gallery__track {
+  animation-direction: reverse;
 }
 
 .service-gallery__item {
-  aspect-ratio: 4 / 5;
+  flex: 0 0 auto;
+  width: 280px;
+  aspect-ratio: 3 / 2;
   overflow: hidden;
-  border-radius: 14px;
+  border-radius: 16px;
   background: var(--color-off-white);
-  box-shadow: 0 24px 60px -32px rgba(0, 0, 0, 0.3);
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 360ms ease-out, transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.service-gallery.is-visible .service-gallery__item {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .service-gallery__item img {
@@ -1296,57 +1498,40 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 900ms var(--ease-standard);
 }
 
-.service-gallery__item:hover img {
-  transform: scale(1.04);
+@keyframes service-gallery-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.service-gallery__row:hover .service-gallery__track {
+  animation-play-state: paused;
+}
+
+@media (min-width: 640px) {
+  .service-gallery__item {
+    width: 380px;
+  }
 }
 
 @media (min-width: 1024px) {
-  .service-gallery__grid {
-    grid-template-columns: repeat(12, 1fr);
-    grid-auto-rows: auto;
-    gap: var(--space-6);
+  .service-gallery__rows {
+    gap: var(--space-5);
   }
 
-  .service-gallery__item:nth-child(1) {
-    grid-column: 1 / 8;
-    aspect-ratio: 4 / 5;
-  }
-
-  .service-gallery__item:nth-child(2) {
-    grid-column: 8 / 13;
-    margin-top: 14%;
-    aspect-ratio: 1 / 1;
-  }
-
-  .service-gallery__item:nth-child(3) {
-    grid-column: 1 / 13;
-    aspect-ratio: 21 / 9;
-  }
-
-  .service-gallery__item:nth-child(4) {
-    grid-column: 1 / 6;
-    aspect-ratio: 4 / 3;
-  }
-
-  .service-gallery__item:nth-child(5) {
-    grid-column: 6 / 13;
-    margin-top: -6%;
-    aspect-ratio: 4 / 5;
+  .service-gallery__item {
+    width: 460px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .service-gallery__item {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-
-  .service-gallery__item img {
-    transition: none;
+  .service-gallery__track {
+    animation: none;
   }
 }
 
@@ -1459,6 +1644,10 @@
 .service-product-marquee__strip {
   overflow: hidden;
   width: 100%;
+  /* Fade the edges so products entering/exiting the loop dissolve
+     rather than getting hard-clipped by the strip's overflow. */
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
 }
 
 .service-product-marquee__track {
@@ -1475,7 +1664,7 @@
   align-items: center;
   justify-content: center;
   height: 88px;
-  margin-inline: var(--space-4);
+  margin-inline: var(--space-1);
 }
 
 .service-product-marquee__item img {
@@ -1497,15 +1686,7 @@
 @media (min-width: 768px) {
   .service-product-marquee__item {
     height: 112px;
-    margin-inline: var(--space-5);
-  }
-
-  /* Edge fade only above mobile — the extra compositing cost is
-     where mobile GPUs were struggling and causing the stutter/blank
-     flashes. */
-  .service-product-marquee__strip {
-    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    margin-inline: var(--space-3);
   }
 }
 

@@ -13,6 +13,7 @@ export const paintChipRepairPage = {
     imageAlt: "A green BMW marked with yellow chip-repair spots during preparation at Toronto Buffing",
     imageWidth: 1252,
     imageHeight: 2048,
+    centered: true,
   },
   sections: [
     {
@@ -63,8 +64,10 @@ export const paintChipRepairPage = {
       ],
     },
     {
-      type: "intro",
-      heading: "More Than A Touch-Up",
+      type: "reveal-intro",
+      compact: true,
+      eyebrow: "Our Philosophy",
+      heading: "More than a touch-up.",
       body: "Toronto Buffing does not use a simple “dab and walk away” approach. Our process includes:",
       list: [
         "Cleaning and decontamination",
@@ -84,15 +87,6 @@ export const paintChipRepairPage = {
       imageWidth: 947,
       imageHeight: 1840,
       overlay: "16+ Years Craftsmanship",
-    },
-    {
-      type: "intro",
-      heading: "When Chip Repair Makes Sense",
-      body: [
-        "Chip repair is best for isolated chips where the surrounding paint is still healthy.",
-        "If a panel has extensive chipping, chips larger than roughly a pencil eraser, peeling paint, microchipping or severe sandblasting, panel refinishing may be the better solution.",
-      ],
-      note: "Chip repair is not offered as a standalone booking. It must be combined with a larger service such as Paint Correction, PPF or Ceramic Coating.",
     },
     {
       type: "trust",

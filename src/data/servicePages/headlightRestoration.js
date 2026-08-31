@@ -1,18 +1,19 @@
 import hl1 from "../../assets/images/servicePages/headlight-restoration/hl-1.jpg";
 import hl2 from "../../assets/images/servicePages/headlight-restoration/hl-2.jpeg";
-import hl3 from "../../assets/images/servicePages/headlight-restoration/hl-3.jpeg";
+import hlBmwM4 from "../../assets/images/servicePages/headlight-restoration/hl-bmw-m4.jpg";
 import hlGtr from "../../assets/images/servicePages/headlight-restoration/hl-gtr.jpeg";
-import hlPorsche from "../../assets/images/servicePages/headlight-restoration/hl-porsche.jpg";
+import hlPorsche2 from "../../assets/images/servicePages/headlight-restoration/hl-porsche2.jpg";
 
 export const headlightRestorationPage = {
   hero: {
     title: "Headlight Restoration.",
     copy:
       "Hazy, yellowed headlights are almost always a surface problem, not a hardware one. Multi-stage wet sanding and polishing restore true clarity in hours, without a parts order.",
-    image: hlGtr,
-    imageAlt: "A Nissan Skyline GT-R's headlight masked off for restoration at Toronto Buffing",
-    imageWidth: 1279,
-    imageHeight: 1807,
+    image: hlBmwM4,
+    imageAlt: "A BMW M4 with its front bumper and headlight assembly removed at Toronto Buffing",
+    imageWidth: 1440,
+    imageHeight: 1800,
+    centered: true,
   },
   sections: [
     {
@@ -37,8 +38,8 @@ export const headlightRestorationPage = {
           body: "Progressive wet sanding and multi-stage polishing physically remove the damaged layer, not cover it up.",
         },
         {
-          image: hl3,
-          alt: "A pair of finished, crystal-clear headlight lenses at Toronto Buffing",
+          image: hlGtr,
+          alt: "A Nissan Skyline GT-R's headlight masked off for restoration at Toronto Buffing",
           title: "Crystal-Clear Results",
           body: "The result is clarity restored in hours, backed by a 2-year warranty against premature yellowing.",
         },
@@ -69,11 +70,8 @@ export const headlightRestorationPage = {
       body: "Toronto Buffing uses multi-stage wet sanding and polishing to physically remove the damaged exterior layer, rather than temporarily covering it with cheap sprays or DIY products.",
     },
     {
-      type: "banner",
-      image: hlPorsche,
-      alt: "A restored, crystal-clear Porsche headlight lens at Toronto Buffing",
-      imageWidth: 947,
-      imageHeight: 1840,
+      type: "video-showcase",
+      src: "/video/headlight-restoration-process.mp4",
     },
     {
       type: "checklist-grid",
@@ -83,23 +81,16 @@ export const headlightRestorationPage = {
     },
     {
       type: "banner",
-      image: hl2,
-      alt: "A restored, crystal-clear headlight lens reinstalled on a vehicle at Toronto Buffing",
-      imageWidth: 1277,
-      imageHeight: 1879,
+      image: hlPorsche2,
+      alt: "A restored, crystal-clear Porsche headlight lens at Toronto Buffing",
+      imageWidth: 947,
+      imageHeight: 1840,
     },
     {
       type: "trust",
       heading: "Warranty",
       body: "Our headlight restoration services include a 2-year warranty against premature yellowing.",
       points: ["**2-Year** warranty against premature yellowing"],
-    },
-    {
-      type: "banner",
-      image: hl3,
-      alt: "A pair of finished, crystal-clear headlight lenses at Toronto Buffing",
-      imageWidth: 1260,
-      imageHeight: 2048,
     },
   ],
   cta: {

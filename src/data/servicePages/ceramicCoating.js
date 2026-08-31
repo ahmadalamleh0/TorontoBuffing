@@ -1,8 +1,8 @@
 import ceramic2 from "../../assets/images/servicePages/ceramic-coating/ceramic-2.jpg";
+import ccRolls from "../../assets/images/servicePages/ceramic-coating/cc-rolls.jpg";
 import ceramic4 from "../../assets/images/servicePages/ceramic-coating/ceramic-4.jpeg";
 import ceramic6 from "../../assets/images/servicePages/ceramic-coating/ceramic-6.jpg";
 import ceramic7 from "../../assets/images/servicePages/ceramic-coating/ceramic-7.jpg";
-import ceramic8 from "../../assets/images/servicePages/ceramic-coating/ceramic-8.jpg";
 import product1 from "../../assets/images/servicePages/ceramic-coating/products/product-1.webp";
 import product2 from "../../assets/images/servicePages/ceramic-coating/products/product-2.webp";
 import product3 from "../../assets/images/servicePages/ceramic-coating/products/product-3.webp";
@@ -18,6 +18,7 @@ export const ceramicCoatingPage = {
     imageAlt: "Two finished Porsche 911 GT3s in the Toronto Buffing studio",
     imageWidth: 1290,
     imageHeight: 1720,
+    centered: true,
   },
   sections: [
     {
@@ -30,8 +31,8 @@ export const ceramicCoatingPage = {
       type: "feature-cards",
       cards: [
         {
-          image: ceramic8,
-          alt: "A close-up of a glossy black sedan's rear fender and wheel after ceramic coating at Toronto Buffing",
+          image: ccRolls,
+          alt: "A purple Rolls-Royce Wraith with a glossy ceramic-coated finish at Toronto Buffing",
           title: "Correction Comes First",
           body: "Every coating goes on paint that has already been corrected to the right level. Protection is never used to lock in existing defects.",
         },
@@ -88,7 +89,6 @@ export const ceramicCoatingPage = {
           body: "Reduces daily wear and keeps the surface easier to maintain over time.",
         },
       ],
-      note: "Ceramic coating does not protect against physical rock-chip impacts the way PPF does.",
     },
     {
       type: "banner",

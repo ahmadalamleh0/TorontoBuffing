@@ -41,11 +41,13 @@ function useRevealOnView() {
 // quiet card body. No CTA: this is a statement of process/
 // craftsmanship, not a conversion point.
 function FeatureCardsSection({ section }) {
+  const ref = useRevealOnView();
+
   return (
-    <section className="service-feature-cards section">
+    <section className="service-feature-cards section" ref={ref}>
       <div className="container service-feature-cards__grid">
-        {section.cards.map((card) => (
-          <div className="service-feature-card" key={card.title}>
+        {section.cards.map((card, i) => (
+          <div className="service-feature-card reveal-up" style={{ transitionDelay: `${i * 100}ms` }} key={card.title}>
             <div className="service-feature-card__media">
               <img src={card.image} alt={card.alt ?? ""} loading="lazy" />
             </div>
@@ -75,11 +77,13 @@ export function ServiceHero({ hero }) {
         />
         <div className="service-hero__scrim" aria-hidden="true" />
       </div>
-      <div className="container service-hero__inner">
-        <h1 className={`service-hero__title${hero.titleNoWrap ? " service-hero__title--nowrap" : ""}`}>
+      <div className={`container service-hero__inner${hero.centered ? " service-hero__inner--center" : ""}`}>
+        <h1
+          className={`service-hero__title service-hero__title--reveal${hero.titleNoWrap ? " service-hero__title--nowrap" : ""}`}
+        >
           {hero.title}
         </h1>
-        <p className="service-hero__copy">{hero.copy}</p>
+        <p className="service-hero__copy service-hero__copy--reveal">{hero.copy}</p>
       </div>
     </section>
   );
@@ -92,11 +96,32 @@ function RevealIntroSection({ section }) {
   const ref = useRevealOnView();
 
   return (
-    <section className="service-reveal-intro" ref={ref}>
+    <section className={`service-reveal-intro${section.compact ? " service-reveal-intro--compact" : ""}`} ref={ref}>
       <div className="container service-reveal-intro__inner">
         <span className="eyebrow service-reveal-intro__eyebrow">{section.eyebrow}</span>
         <h2 className="service-reveal-intro__title">{section.heading}</h2>
         <p className="service-reveal-intro__body">{section.body}</p>
+        {section.list && (
+          <ul className="service-checklist service-reveal-intro__list">
+            {section.list.map((item, i) => (
+              <li
+                key={item}
+                className="service-checklist__item reveal-up"
+                style={{ transitionDelay: `${220 + i * 40}ms` }}
+              >
+                <span className="service-checklist__icon" aria-hidden="true">
+                  <CheckIcon />
+                </span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        )}
+        {section.note && (
+          <p className="service-reveal-intro__note reveal-up" style={{ transitionDelay: "340ms" }}>
+            {section.note}
+          </p>
+        )}
       </div>
     </section>
   );
@@ -151,25 +176,34 @@ function ApproachSection({ section }) {
 }
 
 function IntroSection({ section }) {
+  const ref = useRevealOnView();
   const paragraphs = Array.isArray(section.body) ? section.body : [section.body];
 
   return (
-    <section className="service-intro section">
+    <section className="service-intro section" ref={ref}>
       <div className="container service-intro__inner">
-        <h2 className="service-heading">{section.heading}</h2>
+        <h2 className="service-heading reveal-up">{section.heading}</h2>
 
-        {section.quote && <p className="service-intro__quote">{section.quote}</p>}
+        {section.quote && (
+          <p className="service-intro__quote reveal-up" style={{ transitionDelay: "120ms" }}>
+            {section.quote}
+          </p>
+        )}
 
         {paragraphs.map((p, i) => (
-          <p className="service-intro__body" key={i}>
+          <p className="service-intro__body reveal-up" style={{ transitionDelay: `${140 + i * 60}ms` }} key={i}>
             {p}
           </p>
         ))}
 
         {section.list && (
           <ul className="service-checklist">
-            {section.list.map((item) => (
-              <li key={item} className="service-checklist__item">
+            {section.list.map((item, i) => (
+              <li
+                key={item}
+                className="service-checklist__item reveal-up"
+                style={{ transitionDelay: `${220 + i * 40}ms` }}
+              >
                 <span className="service-checklist__icon" aria-hidden="true">
                   <CheckIcon />
                 </span>
@@ -179,28 +213,38 @@ function IntroSection({ section }) {
           </ul>
         )}
 
-        {section.note && <p className="service-intro__note">{section.note}</p>}
+        {section.note && (
+          <p className="service-intro__note reveal-up" style={{ transitionDelay: "260ms" }}>
+            {section.note}
+          </p>
+        )}
       </div>
     </section>
   );
 }
 
 function ChecklistGridSection({ section }) {
+  const ref = useRevealOnView();
+
   return (
-    <section className="service-grid-section section">
+    <section className="service-grid-section section" ref={ref}>
       <div className="container">
-        <h2 className="service-heading service-heading--center">{section.heading}</h2>
+        <h2 className="service-heading service-heading--center reveal-up">{section.heading}</h2>
 
         <div className="service-tag-grid">
-          {section.items.map((item) => (
-            <span className="service-tag" key={item}>
+          {section.items.map((item, i) => (
+            <span className="service-tag reveal-up" style={{ transitionDelay: `${120 + i * 40}ms` }} key={item}>
               <CheckIcon />
               {item}
             </span>
           ))}
         </div>
 
-        {section.note && <p className="service-grid-section__note">{section.note}</p>}
+        {section.note && (
+          <p className="service-grid-section__note reveal-up" style={{ transitionDelay: "260ms" }}>
+            {section.note}
+          </p>
+        )}
       </div>
     </section>
   );
@@ -264,14 +308,22 @@ function TextListSection({ section }) {
 // a short paragraph, divided by hairlines. Used where levels/tiers
 // need real explanation, not just a tag grid.
 function StageListSection({ section }) {
+  const ref = useRevealOnView();
+
   return (
-    <section className="service-stage-list section">
+    <section className="service-stage-list section" ref={ref}>
       <div className="container service-stage-list__inner">
-        {section.heading && <h2 className="service-heading service-heading--center">{section.heading}</h2>}
+        {section.heading && (
+          <h2 className="service-heading service-heading--center reveal-up">{section.heading}</h2>
+        )}
 
         <div className="service-stage-list__items">
           {section.stages.map((stage, i) => (
-            <div className="service-stage-list__item" key={stage.title}>
+            <div
+              className="service-stage-list__item reveal-up"
+              style={{ transitionDelay: `${120 + i * 100}ms` }}
+              key={stage.title}
+            >
               <h3 className="service-stage-list__item-title">
                 <span className="service-stage-list__item-num">Stage {i + 1}</span> &mdash; {stage.title}
               </h3>
@@ -285,14 +337,16 @@ function StageListSection({ section }) {
 }
 
 function StepsSection({ section }) {
+  const ref = useRevealOnView();
+
   return (
-    <section className="service-steps-section section">
+    <section className="service-steps-section section" ref={ref}>
       <div className="container">
-        <h2 className="service-heading service-heading--center">{section.heading}</h2>
+        <h2 className="service-heading service-heading--center reveal-up">{section.heading}</h2>
 
         <ol className="service-steps">
           {section.steps.map((step, i) => (
-            <li className="service-steps__item" key={i}>
+            <li className="service-steps__item reveal-up" style={{ transitionDelay: `${120 + i * 90}ms` }} key={i}>
               <span className="service-steps__number">{String(i + 1).padStart(2, "0")}</span>
               <span className="service-steps__text">{step}</span>
             </li>
@@ -303,15 +357,13 @@ function StepsSection({ section }) {
   );
 }
 
-// Gentle curved arrow linking one process step to the next — a
-// symmetric arc (level start/end, centered peak) with an unambiguous
-// chevron right at the tip, so it sits naturally on the circles' own
-// centerline and clearly points into the next node.
+// A single clean chevron — no curve. Sits directly on the connecting
+// line between two circles, marking direction without pretending to
+// be its own decorative arc.
 function ProcessArrowIcon() {
   return (
-    <svg width="48" height="20" viewBox="0 0 48 20" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M2 11c14-6 30-6 40 0" />
-      <path d="M34 5.5c3 1.5 5.5 3 8 5.5-2.5 2.5-5 4-8 5.5" />
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M5 2 10 7 5 12" />
     </svg>
   );
 }
@@ -330,12 +382,22 @@ function ProcessSection({ section }) {
       <div className="container service-process__inner">
         <h2 className="service-process__title">{section.heading}</h2>
 
-        <div className="service-process__row">
+        <div
+          className="service-process__row"
+          style={{ "--step-count": section.steps.length }}
+        >
+          <span className="service-process__line" aria-hidden="true" />
           {section.steps.map((step, i) => (
             <Fragment key={step.title}>
               {i > 0 && (
-                <span className="service-process__connector" aria-hidden="true" style={{ transitionDelay: `${i * 140 + 60}ms` }}>
-                  <ProcessArrowIcon />
+                <span
+                  className="service-process__connector"
+                  aria-hidden="true"
+                  style={{ left: `${(i / section.steps.length) * 100}%` }}
+                >
+                  <span className="service-process__connector-icon reveal-up" style={{ transitionDelay: `${i * 140 + 60}ms` }}>
+                    <ProcessArrowIcon />
+                  </span>
                 </span>
               )}
               <div className="service-process__step" style={{ transitionDelay: `${i * 140}ms` }}>
@@ -346,9 +408,8 @@ function ProcessSection({ section }) {
                 >
                   <span className="service-process__circle-inner">{String(i + 1).padStart(2, "0")}</span>
                 </span>
-                <h3 className="service-process__step-title">
-                  <span className="service-process__step-index">{String(i + 1).padStart(2, "0")} &mdash;</span> {step.title}
-                </h3>
+                <span className="service-process__step-index">Step {String(i + 1).padStart(2, "0")}</span>
+                <h3 className="service-process__step-title">{step.title}</h3>
                 <p className="service-process__step-body">{step.body}</p>
               </div>
             </Fragment>
@@ -360,37 +421,55 @@ function ProcessSection({ section }) {
 }
 
 function BrandsSection({ section }) {
+  const ref = useRevealOnView();
+
   return (
-    <section className="service-brands-section section">
+    <section className="service-brands-section section" ref={ref}>
       <div className="container service-brands-section__inner">
-        <h2 className="service-heading service-heading--center">{section.heading}</h2>
-        {section.body && <p className="service-intro__body service-intro__body--center">{section.body}</p>}
+        <h2 className="service-heading service-heading--center reveal-up">{section.heading}</h2>
+        {section.body && (
+          <p className="service-intro__body service-intro__body--center reveal-up" style={{ transitionDelay: "100ms" }}>
+            {section.body}
+          </p>
+        )}
 
         <div className="service-brand-strip">
-          {section.brands.map((brand) => (
-            <span className="service-brand" key={brand.name}>
+          {section.brands.map((brand, i) => (
+            <span className="service-brand reveal-up" style={{ transitionDelay: `${180 + i * 40}ms` }} key={brand.name}>
               {brand.logo ? <img src={brand.logo} alt={brand.name} loading="lazy" /> : brand.name}
             </span>
           ))}
         </div>
 
-        {section.highlight && <p className="service-brands-section__highlight">{section.highlight}</p>}
+        {section.highlight && (
+          <p className="service-brands-section__highlight reveal-up" style={{ transitionDelay: "300ms" }}>
+            {section.highlight}
+          </p>
+        )}
       </div>
     </section>
   );
 }
 
 function TrustSection({ section }) {
+  const ref = useRevealOnView();
+
   return (
-    <section className="service-trust-section section">
+    <section className="service-trust-section section" ref={ref}>
       <div className="container service-trust-section__inner">
-        <h2 className="service-heading service-heading--center">{section.heading}</h2>
-        <p className="service-intro__body service-intro__body--center">{section.body}</p>
+        <h2 className="service-heading service-heading--center reveal-up">{section.heading}</h2>
+        <p className="service-intro__body service-intro__body--center reveal-up" style={{ transitionDelay: "100ms" }}>
+          {section.body}
+        </p>
 
         {section.points && (
           <div className="service-trust-points">
-            {section.points.map((point) => (
-              <span className="service-trust-points__item" key={point}>
+            {section.points.map((point, i) => (
+              <span
+                className="service-trust-points__item reveal-up"
+                style={{ transitionDelay: `${200 + i * 60}ms` }}
+                key={point}
+              >
                 {renderBoldedText(point)}
               </span>
             ))}
@@ -402,6 +481,7 @@ function TrustSection({ section }) {
 }
 
 function BannerSection({ section }) {
+  const ref = useRevealOnView();
   const classes = [
     "service-banner",
     section.fit === "contain" && "service-banner--contain",
@@ -412,7 +492,7 @@ function BannerSection({ section }) {
     .join(" ");
 
   return (
-    <section className={classes}>
+    <section className={classes} ref={section.overlay ? ref : undefined}>
       <img
         src={section.image}
         alt={section.alt ?? ""}
@@ -422,10 +502,36 @@ function BannerSection({ section }) {
       />
       {section.overlay && (
         <div className="service-banner__overlay">
-          <span className="service-banner__overlay-rule" aria-hidden="true" />
-          <span className="service-banner__overlay-text">{section.overlay}</span>
+          <span className="service-banner__overlay-rule reveal-up" aria-hidden="true" />
+          <span className="service-banner__overlay-text reveal-up" style={{ transitionDelay: "100ms" }}>
+            {section.overlay}
+          </span>
         </div>
       )}
+    </section>
+  );
+}
+
+// The video is the content — full-bleed, edge to edge, cropped to
+// fill the screen width like a real automotive showcase reel. No
+// container, no card, no overlay, no text. Just a scroll reveal
+// fade-in, same as every other section.
+function VideoShowcaseSection({ section }) {
+  const ref = useRevealOnView();
+
+  return (
+    <section className="service-video" ref={ref}>
+      <video
+        className="service-video__media reveal-up"
+        src={section.src}
+        autoPlay
+        muted
+        loop
+        playsInline
+        controls={false}
+        preload="metadata"
+        aria-hidden="true"
+      />
     </section>
   );
 }
@@ -447,25 +553,54 @@ function TwoImageSection({ section }) {
   );
 }
 
-// Editorial gallery — an asymmetric, staggered collage (fixed
-// large/small/wide/offset positions per nth-child, up to 5 photos)
-// rather than a basic even grid. Reads as a curated showcase of a
-// restoration's journey, each photo fading/rising into place as it's
-// scrolled into view.
+// Same seamless-loop technique as the homepage review marquee:
+// repeat the row's photos until one copy comfortably exceeds any
+// viewport, render that copy twice back-to-back, animate
+// translateX(-50%) — no gaps, no snapping, no per-frame JS.
+function buildGalleryLoop(images) {
+  const repeat = Math.max(1, Math.ceil(8 / images.length));
+  return Array.from({ length: repeat }, () => images).flat();
+}
+
+function GalleryRow({ images, direction, speedSeconds }) {
+  const loop = buildGalleryLoop(images);
+
+  return (
+    <div className="service-gallery__row" data-direction={direction}>
+      <div className="service-gallery__track" style={{ animationDuration: `${speedSeconds}s` }}>
+        {[0, 1].map((copy) =>
+          loop.map((img, i) => (
+            <div className="service-gallery__item" key={`${copy}-${i}`}>
+              <img src={img.src} alt={img.alt ?? ""} loading="lazy" />
+            </div>
+          )),
+        )}
+      </div>
+    </div>
+  );
+}
+
+// Premium moving collection showcase — two continuously scrolling
+// rows of wide, short, rounded cards (row 1 left, row 2 right),
+// rather than a static grid. Reads as a curated reel of the
+// restoration journey, not a normal image gallery.
 function GallerySection({ section }) {
   const ref = useRevealOnView();
+  const images = section.images;
+  const mid = Math.ceil(images.length / 2);
+  const row1 = images.slice(0, mid);
+  const row2 = images.slice(mid).length ? images.slice(mid) : row1;
 
   return (
     <section className="service-gallery section" ref={ref}>
       <div className="container">
-        {section.heading && <h2 className="service-heading service-heading--center">{section.heading}</h2>}
-        <div className="service-gallery__grid">
-          {section.images.map((img, i) => (
-            <div className="service-gallery__item" style={{ transitionDelay: `${i * 110}ms` }} key={img.alt}>
-              <img src={img.src} alt={img.alt ?? ""} loading="lazy" />
-            </div>
-          ))}
-        </div>
+        {section.heading && (
+          <h2 className="service-heading service-heading--center reveal-up">{section.heading}</h2>
+        )}
+      </div>
+      <div className="service-gallery__rows">
+        <GalleryRow images={row1} direction="left" speedSeconds={38} />
+        <GalleryRow images={row2} direction="right" speedSeconds={34} />
       </div>
     </section>
   );
@@ -477,10 +612,14 @@ function GallerySection({ section }) {
 // SelectedWorkSection's vehicle-tag treatment: small, uppercase,
 // text-shadow only, no background chip.
 function BeforeAfterSection({ section }) {
+  const ref = useRevealOnView();
+
   return (
-    <section className="service-before-after section">
+    <section className="service-before-after section" ref={ref}>
       <div className="container">
-        {section.heading && <h2 className="service-heading service-heading--center">{section.heading}</h2>}
+        {section.heading && (
+          <h2 className="service-heading service-heading--center reveal-up">{section.heading}</h2>
+        )}
         <BeforeAfterSlider before={section.before} after={section.after} />
       </div>
     </section>
@@ -526,6 +665,7 @@ const SECTION_COMPONENTS = {
   brands: BrandsSection,
   trust: TrustSection,
   banner: BannerSection,
+  "video-showcase": VideoShowcaseSection,
   "two-image": TwoImageSection,
   gallery: GallerySection,
   "before-after": BeforeAfterSection,

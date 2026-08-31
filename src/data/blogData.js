@@ -1,6 +1,6 @@
 import ppfVsCeramicImage from "../assets/images/services/blog-ppf-vs-ceramic.jpg";
 import paintCorrectionBlogImage from "../assets/images/services/blog-paint-correction.jpg";
-import protectNewCarImage from "../assets/images/services/blog-protect-new-car.jpg";
+import protectNewCarImage from "../assets/images/services/blog-protect-new-car-v2.png";
 
 /**
  * Lightweight starter posts for the homepage's "Latest Insights"
@@ -74,7 +74,7 @@ export const BLOG_POSTS = [
     excerpt:
       "The best time to protect paint is before it's damaged. Here's how PPF, ceramic coating and basic washing habits fit together on a new vehicle.",
     image: protectNewCarImage,
-    imageAlt: "A grey BMW M4 prepped for paint protection work at Toronto Buffing",
+    imageAlt: "A two-tone black and white Mercedes-Maybach freshly detailed at Toronto Buffing",
     body: [
       {
         heading: "Protect before damage happens",

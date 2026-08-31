@@ -15,6 +15,7 @@ export const panelRefinishingPage = {
     imageAlt: "A vehicle masked and prepped for paint refinishing in the Toronto Buffing spray booth",
     imageWidth: 1200,
     imageHeight: 1600,
+    centered: true,
   },
   sections: [
     {
@@ -33,14 +34,14 @@ export const panelRefinishingPage = {
           body: "Every panel is assessed to confirm refinishing, not correction, is the right call before any work begins.",
         },
         {
-          image: pr3,
-          alt: "A bumper in primer, prepped for panel refinishing at Toronto Buffing",
+          image: pr5,
+          alt: "A rear bumper removed for panel refinishing at Toronto Buffing",
           title: "Factory-Matched Refinishing",
           body: "Panels are properly repaired, primed and colour-matched for a finish that reads as factory, not repaired.",
         },
         {
-          image: pr5,
-          alt: "A rear bumper removed for panel refinishing at Toronto Buffing",
+          image: pr3,
+          alt: "A bumper in primer, prepped for panel refinishing at Toronto Buffing",
           title: "Wet Sanded & Polished",
           body: "Freshly refinished panels are wet sanded and polished to match the texture and gloss of the surrounding paint.",
         },
@@ -71,9 +72,11 @@ export const panelRefinishingPage = {
       after: { src: pr1, alt: "A freshly refinished rear bumper finished at Toronto Buffing" },
     },
     {
-      type: "intro",
-      heading: "Do It Right The First Time",
-      body: "Toronto Buffing’s philosophy is to avoid the shortcuts often found in poor repaint work. Our process can involve:",
+      type: "reveal-intro",
+      compact: true,
+      eyebrow: "Our Philosophy",
+      heading: "Do it right the first time.",
+      body: "Toronto Buffing avoids the shortcuts often found in poor repaint work. Our process can involve:",
       list: [
         "Panel and accessory removal when required",
         "Proper repair of underlying damage",

@@ -1,21 +1,22 @@
-import heroImage from "../../assets/images/servicePages/paint-correction/pc-1.jpeg";
+import pcHero from "../../assets/images/servicePages/paint-correction/pc-hero.jpeg";
 import pc3 from "../../assets/images/servicePages/paint-correction/pc-3.webp";
 import pc4 from "../../assets/images/servicePages/paint-correction/pc-4.jpeg";
 import pc9 from "../../assets/images/servicePages/paint-correction/pc-9.jpg";
 import pcBefore from "../../assets/images/servicePages/paint-correction/pc-1-after.jpg";
 import pcAfter from "../../assets/images/servicePages/paint-correction/pc-1-before.jpg";
+import pcBefore2 from "../../assets/images/servicePages/paint-correction/pc-before2.jpeg";
+import pcAfter2 from "../../assets/images/servicePages/paint-correction/pc-after2.jpeg";
 import garageBanner from "../../assets/images/banner/garage-showcase.jpg";
-import pcCraftsmanship from "../../assets/images/servicePages/paint-correction/pc-craftsmanship.jpeg";
 
 export const paintCorrectionPage = {
   hero: {
     title: "Paint Correction.",
-    copy:
-      "Paint correction uses machine polishing to physically cut away swirl marks, haze and light scratches, restoring the paint's true depth and clarity rather than masking the damage.",
-    image: heroImage,
-    imageAlt: "Vehicles staged in the Toronto Buffing studio ahead of paint correction",
-    imageWidth: 1281,
-    imageHeight: 1998,
+    copy: "Paint correction uses machine polishing to cut away swirl marks and haze, restoring the paint's true depth and clarity.",
+    centered: true,
+    image: pcHero,
+    imageAlt: "A technician machine-polishing swirl marks out of a BMW's trunk lid at Toronto Buffing",
+    imageWidth: 1284,
+    imageHeight: 2014,
   },
   sections: [
     {
@@ -112,12 +113,9 @@ export const paintCorrectionPage = {
       after: { src: pcAfter, alt: "The same panel after paint correction, with a clear, glossy reflection" },
     },
     {
-      type: "banner",
-      image: pcCraftsmanship,
-      alt: "Masked-off swirl marks being polished out during paint correction at Toronto Buffing",
-      imageWidth: 1240,
-      imageHeight: 2048,
-      fit: "boxed",
+      type: "before-after",
+      before: { src: pcBefore2, alt: "A swirl-marked panel under work lights before paint correction" },
+      after: { src: pcAfter2, alt: "The same panel after paint correction, with a clear, swirl-free reflection" },
     },
   ],
   cta: {
