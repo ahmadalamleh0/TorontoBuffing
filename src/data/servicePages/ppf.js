@@ -3,13 +3,13 @@ import ppf2 from "../../assets/images/servicePages/ppf/ppf-2.jpeg";
 import ppf4 from "../../assets/images/servicePages/ppf/ppf-4.jpg";
 import ppf5 from "../../assets/images/servicePages/ppf/ppf-5.webp";
 import ppf6 from "../../assets/images/servicePages/ppf/ppf-6.webp";
-import ppfInstallShowcase from "../../assets/images/services/ppf.jpg";
+import ceramic3 from "../../assets/images/servicePages/ceramic-coating/ceramic-3.webp";
 
 export const ppfPage = {
   hero: {
     title: "Paint Protection Film.",
-    copy:
-      "Protection without changing the character of the car. Premium PPF creates an invisible barrier against stone chips, road debris and daily wear while preserving the depth and finish of the paint beneath it.",
+    copy: "Paint protection film applies a clear, self-healing layer over vulnerable panels, shielding the paint from stone chips, road debris and daily wear without changing its appearance.",
+    titleNoWrap: true,
     image: heroImage,
     imageAlt: "Technicians installing paint protection film on a vehicle at Toronto Buffing",
     imageWidth: 1278,
@@ -19,15 +19,15 @@ export const ppfPage = {
     {
       type: "reveal-intro",
       eyebrow: "Paint Protection Film",
-      heading: "Invisible protection built for the road ahead.",
-      body: "Premium PPF creates a durable, self-healing barrier that protects the vehicle's finish while preserving its original appearance.",
+      heading: "Protected paint, untouched appearance.",
+      body: "Precision-cut and hand-finished, every panel is wrapped to disappear into the factory line, so the protection never announces itself.",
     },
     {
       type: "feature-cards",
       cards: [
         {
-          image: ppfInstallShowcase,
-          alt: "A technician carefully applying paint protection film to a BMW M4 at Toronto Buffing",
+          image: ceramic3,
+          alt: "A technician applying ceramic coating to a Porsche at Toronto Buffing",
           title: "Precision Installation",
           body: "Every panel is carefully measured, cut, and installed to create seamless protection while preserving the original design of the vehicle.",
         },
@@ -46,25 +46,24 @@ export const ppfPage = {
       ],
     },
     {
-      type: "intro",
-      heading: "The Toronto Buffing Approach",
-      body: "What sets our installations apart:",
-      list: [
-        "Veteran PPF installation experience",
-        "Bulk installations with wrapped and tucked edges",
-        "Paint defects repaired before film is installed",
-        "Licensed autobody technicians available for disassembly when required",
-        "Minimal use of primers and adhesion promoters",
-        "Strict quality control",
-        "Mandatory complimentary 2-week inspection after installation",
-      ],
-    },
-    {
       type: "banner",
       image: ppf2,
       alt: "Detail work during a paint protection film installation at Toronto Buffing",
       imageWidth: 1188,
       imageHeight: 2048,
+      overlay: "16+ Years Craftsmanship",
+    },
+    {
+      type: "approach",
+      eyebrow: "The Toronto Buffing Approach",
+      heading: ["Built different.", "Installed right."],
+      body: "What sets our installations apart: the process, the standards, and the care in every detail.",
+      items: [
+        { text: "**Veteran** PPF installation experience" },
+        { text: "**Bulk** installations with **wrapped and tucked edges**" },
+        { text: "**Minimal use** of primers and adhesion promoters" },
+        { text: "Mandatory complimentary **2-week inspection** after installation" },
+      ],
     },
     {
       type: "process",
@@ -89,9 +88,9 @@ export const ppfPage = {
       heading: "Warranty & Trust",
       body: "Our films carry a minimum 10-year material warranty, backed by Toronto Buffing's own in-house workmanship guarantee.",
       points: [
-        "10-Year minimum material warranty",
+        "**10-Year** minimum material warranty",
         "In-house workmanship guarantee",
-        "Complimentary 2-week post-install inspection",
+        "Complimentary **2-week** post-install inspection",
       ],
     },
     {

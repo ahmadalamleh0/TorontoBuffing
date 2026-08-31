@@ -11,7 +11,7 @@ export const classicRestorationPage = {
   hero: {
     title: "Classic Restoration.",
     copy:
-      "Some cars aren't just driven. They're preserved. Every classic gets a plan built around its original paint, not a standard package built around ours.",
+      "Classic restoration corrects decades of wear and prior workmanship while preserving as much of the vehicle's original paint as possible, with a plan built around its actual condition.",
     image: classic7,
     imageAlt: "Detail of a restored Chevrolet Corvette Sting Ray's rear end",
     imageWidth: 1280,
@@ -21,8 +21,8 @@ export const classicRestorationPage = {
     {
       type: "reveal-intro",
       eyebrow: "Classic Restoration",
-      heading: "A plan built around the paint, not a package.",
-      body: "Every classic is preserved on its own terms. Decades of wear and prior workmanship are corrected while keeping as much original paint intact as possible.",
+      heading: "Some cars aren't just driven. They're preserved.",
+      body: "Every classic gets the patience, respect, and time it takes to protect a finish decades in the making.",
     },
     {
       type: "feature-cards",

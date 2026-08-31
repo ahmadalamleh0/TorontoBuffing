@@ -10,7 +10,7 @@ export const panelRefinishingPage = {
   hero: {
     title: "Panel Refinishing.",
     copy:
-      "When correction has reached its limit, refinishing picks up where it stops. A properly matched, factory-level finish, not a patch that reads as one.",
+      "When correction can no longer fix the damage, panel refinishing restores it. Damaged areas are properly repaired, primed and colour-matched back to a true factory-level finish.",
     image: heroImage,
     imageAlt: "A vehicle masked and prepped for paint refinishing in the Toronto Buffing spray booth",
     imageWidth: 1200,
@@ -20,8 +20,8 @@ export const panelRefinishingPage = {
     {
       type: "reveal-intro",
       eyebrow: "Panel Refinishing",
-      heading: "A factory-level finish, not a patch that reads as one.",
-      body: "When correction has reached its limit, refinishing picks up where it stops. Matched, blended and finished to disappear seamlessly into the surrounding paint.",
+      heading: "A factory finish, not a repair.",
+      body: "Every panel is carefully matched, blended, and refined to restore a seamless finish that looks like it was never touched.",
     },
     {
       type: "feature-cards",
@@ -65,11 +65,6 @@ export const panelRefinishingPage = {
       ],
     },
     {
-      type: "intro",
-      heading: "When Correction Isn’t Enough",
-      body: "Panel refinishing is recommended for damage that has gone through the clearcoat, extensive stone chipping, peeling paint, severe scratches, or areas where the existing finish can no longer be safely corrected.",
-    },
-    {
       type: "before-after",
       heading: "The Difference Refinishing Makes",
       before: { src: pr2, alt: "Damage and wear on a vehicle's rear bumper before panel refinishing" },
@@ -95,6 +90,7 @@ export const panelRefinishingPage = {
       alt: "Freshly finished vehicles in the Toronto Buffing studio",
       imageWidth: 1440,
       imageHeight: 1800,
+      overlay: "16+ Years Craftsmanship",
     },
   ],
   cta: {

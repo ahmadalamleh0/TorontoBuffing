@@ -1,24 +1,25 @@
-import heroImage from "../../assets/images/services/headlight-restoration.jpg";
 import hl1 from "../../assets/images/servicePages/headlight-restoration/hl-1.jpg";
 import hl2 from "../../assets/images/servicePages/headlight-restoration/hl-2.jpeg";
 import hl3 from "../../assets/images/servicePages/headlight-restoration/hl-3.jpeg";
+import hlGtr from "../../assets/images/servicePages/headlight-restoration/hl-gtr.jpeg";
+import hlPorsche from "../../assets/images/servicePages/headlight-restoration/hl-porsche.jpg";
 
 export const headlightRestorationPage = {
   hero: {
     title: "Headlight Restoration.",
     copy:
-      "Clarity restored, not replaced. Hazy, yellowed lenses are almost always a finish problem, not a hardware problem, solved in hours, without a parts order.",
-    image: heroImage,
-    imageAlt: "A hazy headlight lens being machine-polished during restoration at Toronto Buffing",
-    imageWidth: 861,
-    imageHeight: 950,
+      "Hazy, yellowed headlights are almost always a surface problem, not a hardware one. Multi-stage wet sanding and polishing restore true clarity in hours, without a parts order.",
+    image: hlGtr,
+    imageAlt: "A Nissan Skyline GT-R's headlight masked off for restoration at Toronto Buffing",
+    imageWidth: 1279,
+    imageHeight: 1807,
   },
   sections: [
     {
       type: "reveal-intro",
       eyebrow: "Headlight Restoration",
-      heading: "Clarity restored in hours, not replaced with parts.",
-      body: "Hazy, yellowed lenses are almost always a finish problem, not a hardware problem, solved through multi-stage polishing that brings back true clarity.",
+      heading: "Clear again, the right way.",
+      body: "No shortcuts, no sprays. Just careful, hands-on polishing until the lens looks the way it did the day it left the factory.",
     },
     {
       type: "feature-cards",
@@ -62,16 +63,17 @@ export const headlightRestorationPage = {
       ],
     },
     {
-      type: "intro",
-      heading: "Restore, Don’t Hide",
+      type: "reveal-intro",
+      eyebrow: "Our Approach",
+      heading: "Restore, don’t hide.",
       body: "Toronto Buffing uses multi-stage wet sanding and polishing to physically remove the damaged exterior layer, rather than temporarily covering it with cheap sprays or DIY products.",
     },
     {
       type: "banner",
-      image: hl1,
-      alt: "A pair of hazy, oxidized headlight lenses removed for restoration at Toronto Buffing",
-      imageWidth: 1440,
-      imageHeight: 1440,
+      image: hlPorsche,
+      alt: "A restored, crystal-clear Porsche headlight lens at Toronto Buffing",
+      imageWidth: 947,
+      imageHeight: 1840,
     },
     {
       type: "checklist-grid",
@@ -87,15 +89,10 @@ export const headlightRestorationPage = {
       imageHeight: 1879,
     },
     {
-      type: "intro",
-      heading: "Protection Options",
-      body: "Restored headlights can be protected with SunTek Ultra PPF, ceramic lens coating, or a full clearcoat system, depending on the vehicle and desired longevity.",
-    },
-    {
       type: "trust",
       heading: "Warranty",
       body: "Our headlight restoration services include a 2-year warranty against premature yellowing.",
-      points: ["2-Year warranty against premature yellowing"],
+      points: ["**2-Year** warranty against premature yellowing"],
     },
     {
       type: "banner",

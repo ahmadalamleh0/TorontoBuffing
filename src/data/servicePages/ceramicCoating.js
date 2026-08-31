@@ -13,7 +13,7 @@ export const ceramicCoatingPage = {
   hero: {
     title: "Ceramic Coating.",
     copy:
-      "A finish that stays looking freshly detailed, long after the detail. Ceramic coating locks in gloss and clarity while making the paint dramatically easier to keep that way.",
+      "Ceramic coating bonds a durable layer of protection to the clearcoat, locking in gloss and clarity while making the paint significantly easier to maintain against dirt, water and UV exposure.",
     image: ceramic2,
     imageAlt: "Two finished Porsche 911 GT3s in the Toronto Buffing studio",
     imageWidth: 1290,
@@ -23,8 +23,8 @@ export const ceramicCoatingPage = {
     {
       type: "reveal-intro",
       eyebrow: "Ceramic Coating",
-      heading: "A finish that stays freshly detailed, long after the detail.",
-      body: "Ceramic coating locks in gloss and clarity while making the paint dramatically easier to maintain, with protection that keeps working long after you've left the studio.",
+      heading: "A showroom finish that keeps its edge.",
+      body: "Applied panel by panel in a controlled environment, the result is a deep, glass-like clarity that keeps working long after you've left the studio.",
     },
     {
       type: "feature-cards",
@@ -68,15 +68,25 @@ export const ceramicCoatingPage = {
       ],
     },
     {
-      type: "checklist-grid",
+      type: "benefits",
       heading: "Why Ceramic Coating",
       items: [
-        "Enhanced gloss and depth",
-        "Strong hydrophobic behaviour",
-        "Easier washing",
-        "Resistance to UV exposure",
-        "Resistance to contaminants and chemical etching",
-        "Reduced accumulation of minor wash-induced wear",
+        {
+          title: "Enhanced Gloss & Depth",
+          body: "Brings out a deeper, richer finish while keeping the paint looking freshly detailed.",
+        },
+        {
+          title: "Hydrophobic Protection",
+          body: "Creates a water-repelling surface that makes maintenance easier.",
+        },
+        {
+          title: "UV & Chemical Resistance",
+          body: "Helps protect the finish from environmental damage and contaminants.",
+        },
+        {
+          title: "Long-Term Paint Preservation",
+          body: "Reduces daily wear and keeps the surface easier to maintain over time.",
+        },
       ],
       note: "Ceramic coating does not protect against physical rock-chip impacts the way PPF does.",
     },
@@ -86,6 +96,7 @@ export const ceramicCoatingPage = {
       alt: "Freshly ceramic-coated BMWs finished at Toronto Buffing",
       imageWidth: 1440,
       imageHeight: 1800,
+      overlay: "16+ Years Craftsmanship",
     },
     {
       type: "product-marquee",

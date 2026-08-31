@@ -86,6 +86,16 @@
   color: var(--color-white);
 }
 
+/* Opt-in per page (hero.titleNoWrap) for a title short enough to sit
+   on one line even on phones — fluid size keeps it from overflowing
+   narrow viewports; the min(640px)/1024px rules below still take over
+   once there's room. */
+.service-hero__title--nowrap {
+  max-width: none;
+  white-space: nowrap;
+  font-size: clamp(1.75rem, 8.5vw, 3rem);
+}
+
 .service-hero__copy {
   margin-top: var(--space-5);
   max-width: 56ch;
@@ -116,22 +126,24 @@
 }
 
 /* ---- Reveal intro — the premium brand-statement moment directly
-   below the hero: small eyebrow tag, then one large, strong headline
-   (same condensed display face as the hero title, just a size down)
-   and a narrow, deliberate line of support, vertically centered as
-   one composed unit. Still compact — this is a beat before the
-   service visuals, not a second landing page. ---- */
+   below the hero: small eyebrow tag, then one heavy, high-impact
+   headline (Anton — the same poster-weight face reserved for the
+   site's single biggest statements, not the regular-weight Bebas
+   Neue) and a narrow, deliberate line of support, vertically centered
+   as one composed unit. Tight bottom padding by design — the next
+   section's own top padding is all the breathing room this needs
+   before flowing straight into the service visuals. ---- */
 
 .service-reveal-intro {
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--color-white);
-  padding-block: clamp(72px, 9vw, 108px) clamp(40px, 5vw, 56px);
+  padding-block: clamp(64px, 8vw, 96px) clamp(16px, 2vw, 24px);
 }
 
 .service-reveal-intro__inner {
-  max-width: 620px;
+  max-width: 640px;
   text-align: center;
 }
 
@@ -155,10 +167,10 @@
 
 .service-reveal-intro__title {
   margin: 0 0 var(--space-4);
-  font-family: var(--font-heading);
-  font-size: clamp(2.75rem, 7vw, 4.5rem);
-  line-height: 1.02;
-  letter-spacing: 0.01em;
+  font-family: var(--font-display-strong);
+  font-size: clamp(2.875rem, 7.5vw, 5rem);
+  line-height: 0.98;
+  letter-spacing: 0.005em;
   text-transform: none;
   color: var(--color-black);
   transition-delay: 90ms;
@@ -198,6 +210,10 @@
 
 .service-feature-cards {
   background: var(--color-white);
+  /* Reveal-intro right above already ends tight — override the
+     shared .section top padding so the two don't stack into a big
+     gap; keep the normal bottom padding for breathing room after. */
+  padding-top: clamp(32px, 4vw, 48px);
 }
 
 .service-feature-cards__grid {
@@ -388,6 +404,107 @@
   }
 }
 
+/* ---- Approach — premium "why we're different" statement: bold
+   two-line headline, a brand-blue accent rule, a short description,
+   then a stack of numbered rows divided by hairlines (no icon
+   chips, no card styling) — reads like an installation-standard
+   spec sheet. Left-aligned editorial block, white background. ---- */
+
+.service-approach {
+  background: var(--color-white);
+}
+
+.service-approach__inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.service-approach__eyebrow {
+  display: block;
+  margin-bottom: var(--space-3);
+  font-family: var(--font-sans-premium);
+  color: var(--color-brand-blue);
+  text-align: center;
+}
+
+.service-approach__title {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-display-strong);
+  font-size: clamp(2.25rem, 6.5vw, 3.5rem);
+  font-weight: 900;
+  line-height: 1.02;
+  letter-spacing: 0.005em;
+  text-transform: none;
+  text-align: center;
+  color: var(--color-black);
+}
+
+.service-approach__title-line {
+  display: block;
+}
+
+.service-approach__rule {
+  display: block;
+  width: 36px;
+  height: 3px;
+  margin: 0 auto var(--space-4);
+  background: var(--color-brand-blue);
+  border-radius: 2px;
+}
+
+.service-approach__body {
+  margin: 0 auto var(--space-6);
+  max-width: 52ch;
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-base);
+  line-height: var(--lh-normal);
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.service-approach__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.service-approach__item {
+  padding: var(--space-5) 0;
+  border-top: 1px solid var(--color-border-gray);
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 480ms ease-out, transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-approach__item:last-child {
+  border-bottom: 1px solid var(--color-border-gray);
+}
+
+.service-approach.is-visible .service-approach__item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.service-approach__text {
+  font-family: var(--font-sans-premium);
+  font-size: clamp(1.0625rem, 1.7vw, 1.25rem);
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--color-black);
+}
+
+.service-approach__text strong {
+  font-weight: 800;
+  color: var(--color-brand-blue);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-approach__item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 /* ---- Checklist / tag grid (defects, benefits) ---- */
 
 .service-grid-section {
@@ -431,6 +548,153 @@
   font-size: var(--fs-sm);
   font-style: italic;
   color: var(--color-text-faint);
+}
+
+/* ---- Benefits — a luxury "why this service" statement: bold named
+   benefits with a one-line payoff, laid out as a quiet, airy grid.
+   No icons, no tag chips, no dividers — generous spacing alone
+   separates the points, so it reads as a benefit statement rather
+   than a spec sheet. ---- */
+
+.service-benefits {
+  background: var(--color-white);
+}
+
+.service-benefits__inner {
+  max-width: 720px;
+}
+
+.service-benefits .service-heading {
+  margin-bottom: var(--space-6);
+  font-family: var(--font-display-strong);
+  font-size: clamp(2.25rem, 5.5vw, 3.25rem);
+  font-weight: 900;
+  letter-spacing: 0.005em;
+}
+
+.service-benefits__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: var(--space-4);
+  column-gap: var(--space-6);
+}
+
+.service-benefits__item {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 480ms ease-out, transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-benefits.is-visible .service-benefits__item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.service-benefits__item-title {
+  margin: 0 0 var(--space-1);
+  font-family: var(--font-sans-premium);
+  font-size: clamp(1.25rem, 2.2vw, 1.5rem);
+  font-weight: 800;
+  letter-spacing: 0.005em;
+  color: var(--color-black);
+}
+
+.service-benefits__item-body {
+  margin: 0;
+  max-width: 42ch;
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-base);
+  line-height: var(--lh-normal);
+  color: var(--color-text-muted);
+}
+
+.service-benefits__note {
+  max-width: 60ch;
+  margin: var(--space-5) auto 0;
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-sm);
+  font-style: italic;
+  text-align: center;
+  color: var(--color-black);
+}
+
+@media (min-width: 768px) {
+  .service-benefits__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-benefits__item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---- Text list — a professional assessment statement: bold
+   centered title over plain text rows divided by hairlines, no
+   checkmarks or pill chips. Reads as a capability list, not a
+   feature checklist. ---- */
+
+.service-text-list {
+  background: var(--color-white);
+}
+
+.service-text-list__inner {
+  max-width: 640px;
+}
+
+.service-text-list .service-heading {
+  margin-bottom: var(--space-6);
+  font-family: var(--font-display-strong);
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 900;
+  letter-spacing: 0.005em;
+}
+
+.service-text-list__rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.service-text-list__row {
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--color-border-gray);
+  font-family: var(--font-sans-premium);
+  font-size: clamp(1rem, 1.6vw, 1.125rem);
+  font-weight: 600;
+  color: var(--color-black);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 420ms ease-out, transform 620ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-text-list__row:last-child {
+  border-bottom: 1px solid var(--color-border-gray);
+}
+
+.service-text-list.is-visible .service-text-list__row {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.service-text-list__note {
+  max-width: 60ch;
+  margin: var(--space-6) auto 0;
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-sm);
+  font-style: italic;
+  text-align: center;
+  color: var(--color-black);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-text-list__row {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /* ---- Stage list (Stage 1 — Title / body, divided by hairlines) —
@@ -627,8 +891,11 @@
 
 /* Instrument-dial node: a dashed outer ring with breathing room
    around a solid inner disc — reads as a gauge marker, not a plain
-   outlined circle. */
+   outlined circle. The ring lives on ::before (not the wrapper
+   itself) so it can rotate independently — the number inside stays
+   perfectly static instead of spinning with it. */
 .service-process__circle {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -638,8 +905,44 @@
   height: 62px;
   margin-bottom: var(--space-3);
   padding: 6px;
-  border: 1px dashed rgba(122, 128, 184, 0.55);
+}
+
+.service-process__circle::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border: 2px dashed rgba(255, 255, 255, 0.85);
   border-radius: 50%;
+  animation: service-process-ring-spin 16s linear infinite, service-process-ring-pulse 3.6s ease-in-out infinite;
+  animation-delay: var(--ring-delay, 0ms);
+  animation-play-state: paused;
+}
+
+.service-process.is-visible .service-process__circle::before {
+  animation-play-state: running;
+}
+
+@keyframes service-process-ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes service-process-ring-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-process__circle::before {
+    animation: none;
+    opacity: 0.7;
+  }
 }
 
 .service-process__circle-inner {
@@ -781,51 +1084,104 @@
   border-radius: var(--radius-md);
 }
 
-/* ---- Warranty / trust ---- */
+/* ---- Warranty / trust — a major confidence statement, not a small
+   checklist: dominant display headline, heavier body copy, and
+   bold, icon-free points where the key figures (10-Year, 2-week)
+   read noticeably stronger than the surrounding words. No colour
+   beyond black/muted gray — weight and scale do the work. ---- */
 
 .service-trust-section {
   background: var(--color-off-white);
 }
 
 .service-trust-section__inner {
-  max-width: 700px;
+  max-width: 720px;
   text-align: center;
+}
+
+.service-trust-section .service-heading {
+  font-family: var(--font-display-strong);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 900;
+  letter-spacing: 0.005em;
+}
+
+.service-trust-section .service-intro__body {
+  margin-top: var(--space-4);
+  max-width: 620px;
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  color: var(--color-text-muted);
 }
 
 .service-trust-points {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: var(--space-3);
-  margin-top: var(--space-7);
+  gap: var(--space-3) var(--space-7);
+  margin-top: var(--space-8);
 }
 
 .service-trust-points__item {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-5);
   font-family: var(--font-sans-premium);
-  font-size: var(--fs-sm);
-  font-weight: 500;
+  font-size: clamp(1.0625rem, 1.8vw, 1.25rem);
+  font-weight: 700;
   color: var(--color-black);
-  background: var(--color-white);
-  border: 1px solid var(--color-border-gray);
-  border-radius: var(--radius-md);
 }
 
-.service-trust-points__item svg {
-  width: 13px;
-  height: 13px;
-  color: var(--color-accent);
+.service-trust-points__item strong {
+  font-weight: 900;
+  font-size: 1.08em;
 }
 
 /* ---- Full-bleed image banners between sections ---- */
 
 .service-banner {
+  position: relative;
   display: block;
   line-height: 0;
   background: var(--color-bg);
+}
+
+.service-banner--has-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(48% 62% at 50% 50%, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.28) 55%, rgba(0, 0, 0, 0) 85%);
+  pointer-events: none;
+}
+
+.service-banner__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: 0 var(--space-6);
+  text-align: center;
+}
+
+.service-banner__overlay-rule {
+  display: block;
+  width: 44px;
+  height: 3px;
+  background: var(--color-brand-blue);
+  border-radius: 2px;
+}
+
+.service-banner__overlay-text {
+  max-width: 18ch;
+  font-family: var(--font-display-strong);
+  font-size: clamp(2.25rem, 6vw, 4.75rem);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--color-white);
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.6), 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .service-banner img {
@@ -841,6 +1197,29 @@
   height: auto;
   min-height: 0;
   max-height: none;
+}
+
+/* Boxed variant — matches the before/after slider's contained
+   portrait box (same aspect ratio and max-width) rather than a
+   full-bleed strip, for a banner meant to sit right beside it. */
+.service-banner--boxed {
+  max-width: 560px;
+  margin-inline: auto;
+  border-radius: 12px;
+}
+
+.service-banner--boxed img {
+  aspect-ratio: 4 / 5;
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  border-radius: 12px;
+}
+
+@media (min-width: 768px) {
+  .service-banner--boxed {
+    max-width: 720px;
+  }
 }
 
 /* ---- Two-image editorial pairing (side by side / stacked) ---- */
@@ -1080,15 +1459,14 @@
 .service-product-marquee__strip {
   overflow: hidden;
   width: 100%;
-  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
 .service-product-marquee__track {
   display: flex;
   width: max-content;
-  animation: service-product-marquee-scroll 18s linear infinite;
+  animation: service-product-marquee-scroll 8s linear infinite;
   will-change: transform;
+  backface-visibility: hidden;
 }
 
 .service-product-marquee__item {
@@ -1120,6 +1498,14 @@
   .service-product-marquee__item {
     height: 112px;
     margin-inline: var(--space-5);
+  }
+
+  /* Edge fade only above mobile — the extra compositing cost is
+     where mobile GPUs were struggling and causing the stutter/blank
+     flashes. */
+  .service-product-marquee__strip {
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
   }
 }
 

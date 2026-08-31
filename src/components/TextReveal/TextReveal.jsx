@@ -1,27 +1,14 @@
 import { useEffect, useRef } from "react";
 import "./TextReveal.css";
 
+const EYEBROW = "Why Toronto Buffing";
 const TITLE = "DETAILERS WITH INTEGRITY.";
+const BODY_LEAD =
+  "Every vehicle is treated based on what it actually needs. From proper preparation to proven materials and precise workmanship, we focus on restoring, protecting, and preserving your vehicle the right way ";
+const BODY_EMPHASIS = "without shortcuts.";
 
-const BLOCKS = [
-  {
-    heading: "NO ONE-SIZE-FITS-ALL.",
-    body: "Every vehicle is treated for what it actually needs.",
-  },
-  {
-    heading: "PROVEN MATERIALS. NO SHORTCUTS.",
-    body: "We focus on the right process and trusted products, not quick fixes.",
-  },
-  {
-    heading: "CORRECTION COMES FIRST.",
-    body: "Protecting paint is one thing. Making it worthy of protection comes first.",
-  },
-];
+const REVEAL_THRESHOLD = 0.3;
 
-const REVEAL_THRESHOLD = 0.4;
-
-// Each block gets its own observer so they reveal independently, in
-// sequence, as the user scrolls past them — not all at once.
 function useRevealOnView() {
   const ref = useRef(null);
 
@@ -51,33 +38,22 @@ function useRevealOnView() {
   return ref;
 }
 
-function RevealBlock({ heading, body }) {
-  const ref = useRevealOnView();
-  return (
-    <div className="cinematic__block" ref={ref}>
-      <p className="cinematic__block-heading">{heading}</p>
-      <p className="cinematic__block-body">{body}</p>
-    </div>
-  );
-}
-
 // The "Why Toronto Buffing" statement between Services and the image
-// banner: a centered eyebrow + big title masthead, followed by three
-// short statement blocks that each fade/rise into place independently
-// as they're scrolled into view — a compact editorial manifesto, not
-// a scroll-pinned scene.
+// banner — matches the service pages' reveal-intro treatment exactly:
+// small eyebrow, one heavy Anton headline, one short line of support,
+// fading/rising into place together as one composed brand statement.
 function TextReveal() {
-  return (
-    <section className="cinematic">
-      <div className="container cinematic__inner">
-        <span className="eyebrow cinematic__eyebrow">Why Toronto Buffing</span>
-        <h2 className="cinematic__title">{TITLE}</h2>
+  const ref = useRevealOnView();
 
-        <div className="cinematic__blocks">
-          {BLOCKS.map((block) => (
-            <RevealBlock key={block.heading} {...block} />
-          ))}
-        </div>
+  return (
+    <section className="cinematic" ref={ref}>
+      <div className="container cinematic__inner">
+        <span className="eyebrow cinematic__eyebrow">{EYEBROW}</span>
+        <h2 className="cinematic__title">{TITLE}</h2>
+        <p className="cinematic__body">
+          {BODY_LEAD}
+          <strong>{BODY_EMPHASIS}</strong>
+        </p>
       </div>
     </section>
   );

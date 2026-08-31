@@ -5,12 +5,13 @@ import pc9 from "../../assets/images/servicePages/paint-correction/pc-9.jpg";
 import pcBefore from "../../assets/images/servicePages/paint-correction/pc-1-after.jpg";
 import pcAfter from "../../assets/images/servicePages/paint-correction/pc-1-before.jpg";
 import garageBanner from "../../assets/images/banner/garage-showcase.jpg";
+import pcCraftsmanship from "../../assets/images/servicePages/paint-correction/pc-craftsmanship.jpeg";
 
 export const paintCorrectionPage = {
   hero: {
     title: "Paint Correction.",
     copy:
-      "Swirls and haze aren't hidden. They're removed. True paint correction restores the depth and clarity your paint had before it was ever touched by a wash mitt.",
+      "Paint correction uses machine polishing to physically cut away swirl marks, haze and light scratches, restoring the paint's true depth and clarity rather than masking the damage.",
     image: heroImage,
     imageAlt: "Vehicles staged in the Toronto Buffing studio ahead of paint correction",
     imageWidth: 1281,
@@ -21,7 +22,7 @@ export const paintCorrectionPage = {
       type: "reveal-intro",
       eyebrow: "Paint Correction",
       heading: "Depth and clarity, brought back to the surface.",
-      body: "True paint correction removes swirls and haze rather than masking them, restoring the finish your paint had before it was ever touched by a wash mitt.",
+      body: "Every stage is judged by eye and by hand, only stopping once the reflection reads flawless, not just improved.",
     },
     {
       type: "feature-cards",
@@ -65,7 +66,7 @@ export const paintCorrectionPage = {
       ],
     },
     {
-      type: "checklist-grid",
+      type: "text-list",
       heading: "What Paint Correction Can Address",
       items: [
         "Swirl marks",
@@ -84,6 +85,7 @@ export const paintCorrectionPage = {
       alt: "Vehicles in the Toronto Buffing studio prepared for paint correction",
       imageWidth: 1564,
       imageHeight: 1564,
+      overlay: "16+ Years Craftsmanship",
     },
     {
       type: "stage-list",
@@ -108,6 +110,14 @@ export const paintCorrectionPage = {
       heading: "The Difference Correction Makes",
       before: { src: pcBefore, alt: "A dull, hazy roof panel before paint correction" },
       after: { src: pcAfter, alt: "The same panel after paint correction, with a clear, glossy reflection" },
+    },
+    {
+      type: "banner",
+      image: pcCraftsmanship,
+      alt: "Masked-off swirl marks being polished out during paint correction at Toronto Buffing",
+      imageWidth: 1240,
+      imageHeight: 2048,
+      fit: "boxed",
     },
   ],
   cta: {

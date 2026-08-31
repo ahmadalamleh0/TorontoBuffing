@@ -76,7 +76,9 @@ export function ServiceHero({ hero }) {
         <div className="service-hero__scrim" aria-hidden="true" />
       </div>
       <div className="container service-hero__inner">
-        <h1 className="service-hero__title">{hero.title}</h1>
+        <h1 className={`service-hero__title${hero.titleNoWrap ? " service-hero__title--nowrap" : ""}`}>
+          {hero.title}
+        </h1>
         <p className="service-hero__copy">{hero.copy}</p>
       </div>
     </section>
@@ -95,6 +97,54 @@ function RevealIntroSection({ section }) {
         <span className="eyebrow service-reveal-intro__eyebrow">{section.eyebrow}</span>
         <h2 className="service-reveal-intro__title">{section.heading}</h2>
         <p className="service-reveal-intro__body">{section.body}</p>
+      </div>
+    </section>
+  );
+}
+
+// Renders "plain text **bold text** more plain text" as a fragment
+// with the marked segments wrapped in <strong> — lets approach-row
+// copy call out the key phrase anywhere in the sentence, not just a
+// fixed leading word.
+function renderBoldedText(text) {
+  const parts = text.split(/\*\*(.+?)\*\*/g);
+  return parts.map((part, i) =>
+    i % 2 === 1 ? <strong key={i}>{part}</strong> : <Fragment key={i}>{part}</Fragment>,
+  );
+}
+
+// Premium "why we're different" moment — bold two-line headline, a
+// short intentional description, then a stack of numbered rows
+// divided by hairlines (not icon chips or a plain bulleted
+// checklist) — reads like an installation-standard spec sheet.
+function ApproachSection({ section }) {
+  const ref = useRevealOnView();
+  const headingLines = Array.isArray(section.heading) ? section.heading : [section.heading];
+
+  return (
+    <section className="service-approach section" ref={ref}>
+      <div className="container service-approach__inner">
+        {section.eyebrow && <span className="eyebrow service-approach__eyebrow">{section.eyebrow}</span>}
+
+        <h2 className="service-approach__title">
+          {headingLines.map((line, i) => (
+            <span className="service-approach__title-line" key={i}>
+              {line}
+            </span>
+          ))}
+        </h2>
+
+        <span className="service-approach__rule" aria-hidden="true" />
+
+        {section.body && <p className="service-approach__body">{section.body}</p>}
+
+        <div className="service-approach__list">
+          {section.items.map((item, i) => (
+            <div className="service-approach__item" style={{ transitionDelay: `${i * 90}ms` }} key={item.text}>
+              <span className="service-approach__text">{renderBoldedText(item.text)}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -156,6 +206,60 @@ function ChecklistGridSection({ section }) {
   );
 }
 
+// Luxury "why this service" statement — a handful of strong,
+// named benefits (bold title + one-line payoff) laid out as a
+// quiet, airy grid. No icons, no tag chips, no dividers — spacing
+// alone does the separating, so it reads as a benefit statement
+// rather than a spec sheet or feature checklist.
+function BenefitsSection({ section }) {
+  const ref = useRevealOnView();
+
+  return (
+    <section className="service-benefits section" ref={ref}>
+      <div className="container service-benefits__inner">
+        <h2 className="service-heading service-heading--center">{section.heading}</h2>
+
+        <div className="service-benefits__grid">
+          {section.items.map((item, i) => (
+            <div className="service-benefits__item" style={{ transitionDelay: `${i * 90}ms` }} key={item.title}>
+              <h3 className="service-benefits__item-title">{item.title}</h3>
+              <p className="service-benefits__item-body">{item.body}</p>
+            </div>
+          ))}
+        </div>
+
+        {section.note && <p className="service-benefits__note">{section.note}</p>}
+      </div>
+    </section>
+  );
+}
+
+// Professional assessment list — a bold centered title over plain
+// text rows divided by hairlines, no checkmarks or pill chips. Reads
+// like a short, confident capability statement rather than a
+// checklist of features.
+function TextListSection({ section }) {
+  const ref = useRevealOnView();
+
+  return (
+    <section className="service-text-list section" ref={ref}>
+      <div className="container service-text-list__inner">
+        <h2 className="service-heading service-heading--center">{section.heading}</h2>
+
+        <div className="service-text-list__rows">
+          {section.items.map((item, i) => (
+            <span className="service-text-list__row" style={{ transitionDelay: `${i * 70}ms` }} key={item}>
+              {item}
+            </span>
+          ))}
+        </div>
+
+        {section.note && <p className="service-text-list__note">{section.note}</p>}
+      </div>
+    </section>
+  );
+}
+
 // Stacked stage list — bold condensed "STAGE N — TITLE" heading over
 // a short paragraph, divided by hairlines. Used where levels/tiers
 // need real explanation, not just a tag grid.
@@ -200,14 +304,14 @@ function StepsSection({ section }) {
 }
 
 // Gentle curved arrow linking one process step to the next — a
-// vertically-balanced bow (level start/end, centered peak) so it
-// sits naturally on the circles' own centerline instead of reading
-// as a stray mark floating above them.
+// symmetric arc (level start/end, centered peak) with an unambiguous
+// chevron right at the tip, so it sits naturally on the circles' own
+// centerline and clearly points into the next node.
 function ProcessArrowIcon() {
   return (
-    <svg width="48" height="20" viewBox="0 0 48 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3 13c8-9 29-9 37-2" />
-      <path d="M32 6.5c3 1 5.5 2.3 7 3.8-1 1.8-3 3.6-5.8 5.2" />
+    <svg width="48" height="20" viewBox="0 0 48 20" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M2 11c14-6 30-6 40 0" />
+      <path d="M34 5.5c3 1.5 5.5 3 8 5.5-2.5 2.5-5 4-8 5.5" />
     </svg>
   );
 }
@@ -235,7 +339,11 @@ function ProcessSection({ section }) {
                 </span>
               )}
               <div className="service-process__step" style={{ transitionDelay: `${i * 140}ms` }}>
-                <span className="service-process__circle" aria-hidden="true">
+                <span
+                  className="service-process__circle"
+                  aria-hidden="true"
+                  style={{ "--ring-delay": `${i * 140 + 260}ms` }}
+                >
                   <span className="service-process__circle-inner">{String(i + 1).padStart(2, "0")}</span>
                 </span>
                 <h3 className="service-process__step-title">
@@ -283,8 +391,7 @@ function TrustSection({ section }) {
           <div className="service-trust-points">
             {section.points.map((point) => (
               <span className="service-trust-points__item" key={point}>
-                <CheckIcon />
-                {point}
+                {renderBoldedText(point)}
               </span>
             ))}
           </div>
@@ -295,8 +402,17 @@ function TrustSection({ section }) {
 }
 
 function BannerSection({ section }) {
+  const classes = [
+    "service-banner",
+    section.fit === "contain" && "service-banner--contain",
+    section.fit === "boxed" && "service-banner--boxed",
+    section.overlay && "service-banner--has-overlay",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <section className={`service-banner${section.fit === "contain" ? " service-banner--contain" : ""}`}>
+    <section className={classes}>
       <img
         src={section.image}
         alt={section.alt ?? ""}
@@ -304,6 +420,12 @@ function BannerSection({ section }) {
         height={section.imageHeight}
         loading="lazy"
       />
+      {section.overlay && (
+        <div className="service-banner__overlay">
+          <span className="service-banner__overlay-rule" aria-hidden="true" />
+          <span className="service-banner__overlay-text">{section.overlay}</span>
+        </div>
+      )}
     </section>
   );
 }
@@ -377,7 +499,11 @@ function ProductMarqueeSection({ section }) {
         <div className="service-product-marquee__track">
           {loop.map((product, i) => (
             <span className="service-product-marquee__item" key={i}>
-              <img src={product.src} alt={product.alt ?? ""} loading="lazy" />
+              {/* Eager, not lazy: every copy (including the duplicated
+                  second half) has to be ready immediately for the
+                  seamless loop — lazy-loading them caused images to
+                  pop in/out or go blank mid-scroll on mobile. */}
+              <img src={product.src} alt={product.alt ?? ""} />
             </span>
           ))}
         </div>
@@ -391,7 +517,10 @@ const SECTION_COMPONENTS = {
   "feature-cards": FeatureCardsSection,
   process: ProcessSection,
   intro: IntroSection,
+  approach: ApproachSection,
   "checklist-grid": ChecklistGridSection,
+  benefits: BenefitsSection,
+  "text-list": TextListSection,
   "stage-list": StageListSection,
   steps: StepsSection,
   brands: BrandsSection,

@@ -1,92 +1,77 @@
-/* PREVIEW ONLY — Primate.otf is licensed for personal use only (see
-   public/fonts/, "READ ME FIRST.txt"). Do not ship this on the live
-   site until a commercial license is purchased; swap back to
-   var(--font-heading) before deploying. */
-@font-face {
-  font-family: "Primate";
-  src: url("/fonts/Primate.otf") format("opentype");
-  font-display: swap;
-}
+/* ---- Cinematic — the "Why Toronto Buffing" brand statement between
+   Services and the image banner. Matches the service pages'
+   reveal-intro treatment exactly: small eyebrow, one heavy,
+   high-impact Anton headline, one short deliberate line of support,
+   vertically centered as one composed unit. Tight bottom padding by
+   design — flows straight into the next section. ---- */
 
 .cinematic {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: var(--color-white);
-  padding-block: clamp(80px, 9vw, 100px);
+  padding-block: clamp(32px, 4vw, 56px) clamp(40px, 5vw, 64px);
 }
 
 .cinematic__inner {
   width: 100%;
-  max-width: 620px;
+  max-width: 640px;
   margin-inline: auto;
+  text-align: center;
+}
+
+.cinematic__eyebrow,
+.cinematic__title,
+.cinematic__body {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 360ms ease-out, transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .cinematic__eyebrow {
   display: block;
   margin-bottom: var(--space-3);
-  font-size: var(--fs-xs);
   font-family: var(--font-sans-premium);
   color: var(--color-brand-blue);
-  text-align: center;
 }
 
 .cinematic__title {
-  margin: 0 0 var(--space-8);
-  font-family: var(--font-heading);
-  font-size: clamp(2.25rem, 7vw, 3.5rem);
-  line-height: 1.05;
-  letter-spacing: 0.01em;
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-display-strong);
+  font-size: clamp(2.875rem, 7.5vw, 5rem);
+  line-height: 0.98;
+  letter-spacing: 0.005em;
+  text-transform: none;
   color: var(--color-black);
-  text-align: center;
+  transition-delay: 90ms;
 }
 
-.cinematic__blocks {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-6);
+.cinematic__body {
+  margin: 0 auto;
+  max-width: 42ch;
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-lg);
+  line-height: var(--lh-normal);
+  color: var(--color-text-muted);
+  transition-delay: 90ms;
 }
 
-.cinematic__block {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity var(--duration-slow) var(--ease-standard),
-    transform var(--duration-slow) var(--ease-standard);
+.cinematic__body strong {
+  font-weight: 800;
+  color: var(--color-black);
 }
 
-.cinematic__block.is-visible {
+.cinematic.is-visible .cinematic__eyebrow,
+.cinematic.is-visible .cinematic__title,
+.cinematic.is-visible .cinematic__body {
   opacity: 1;
   transform: translateY(0);
 }
 
-.cinematic__block-heading {
-  margin: 0 0 var(--space-2);
-  font-family: var(--font-sans-premium);
-  font-weight: 700;
-  font-size: 1.125rem;
-  line-height: 1.3;
-  letter-spacing: -0.005em;
-  color: var(--color-black);
-}
-
-.cinematic__block-body {
-  margin: 0;
-  font-family: var(--font-sans-premium);
-  font-weight: 400;
-  font-size: 0.9375rem;
-  line-height: 1.55;
-  color: var(--color-muted-gray);
-}
-
-@media (min-width: 640px) {
-  .cinematic__block-heading {
-    font-size: 1.25rem;
-  }
-
-  .cinematic__block-body {
-    font-size: 1rem;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .cinematic__block {
+  .cinematic__eyebrow,
+  .cinematic__title,
+  .cinematic__body {
     opacity: 1;
     transform: none;
     transition: none;
