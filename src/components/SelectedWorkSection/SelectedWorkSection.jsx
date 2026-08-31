@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { PROJECTS } from "./projectsData";
 import WorkCard from "./WorkCard";
-import ProjectGallery from "./ProjectGallery";
 import "./SelectedWorkSection.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -62,9 +61,7 @@ function usePinBanner() {
 
 // Native overflow-x + scroll-snap already gives touch swipe and
 // trackpad/wheel scrolling for free. This only adds click-and-drag
-// for plain mouse users, and — critically — suppresses the click
-// that would otherwise fire on the card right under the pointer when
-// a drag ends, so dragging never accidentally opens the gallery.
+// for plain mouse users.
 function useCarouselDrag(trackRef) {
   useEffect(() => {
     const track = trackRef.current;
@@ -73,14 +70,9 @@ function useCarouselDrag(trackRef) {
     let dragging = false;
     let startX = 0;
     let startScroll = 0;
-    let dragDistance = 0;
 
-    // Plain mouse events (not Pointer Events / setPointerCapture) —
-    // capturing the pointer on the track interfered with the click
-    // event that should otherwise land on the card underneath.
     function onMouseDown(event) {
       dragging = true;
-      dragDistance = 0;
       startX = event.clientX;
       startScroll = track.scrollLeft;
       track.classList.add("is-dragging");
@@ -89,7 +81,6 @@ function useCarouselDrag(trackRef) {
     function onMouseMove(event) {
       if (!dragging) return;
       const delta = event.clientX - startX;
-      dragDistance = Math.max(dragDistance, Math.abs(delta));
       track.scrollLeft = startScroll - delta;
     }
 
@@ -98,23 +89,14 @@ function useCarouselDrag(trackRef) {
       track.classList.remove("is-dragging");
     }
 
-    function onClickCapture(event) {
-      if (dragDistance > 6) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-    }
-
     track.addEventListener("mousedown", onMouseDown);
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("mouseup", onMouseUp);
-    track.addEventListener("click", onClickCapture, { capture: true });
 
     return () => {
       track.removeEventListener("mousedown", onMouseDown);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseup", onMouseUp);
-      track.removeEventListener("click", onClickCapture, { capture: true });
     };
   }, [trackRef]);
 }
@@ -123,8 +105,6 @@ function SelectedWorkSection() {
   usePinBanner();
   const trackRef = useRef(null);
   useCarouselDrag(trackRef);
-  const [openProjectId, setOpenProjectId] = useState(null);
-  const project = PROJECTS.find((p) => p.id === openProjectId) ?? null;
 
   return (
     <section id="work" className="selected-work">
@@ -133,12 +113,10 @@ function SelectedWorkSection() {
 
         <div className="selected-work__grid" ref={trackRef}>
           {PROJECTS.map((p) => (
-            <WorkCard key={p.id} project={p} onOpen={() => setOpenProjectId(p.id)} />
+            <WorkCard key={p.id} project={p} />
           ))}
         </div>
       </div>
-
-      {project && <ProjectGallery project={project} onClose={() => setOpenProjectId(null)} />}
     </section>
   );
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Logo from "../Header/Logo";
 import "./NovaNavbar.css";
 
@@ -14,7 +14,7 @@ import "./NovaNavbar.css";
 const NAV_LINKS = [
   { label: "Services", href: "#services" },
   { label: "Work", href: "#work" },
-  { label: "Reviews", href: "#reviews" },
+  { label: "Testimonials", href: "#reviews" },
   { label: "Location", href: "#location" },
 ];
 
@@ -47,7 +47,7 @@ const MOBILE_SERVICE_CATEGORIES = [
 
 const MOBILE_SECONDARY_LINKS = [
   { label: "Work", href: "#work" },
-  { label: "Reviews", href: "#reviews" },
+  { label: "Testimonials", href: "#reviews" },
   { label: "Location", href: "#location" },
 ];
 
@@ -87,6 +87,29 @@ function useHiddenOverQuote() {
   return isHidden;
 }
 
+// NAV_LINKS/MOBILE_SECONDARY_LINKS/the CTA all point at in-page
+// section ids (#services, #contact, ...) that only exist on
+// HomePage. A plain <a href="#x"> is correct there (native
+// same-page scroll) but is a dead click on every other route
+// (ServicePage, NotFoundPage) since no matching id exists on those
+// pages. Off the homepage, route to "/#x" instead — HomePage's
+// useScrollToHashOnMount picks up the hash once it mounts, same
+// pattern already used by ServiceCta's "/#contact" link.
+function SectionLink({ href, isHome, className, onClick, children }) {
+  if (isHome) {
+    return (
+      <a className={className} href={href} onClick={onClick}>
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link className={className} to={`/${href}`} onClick={onClick}>
+      {children}
+    </Link>
+  );
+}
+
 function DrawerCategory({ category, isOpen, onToggle, onLinkClick }) {
   return (
     <div className={`nova__drawer-category${isOpen ? " is-open" : ""}`}>
@@ -114,6 +137,8 @@ function DrawerCategory({ category, isOpen, onToggle, onLinkClick }) {
 function NovaNavbar() {
   const isMobile = useIsMobile();
   const isHidden = useHiddenOverQuote();
+  const { pathname } = useLocation();
+  const isHome = pathname === "/";
   const [isOpen, setIsOpen] = useState(false);
   const [openCategory, setOpenCategory] = useState(null);
 
@@ -154,9 +179,9 @@ function NovaNavbar() {
               <ul className="nova__links">
                 {NAV_LINKS.map((link) => (
                   <li key={link.href}>
-                    <a className="nova__link" href={link.href}>
+                    <SectionLink className="nova__link" href={link.href} isHome={isHome}>
                       {link.label}
-                    </a>
+                    </SectionLink>
                   </li>
                 ))}
               </ul>
@@ -164,9 +189,9 @@ function NovaNavbar() {
 
             <div className="nova__right">
               {!isMobile && (
-                <a href="#contact" className="nova__cta">
+                <SectionLink href="#contact" isHome={isHome} className="nova__cta">
                   Start Your Quote <span aria-hidden="true">↗</span>
-                </a>
+                </SectionLink>
               )}
 
               {isMobile && (
@@ -205,15 +230,26 @@ function NovaNavbar() {
 
                   <div className="nova__drawer-links">
                     {MOBILE_SECONDARY_LINKS.map((link) => (
-                      <a key={link.href} className="nova__drawer-link" href={link.href} onClick={closeMenu}>
+                      <SectionLink
+                        key={link.href}
+                        className="nova__drawer-link"
+                        href={link.href}
+                        isHome={isHome}
+                        onClick={closeMenu}
+                      >
                         {link.label.toUpperCase()}
-                      </a>
+                      </SectionLink>
                     ))}
                   </div>
 
-                  <a href="#contact" className="nova__cta nova__cta--block" onClick={closeMenu}>
+                  <SectionLink
+                    href="#contact"
+                    isHome={isHome}
+                    className="nova__cta nova__cta--block"
+                    onClick={closeMenu}
+                  >
                     Start Your Quote <span aria-hidden="true">↗</span>
-                  </a>
+                  </SectionLink>
                 </div>
               </div>
             </div>

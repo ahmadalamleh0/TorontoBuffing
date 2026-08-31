@@ -19,7 +19,7 @@
  * that specific review (originally dropped in the project's top-level
  * Reviews/ folder, copied into src/assets/images/reviews/).
  */
-import waqasHussainPhoto from "../assets/images/reviews/waqas-hussain.webp";
+import waqasHussainPhoto from "../assets/images/reviews/waqas-hussain-thumb.webp";
 import alisherIssabekovPhoto from "../assets/images/reviews/alisher-issabekov.webp";
 import carGuyPhoto from "../assets/images/reviews/car-guy.webp";
 import matthewSobkowskiPhoto from "../assets/images/reviews/matthew-sobkowski.webp";

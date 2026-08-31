@@ -1,7 +1,14 @@
-import heroImage from "../../assets/images/hero/hero-mobile-hood-detail.webp";
 import BrandLogoStrip from "../BrandLogoStrip/BrandLogoStrip";
 import GoogleLogo from "../GoogleReviews/GoogleLogo";
 import "./Hero.css";
+
+// Served from /public (not a Vite-processed src/assets import) so its
+// URL is stable and known ahead of build time — that's what lets
+// index.html <link rel="preload"> this exact file for the LCP hero
+// image, discoverable by the browser's preload scanner before any JS
+// runs. An import path here would still work, but a hashed filename
+// changes every build, and index.html's static preload can't follow it.
+const heroImage = "/images/hero/hero-mobile-hood-detail.webp";
 
 // Same hood-detail shot on every breakpoint now; .hero__media--mobile
 // and --desktop still exist purely so each breakpoint can keep its

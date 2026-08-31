@@ -28,6 +28,7 @@ function ServiceSelectionStep({ selected, onToggle }) {
                   alt=""
                   className="quote-service-card__icon"
                   aria-hidden="true"
+                  loading="lazy"
                 />
               </div>
               <span className="quote-service-card__label">{service.label}</span>

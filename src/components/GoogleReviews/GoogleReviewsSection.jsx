@@ -117,10 +117,7 @@ function GoogleReviewsSection() {
       <div className="container">
         <div className="google-reviews__heading">
           <span className="eyebrow google-reviews__eyebrow">Client Experiences</span>
-          <h2 className="google-reviews__title">Our Reviews.</h2>
-          <p className="google-reviews__subline">
-            Real feedback from clients who trusted Toronto Buffing with their vehicles.
-          </p>
+          <h2 className="google-reviews__title">Testimonials.</h2>
         </div>
 
         <GoogleReviewsSummary

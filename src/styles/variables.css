@@ -50,6 +50,10 @@
      biggest brand statement on the page (the "More Than Detailing"
      section) — denser and more confident than --font-heading. */
   --font-display-strong: "Anton", var(--font-heading);
+  /* Clean premium sans — editorial body/manifesto copy that wants to
+     read as quiet and considered, not a shouting condensed display
+     face. Currently only the "Why Toronto Buffing" manifesto. */
+  --font-sans-premium: "Inter", var(--font-body);
 
   --fs-xs: 0.8125rem;
   --fs-sm: 0.9375rem;

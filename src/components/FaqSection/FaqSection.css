@@ -188,69 +188,12 @@
   color: #666666;
 }
 
-/* ---- Footer / CTA box ---- */
-
-.faq-ak__footer {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 24px;
-  padding: 16px 20px;
-  background: #f7f7f5;
-  border: 0.5px solid rgba(0, 0, 0, 0.08);
-  border-radius: 10px;
-}
-
-.faq-ak__footer-text {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.faq-ak__footer-title {
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 1.4;
-  color: #0f0f0f;
-}
-
-.faq-ak__footer-subtext {
-  font-family: var(--font-body);
-  font-size: 12px;
-  line-height: 1.5;
-  color: #666666;
-}
-
-.faq-ak__footer-cta {
-  padding: 7px 16px;
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 500;
-  white-space: nowrap;
-  color: #0f0f0f;
-  background: var(--color-white);
-  border: 0.5px solid rgba(0, 0, 0, 0.08);
-  border-radius: 10px;
-  text-decoration: none;
-  transition: background-color 320ms cubic-bezier(0.4, 0, 0.2, 1), border-color 320ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.faq-ak__footer-cta:hover {
-  background: var(--color-brand-blue);
-  border-color: var(--color-brand-blue);
-  color: var(--color-white);
-}
-
 @media (prefers-reduced-motion: reduce) {
   .faq-ak__tab,
   .faq-akitem,
   .faq-akitem__indicator,
   .faq-akitem__indicator svg line,
-  .faq-akitem__answer-wrap,
-  .faq-ak__footer-cta {
+  .faq-akitem__answer-wrap {
     transition: none;
   }
 }

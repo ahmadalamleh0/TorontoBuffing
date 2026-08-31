@@ -15,6 +15,11 @@
   color: var(--color-text-faint);
 }
 
+.quote-step__heading--center,
+.quote-step__helper--center {
+  text-align: center;
+}
+
 @media (min-width: 640px) {
   .quote-step__heading {
     font-size: var(--fs-3xl);
@@ -118,18 +123,18 @@
 
 .quote-vehicle-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 0.75rem;
   margin-bottom: 0.75rem;
 }
 
 .quote-vehicle-card {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  padding: 0.9375rem 1.125rem;
-  text-align: left;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-3) var(--space-4);
+  text-align: center;
   background: var(--color-white);
   border: 1px solid var(--color-border-gray);
   border-radius: 14px;
@@ -150,9 +155,9 @@
 
 .quote-vehicle-card__media {
   display: block;
-  width: 90px;
-  height: 60px;
-  margin-bottom: 0;
+  width: 100%;
+  height: 90px;
+  margin-bottom: var(--space-1);
   flex-shrink: 0;
   object-fit: contain;
 }
@@ -160,41 +165,31 @@
 .quote-vehicle-card__text {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 3px;
-  text-align: left;
+  text-align: center;
   flex: 1;
 }
 
 .quote-vehicle-card__label {
-  font-size: 1rem;
+  font-size: 0.9375rem;
   font-weight: 700;
   letter-spacing: 0.005em;
   color: var(--color-black);
 }
 
-.quote-vehicle-card__examples {
-  font-size: 0.8125rem;
-  font-weight: var(--fw-regular);
-  color: var(--color-muted-gray);
-}
-
 @media (min-width: 640px) {
   .quote-vehicle-grid {
-    grid-template-columns: repeat(2, 1fr);
     gap: var(--space-3);
     margin-bottom: var(--space-6);
   }
 
   .quote-vehicle-card {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-1);
     padding: var(--space-4) var(--space-5) var(--space-5);
     border-radius: var(--radius-sm);
   }
 
   .quote-vehicle-card__media {
-    width: 100%;
     height: 140px;
     margin-bottom: var(--space-2);
   }
@@ -205,10 +200,6 @@
 }
 
 @media (min-width: 768px) {
-  .quote-vehicle-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
   .quote-vehicle-card__media {
     height: 150px;
   }

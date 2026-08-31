@@ -17,8 +17,8 @@ function VehicleTypeStep({ vehicleType, onVehicleTypeChange, vehicle, onVehicleC
   if (!vehicleType) {
     return (
       <div className="quote-step">
-        <h3 className="quote-step__heading">Your Vehicle</h3>
-        <p className="quote-step__helper">Start by telling us what you drive.</p>
+        <h3 className="quote-step__heading quote-step__heading--center">Your Vehicle</h3>
+        <p className="quote-step__helper quote-step__helper--center">Start by telling us what you drive.</p>
 
         <div className="quote-vehicle-grid">
           {VEHICLE_TYPES.map((type) => (
@@ -35,10 +35,15 @@ function VehicleTypeStep({ vehicleType, onVehicleTypeChange, vehicle, onVehicleC
                 onVehicleTypeChange(type.id);
               }}
             >
-              <img className="quote-vehicle-card__media" src={type.image} alt="" aria-hidden="true" />
+              <img
+                className="quote-vehicle-card__media"
+                src={type.image}
+                alt=""
+                aria-hidden="true"
+                loading="lazy"
+              />
               <div className="quote-vehicle-card__text">
                 <span className="quote-vehicle-card__label">{type.label}</span>
-                <span className="quote-vehicle-card__examples">{type.examples}</span>
               </div>
             </button>
           ))}

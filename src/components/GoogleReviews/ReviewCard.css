@@ -108,6 +108,7 @@ a.review-card__name:hover {
   font-size: var(--fs-sm);
   line-height: var(--lh-normal);
   color: var(--color-text-faint);
+  min-height: calc(var(--fs-sm) * var(--lh-normal) * 5);
 }
 
 .review-card__comment--clamped {
@@ -131,6 +132,11 @@ a.review-card__name:hover {
 
 .review-card__read-more:hover {
   text-decoration: underline;
+}
+
+.review-card__read-more--hidden {
+  visibility: hidden;
+  pointer-events: none;
 }
 
 /* ---- Skeleton state ---- */

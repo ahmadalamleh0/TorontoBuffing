@@ -5,28 +5,28 @@
  * Flow: 1 Vehicle -> 2 Service -> 3 Options (dynamic per service,
  * auto-skipped if nothing applies) -> 4 Photos + Details -> 5 Review.
  */
-import coupeSedanIcon from "../../assets/images/quote/coupe-sedan.png";
-import suvTruckIcon from "../../assets/images/quote/suv-truck.png";
-import xlSuvIcon from "../../assets/images/quote/xl-suv.png";
-import exoticsIcon from "../../assets/images/quote/exotics.png";
+import coupeSedanIcon from "../../assets/images/quote/coupe-sedan.webp";
+import suvTruckIcon from "../../assets/images/quote/suv-truck.webp";
+import xlSuvIcon from "../../assets/images/quote/xl-suv.webp";
+import exoticsIcon from "../../assets/images/quote/exotics.webp";
 import ppfIcon from "../../assets/images/quote/services/ppf-icon.webp";
-import paintCorrectionIcon from "../../assets/images/quote/services/paint-correction-icon.png";
-import ceramicCoatingIcon from "../../assets/images/quote/services/ceramic-coating-icon.png";
-import sprayGunIcon from "../../assets/images/quote/services/spray-gun-icon.png";
-import headlightIcon from "../../assets/images/quote/services/headlight-icon.png";
-import scratchRepairIcon from "../../assets/images/quote/services/scratch-repair-icon.png";
-import rockchipsIcon from "../../assets/images/quote/services/rockchips-icon.png";
-import autoBodyIcon from "../../assets/images/quote/services/auto-body-icon.png";
+import paintCorrectionIcon from "../../assets/images/quote/services/paint-correction-icon.webp";
+import ceramicCoatingIcon from "../../assets/images/quote/services/ceramic-coating-icon.webp";
+import sprayGunIcon from "../../assets/images/quote/services/spray-gun-icon.webp";
+import headlightIcon from "../../assets/images/quote/services/headlight-icon.webp";
+import scratchRepairIcon from "../../assets/images/quote/services/scratch-repair-icon.webp";
+import rockchipsIcon from "../../assets/images/quote/services/rockchips-icon.webp";
+import autoBodyIcon from "../../assets/images/quote/services/auto-body-icon.webp";
 
 export const TOTAL_STEPS = 5;
 
 export const STEP_LABELS = ["Vehicle", "Service", "Options", "Details", "Review"];
 
 export const VEHICLE_TYPES = [
-  { id: "coupe-sedan", label: "Coupe / Sedan", examples: "M3, S5, 911...", image: coupeSedanIcon },
-  { id: "suv-truck", label: "SUV / Truck", examples: "Macan, X5, F-150...", image: suvTruckIcon },
-  { id: "xl-suv", label: "XL SUV", examples: "Escalade, Navigator...", image: xlSuvIcon },
-  { id: "exotics", label: "Exotics", examples: "Ferrari, Lamborghini...", image: exoticsIcon },
+  { id: "coupe-sedan", label: "Coupe / Sedan", image: coupeSedanIcon },
+  { id: "suv-truck", label: "SUV / Truck", image: suvTruckIcon },
+  { id: "xl-suv", label: "XL SUV", image: xlSuvIcon },
+  { id: "exotics", label: "Exotics", image: exoticsIcon },
 ];
 
 const CURRENT_YEAR = new Date().getFullYear();
@@ -98,6 +98,7 @@ export const PPF_COVERAGE_OPTIONS = [
   { id: "full-front", label: "Full Front" },
   { id: "track-package", label: "Track Package" },
   { id: "full-body", label: "Full Body" },
+  { id: "rear", label: "Rear Coverage" },
 ];
 
 export const CERAMIC_DURATION_OPTIONS = [

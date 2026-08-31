@@ -38,11 +38,6 @@
   letter-spacing: -0.01em;
 }
 
-.reviews-bar__label {
-  font-weight: 700;
-  color: var(--color-black);
-}
-
 .reviews-bar__stars {
   display: inline-flex;
   align-items: center;

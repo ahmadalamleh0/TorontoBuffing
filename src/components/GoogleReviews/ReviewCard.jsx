@@ -86,7 +86,7 @@ function ReviewCard({ review }) {
           {hasComment ? (
             <p
               className={
-                isLong && !expanded
+                !expanded
                   ? "review-card__comment review-card__comment--clamped"
                   : "review-card__comment"
               }
@@ -99,11 +99,17 @@ function ReviewCard({ review }) {
             </p>
           )}
 
-          {isLong && (
+          {hasComment && (
             <button
               type="button"
-              className="review-card__read-more"
+              className={
+                isLong
+                  ? "review-card__read-more"
+                  : "review-card__read-more review-card__read-more--hidden"
+              }
               onClick={() => setExpanded((value) => !value)}
+              tabIndex={isLong ? 0 : -1}
+              aria-hidden={!isLong}
             >
               {expanded ? "Show less" : "Read more"}
             </button>

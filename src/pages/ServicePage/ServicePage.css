@@ -1,3 +1,7 @@
+/* ==========================================================================
+   Fallback placeholder — services without a `page` data entry yet.
+   ========================================================================== */
+
 .service-page {
   display: flex;
   align-items: center;
@@ -30,5 +34,569 @@
 @media (min-width: 1024px) {
   .service-page__title {
     font-size: var(--fs-6xl);
+  }
+}
+
+/* ==========================================================================
+   Rich service page — shared building blocks reused by PPF, Paint
+   Correction, Ceramic Coating (and any future service with a `page`
+   entry in servicesData.js). One template, driven entirely by data.
+   ========================================================================== */
+
+/* ---- Hero ---- */
+
+.service-hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 78vh;
+  overflow: hidden;
+  background: var(--color-black);
+}
+
+.service-hero__media {
+  position: absolute;
+  inset: 0;
+}
+
+.service-hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+.service-hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(11, 11, 13, 0.55) 0%, rgba(11, 11, 13, 0.35) 40%, rgba(11, 11, 13, 0.92) 100%);
+}
+
+.service-hero__inner {
+  position: relative;
+  z-index: 1;
+  padding-top: calc(var(--header-height) + var(--space-6));
+  padding-bottom: var(--space-8);
+}
+
+.service-hero__eyebrow {
+  color: var(--color-accent-on-dark);
+}
+
+.service-hero__title {
+  margin-top: var(--space-3);
+  max-width: 16ch;
+  font-size: var(--fs-4xl);
+  color: var(--color-white);
+}
+
+.service-hero__copy {
+  margin-top: var(--space-5);
+  max-width: 56ch;
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-base);
+  line-height: var(--lh-normal);
+  color: rgba(255, 255, 255, 0.78);
+}
+
+@media (min-width: 640px) {
+  .service-hero__title {
+    font-size: var(--fs-5xl);
+  }
+
+  .service-hero__copy {
+    font-size: var(--fs-lg);
+  }
+}
+
+@media (min-width: 1024px) {
+  .service-hero {
+    min-height: 84vh;
+  }
+
+  .service-hero__title {
+    font-size: var(--fs-6xl);
+  }
+}
+
+/* ---- Shared heading + intro-copy primitives ---- */
+
+.service-heading {
+  font-size: var(--fs-3xl);
+}
+
+.service-heading--center {
+  text-align: center;
+}
+
+@media (min-width: 1024px) {
+  .service-heading {
+    font-size: var(--fs-4xl);
+  }
+}
+
+.service-intro__inner {
+  max-width: 700px;
+}
+
+.service-intro__quote {
+  margin: var(--space-5) 0 0;
+  padding-left: var(--space-5);
+  border-left: 3px solid var(--color-accent-on-dark);
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-xl);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-white);
+}
+
+.service-intro__body {
+  margin-top: var(--space-5);
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-base);
+  line-height: var(--lh-normal);
+  color: var(--color-text-muted);
+}
+
+.service-intro__body--center {
+  max-width: 640px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.service-intro__note {
+  margin-top: var(--space-5);
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-sm);
+  font-style: italic;
+  color: var(--color-text-faint);
+}
+
+.service-checklist {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3) var(--space-6);
+  margin: var(--space-6) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.service-checklist__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-base);
+  color: var(--color-white);
+}
+
+.service-checklist__icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  margin-top: 0.15em;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-white);
+}
+
+.service-checklist__icon svg {
+  width: 11px;
+  height: 11px;
+}
+
+@media (min-width: 640px) {
+  .service-checklist {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---- Checklist / tag grid (defects, benefits) ---- */
+
+.service-grid-section {
+  text-align: center;
+}
+
+.service-tag-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+  max-width: 880px;
+  margin: var(--space-7) auto 0;
+}
+
+.service-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--color-black);
+  background: var(--color-off-white);
+  border: 1px solid var(--color-border-gray);
+  border-radius: var(--radius-md);
+}
+
+.service-tag svg {
+  width: 13px;
+  height: 13px;
+  color: var(--color-accent);
+}
+
+.service-grid-section__note {
+  max-width: 60ch;
+  margin: var(--space-6) auto 0;
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-sm);
+  font-style: italic;
+  color: var(--color-text-faint);
+}
+
+/* ---- Process steps ---- */
+
+.service-steps-section {
+  background: var(--color-off-white);
+  text-align: center;
+}
+
+.service-steps {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+  max-width: 1000px;
+  margin: var(--space-7) auto 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.service-steps__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-gray);
+}
+
+.service-steps__number {
+  flex-shrink: 0;
+  font-family: var(--font-heading);
+  font-size: var(--fs-2xl);
+  line-height: 1;
+  color: var(--color-accent);
+}
+
+.service-steps__text {
+  padding-top: 0.3em;
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-base);
+  color: var(--color-black);
+}
+
+@media (min-width: 640px) {
+  .service-steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .service-steps {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ---- Brand strip (Film Matters / Tested Not Marketed) ---- */
+
+.service-brands-section__inner {
+  max-width: 880px;
+  text-align: center;
+}
+
+.service-brand-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-7);
+  margin: var(--space-7) 0 0;
+}
+
+.service-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  font-family: var(--font-heading);
+  font-size: var(--fs-xl);
+  letter-spacing: 0.02em;
+  color: var(--color-text-muted);
+}
+
+.service-brand img {
+  width: auto;
+  height: 100%;
+  max-width: 140px;
+  object-fit: contain;
+}
+
+.service-brands-section__highlight {
+  max-width: 60ch;
+  margin: var(--space-6) auto 0;
+  padding: var(--space-4) var(--space-5);
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--color-accent-on-dark);
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-md);
+}
+
+/* ---- Packages / pricing tiers ---- */
+
+.service-tier-group + .service-tier-group {
+  margin-top: var(--space-8);
+}
+
+.service-tier-group__label {
+  margin-bottom: var(--space-5);
+  font-size: var(--fs-lg);
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.service-tier-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+  margin-top: var(--space-7);
+}
+
+.service-tier {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-6);
+  background: var(--color-white);
+  border: 1px solid var(--color-border-gray);
+  border-radius: var(--radius-md);
+  text-align: left;
+}
+
+.service-tier--featured {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 1px var(--color-accent);
+}
+
+.service-tier__badge {
+  align-self: flex-start;
+  margin-bottom: var(--space-3);
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--color-accent-contrast);
+  background: var(--color-accent);
+  border-radius: var(--radius-sm);
+}
+
+.service-tier__name {
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--color-black);
+}
+
+.service-tier__price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.service-tier__price-note {
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-xs);
+  color: var(--color-text-faint);
+}
+
+.service-tier__price-value {
+  font-family: var(--font-heading);
+  font-size: var(--fs-3xl);
+  color: var(--color-black);
+}
+
+.service-tier__price-suffix {
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+.service-tier__duration {
+  margin-top: var(--space-2);
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-sm);
+  color: var(--color-text-faint);
+}
+
+.service-tier__description {
+  margin-top: var(--space-4);
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+  color: var(--color-text-muted);
+}
+
+.service-tier__features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.service-tier__features li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-sm);
+  color: var(--color-black);
+}
+
+.service-tier__features svg {
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  margin-top: 0.3em;
+  color: var(--color-accent);
+}
+
+@media (min-width: 640px) {
+  .service-tier-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .service-tier-grid {
+    /* --tier-cols is set inline per group (capped at 4) so 2-tier
+       groups fill 2 even columns instead of stranding a 3rd empty one. */
+    grid-template-columns: repeat(var(--tier-cols, 3), 1fr);
+  }
+}
+
+/* ---- Warranty / trust ---- */
+
+.service-trust-section {
+  background: var(--color-navy);
+}
+
+.service-trust-section .service-heading,
+.service-trust-section .service-intro__body {
+  color: var(--color-white);
+}
+
+.service-trust-section__inner {
+  max-width: 700px;
+  text-align: center;
+}
+
+.service-trust-points {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: var(--space-7);
+}
+
+.service-trust-points__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--color-white);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.service-trust-points__item svg {
+  width: 13px;
+  height: 13px;
+  color: var(--color-accent-on-dark);
+}
+
+/* ---- Full-bleed image banners between sections ---- */
+
+.service-banner {
+  display: block;
+  line-height: 0;
+  background: var(--color-bg);
+}
+
+.service-banner img {
+  display: block;
+  width: 100%;
+  height: 46vh;
+  min-height: 280px;
+  max-height: 560px;
+  object-fit: cover;
+}
+
+.service-banner--contain img {
+  height: auto;
+  min-height: 0;
+  max-height: none;
+}
+
+/* ---- Closing quote CTA ---- */
+
+.service-cta {
+  padding-block: var(--space-9);
+  background: var(--color-black);
+  text-align: center;
+}
+
+.service-cta__inner {
+  max-width: 760px;
+}
+
+.service-cta__heading {
+  font-size: var(--fs-3xl);
+  color: var(--color-white);
+}
+
+.service-cta__btn {
+  margin-top: var(--space-6);
+}
+
+@media (min-width: 640px) {
+  .service-cta__heading {
+    font-size: var(--fs-4xl);
+  }
+}
+
+@media (min-width: 1024px) {
+  .service-cta {
+    padding-block: var(--space-10);
+  }
+
+  .service-cta__heading {
+    font-size: var(--fs-5xl);
   }
 }

@@ -84,41 +84,35 @@ function Footer() {
               <h4 className="editorial-footer__label">{label}</h4>
             </div>
           ))}
-
-          <div className="editorial-footer__col">
-            <h4 className="editorial-footer__label">FOLLOW</h4>
-            <div className="editorial-footer__socials">
-              {SOCIAL_LINKS.map((social) => (
-                <a
-                  key={social.name}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="editorial-footer__social"
-                  aria-label={social.name}
-                >
-                  {social.icon}
-                </a>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
 
       {/* Massive Brand Wordmark */}
       <div className="editorial-footer__wordmark-container">
-        <h1 className="editorial-footer__wordmark">
+        <div className="editorial-footer__socials editorial-footer__socials--wordmark">
+          {SOCIAL_LINKS.map((social) => (
+            <a
+              key={social.name}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="editorial-footer__social"
+              aria-label={social.name}
+            >
+              {social.icon}
+            </a>
+          ))}
+        </div>
+        {/* Decorative brand mark, not a document heading — every page
+            already has its own <h1> (hero/service title), and a
+            second <h1> here would break single-H1-per-page SEO. */}
+        <p className="editorial-footer__wordmark" aria-hidden="true">
           <span>TORONTO</span>
           <span>BUFFING</span>
-        </h1>
+        </p>
       </div>
 
       <div className="editorial-footer__bottom container">
-        <div className="editorial-footer__legal">
-          <a href="#privacy">PRIVACY</a>
-          <span className="editorial-footer__sep">·</span>
-          <a href="#terms">TERMS</a>
-        </div>
         <p className="editorial-footer__credit">
           POWERED BY{" "}
           <a href="https://thediablo.co/" target="_blank" rel="noopener noreferrer">

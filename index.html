@@ -3,39 +3,55 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/images/logo/tb-logo.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0a0a0a" />
     <meta name="color-scheme" content="dark" />
-    <meta name="description" content="Toronto Buffing — automotive detailing and appearance studio." />
+    <link rel="canonical" href="https://paintcorrection.ca/" />
+    <!-- Static fallback for this route + a sane default for any other:
+         these are overwritten per-route at runtime by the Seo
+         component (react-helmet-async), but non-JS crawlers and social
+         unfurlers only ever see this initial HTML, so it needs to be a
+         real, accurate description on its own — not a placeholder. -->
+    <meta
+      name="description"
+      content="Toronto Buffing provides precision paint correction, ceramic coating and paint protection film (PPF) for vehicles across Vaughan and the GTA. Get your free quote."
+    />
 
     <!-- Social share preview (WhatsApp, iMessage, Instagram DM, etc.) -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Toronto Buffing" />
-    <meta property="og:title" content="Toronto Buffing" />
+    <meta property="og:title" content="Toronto Buffing | Paint Correction, PPF & Ceramic Coating" />
     <meta
       property="og:description"
-      content="Toronto Buffing — automotive detailing and appearance studio."
+      content="Toronto Buffing provides precision paint correction, ceramic coating and paint protection film (PPF) for vehicles across Vaughan and the GTA. Get your free quote."
     />
     <meta property="og:url" content="https://paintcorrection.ca/" />
     <meta property="og:image" content="https://paintcorrection.ca/images/social/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Toronto Buffing" />
+    <meta name="twitter:title" content="Toronto Buffing | Paint Correction, PPF & Ceramic Coating" />
     <meta
       name="twitter:description"
-      content="Toronto Buffing — automotive detailing and appearance studio."
+      content="Toronto Buffing provides precision paint correction, ceramic coating and paint protection film (PPF) for vehicles across Vaughan and the GTA. Get your free quote."
     />
     <meta name="twitter:image" content="https://paintcorrection.ca/images/social/og-image.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Anton&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Anton&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <!-- Hero background (the homepage's LCP element) — served from
+         /public at a stable path specifically so this preload's URL
+         always matches what Hero.jsx actually requests; a Vite-hashed
+         src/assets import would drift out of sync with a static tag
+         like this on every build. -->
+    <link rel="preload" as="image" href="/images/hero/hero-mobile-hood-detail.webp" fetchpriority="high" />
     <link rel="preload" as="image" href="/images/logo/tb-logo.png" fetchpriority="high" />
-    <title>Toronto Buffing</title>
+    <title>Toronto Buffing | Paint Correction, PPF & Ceramic Coating</title>
   </head>
   <body>
     <div id="root"></div>

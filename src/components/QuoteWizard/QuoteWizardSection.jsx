@@ -8,7 +8,7 @@ import ServiceOptionsStep from "./steps/ServiceOptionsStep";
 import PhotosAndDetailsStep from "./steps/PhotosAndDetailsStep";
 import ReviewStep from "./steps/ReviewStep";
 import { CheckIcon } from "./icons";
-import { TOTAL_STEPS, initialQuoteFormData, MIN_PHOTOS, SIMPLE_SERVICES } from "./quoteData";
+import { TOTAL_STEPS, initialQuoteFormData, SIMPLE_SERVICES } from "./quoteData";
 import "./QuoteWizardSection.css";
 import "./QuoteSteps.css";
 

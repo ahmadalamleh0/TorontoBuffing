@@ -25,11 +25,6 @@ function GoogleReviewsSummary({ averageRating, totalReviewCount, writeReviewUrl 
 
         <span className="reviews-bar__dot" aria-hidden="true">·</span>
 
-        {/* Qualitative rating label */}
-        <span className="reviews-bar__label">Excellent</span>
-
-        <span className="reviews-bar__dot" aria-hidden="true">·</span>
-
         {/* Solid Gold Stars */}
         <div className="reviews-bar__stars">
           <StarRating rating={ratingVal} size="md" />

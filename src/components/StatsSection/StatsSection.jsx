@@ -21,12 +21,6 @@ const STAT_ITEMS = [
     format: (val) => `${Math.floor(val)}-YEAR`,
     label: "PPF WARRANTY",
   },
-  {
-    targetValue: 5.0,
-    format: (val) => `${val.toFixed(1)}`,
-    star: true,
-    label: "AVERAGE RATING",
-  },
 ];
 
 function StatsSection() {
@@ -105,7 +99,6 @@ function StatsSection() {
               ref={(el) => (itemRefs.current[i] = el)}
             >
               <div className="stats-section__number">
-                {stat.star && <span className="stats-section__star" aria-hidden="true">★</span>}
                 <span className="stats-section__value" ref={(el) => (numberRefs.current[i] = el)}>
                   {stat.format(0)}
                 </span>

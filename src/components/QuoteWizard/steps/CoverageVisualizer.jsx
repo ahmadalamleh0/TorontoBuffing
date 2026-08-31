@@ -1,17 +1,20 @@
 import fullFrontImg from "../../../assets/images/quote/ppf/ppf-full-front.png";
 import trackPackageImg from "../../../assets/images/quote/ppf/ppf-track-package.png";
 import fullBodyImg from "../../../assets/images/quote/ppf/ppf-full-body.png";
+import rearImg from "../../../assets/images/quote/ppf/ppf-rear.png";
 
 const COVERAGE_IMAGES = {
   "full-front": fullFrontImg,
   "track-package": trackPackageImg,
   "full-body": fullBodyImg,
+  rear: rearImg,
 };
 
 const COVERAGE_LABELS = {
   "full-front": "Full Front Coverage",
   "track-package": "Track Package Coverage",
   "full-body": "Full Body Coverage",
+  rear: "Rear Coverage",
 };
 
 /**
@@ -32,6 +35,7 @@ function CoverageVisualizer({ coverage }) {
           src={activeImage}
           alt={activeLabel}
           className="coverage-visualizer__img"
+          loading="lazy"
         />
       </div>
       <span className="coverage-visualizer__caption">{activeLabel}</span>
