@@ -156,9 +156,11 @@ function ReviewsPage() {
             {items.map((item, i) => (
               <tr key={item.id}>
                 <td>{item.reviewer_image_url ? <img className="admin-table__thumb" src={item.reviewer_image_url} alt="" /> : null}</td>
-                <td>{item.reviewer_name}</td>
-                <td style={{ maxWidth: 320 }}>{item.review_text.slice(0, 80)}…</td>
-                <td>
+                <td data-label="Reviewer">{item.reviewer_name}</td>
+                <td data-label="Review" style={{ maxWidth: 320 }}>
+                  {item.review_text.slice(0, 80)}…
+                </td>
+                <td data-label="Status">
                   <span className={`badge ${item.published ? "badge--published" : "badge--draft"}`}>
                     {item.published ? "Published" : "Unpublished"}
                   </span>

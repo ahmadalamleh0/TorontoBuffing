@@ -1,4 +1,5 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { UserButton } from "@clerk/react";
 
 const NAV_ITEMS = [
@@ -14,9 +15,45 @@ const NAV_ITEMS = [
 ];
 
 function AdminLayout() {
+  // Below-tablet only (see admin.css) — the sidebar becomes an
+  // off-canvas drawer instead of the always-visible 220px column,
+  // opened by this button. Desktop never renders/uses this toggle at
+  // all, so nothing here can affect the existing desktop layout.
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    setIsDrawerOpen(false);
+  }, [pathname]);
+
+  // Prevents the page behind the open drawer from scrolling on touch.
+  useEffect(() => {
+    document.body.style.overflow = isDrawerOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isDrawerOpen]);
+
   return (
     <div className="admin-shell">
-      <aside className="admin-sidebar">
+      <button
+        type="button"
+        className="admin-mobile-toggle"
+        aria-expanded={isDrawerOpen}
+        aria-controls="admin-sidebar"
+        onClick={() => setIsDrawerOpen((open) => !open)}
+      >
+        <span className="visually-hidden">Toggle menu</span>
+        <span className="admin-mobile-toggle__line" aria-hidden="true" />
+        <span className="admin-mobile-toggle__line" aria-hidden="true" />
+        <span className="admin-mobile-toggle__line" aria-hidden="true" />
+      </button>
+
+      {isDrawerOpen && (
+        <div className="admin-sidebar-backdrop" onClick={() => setIsDrawerOpen(false)} aria-hidden="true" />
+      )}
+
+      <aside id="admin-sidebar" className={`admin-sidebar${isDrawerOpen ? " is-open" : ""}`}>
         <div className="admin-sidebar__brand">
           Toronto Buffing
           <span>Admin</span>

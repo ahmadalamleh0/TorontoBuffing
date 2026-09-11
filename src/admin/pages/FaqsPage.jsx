@@ -176,8 +176,8 @@ function FaqsPage() {
               <tbody>
                 {categoryItems.map((item, i) => (
                   <tr key={item.id}>
-                    <td>{item.question}</td>
-                    <td>
+                    <td data-label="Question">{item.question}</td>
+                    <td data-label="Status">
                       <span className={`badge ${item.published ? "badge--published" : "badge--draft"}`}>
                         {item.published ? "Published" : "Unpublished"}
                       </span>

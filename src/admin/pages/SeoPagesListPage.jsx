@@ -65,11 +65,11 @@ function SeoPagesListPage() {
           <tbody>
             {items.map((item) => (
               <tr key={item.id}>
-                <td>{item.title}</td>
-                <td>
+                <td data-label="Title">{item.title}</td>
+                <td data-label="URL">
                   <code>{livePath(item)}</code>
                 </td>
-                <td>
+                <td data-label="Status">
                   <span className={`badge ${item.published ? "badge--published" : "badge--draft"}`}>
                     {item.published ? "Published" : "Draft"}
                   </span>

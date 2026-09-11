@@ -249,8 +249,8 @@ function ProjectsPage() {
                 <td>
                   {item.image_urls?.[0] ? <img className="admin-table__thumb" src={item.image_urls[0]} alt="" /> : null}
                 </td>
-                <td>{item.vehicle}</td>
-                <td>
+                <td data-label="Vehicle">{item.vehicle}</td>
+                <td data-label="Status">
                   <span className={`badge ${item.published ? "badge--published" : "badge--draft"}`}>
                     {item.published ? "Published" : "Unpublished"}
                   </span>

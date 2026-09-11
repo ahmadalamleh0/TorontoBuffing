@@ -46,9 +46,11 @@ function ServicesListPage() {
             {items.map((item) => (
               <tr key={item.id}>
                 <td>{item.card_image_url ? <img className="admin-table__thumb" src={item.card_image_url} alt="" /> : null}</td>
-                <td>{item.title}</td>
-                <td style={{ textTransform: "capitalize" }}>{item.tier}</td>
-                <td>
+                <td data-label="Service">{item.title}</td>
+                <td data-label="Tier" style={{ textTransform: "capitalize" }}>
+                  {item.tier}
+                </td>
+                <td data-label="Status">
                   <span className={`badge ${item.published ? "badge--published" : "badge--draft"}`}>
                     {item.published ? "Published" : "Unpublished"}
                   </span>

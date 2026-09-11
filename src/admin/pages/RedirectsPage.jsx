@@ -239,18 +239,20 @@ function RedirectsPage() {
           <tbody>
             {items.map((item) => (
               <tr key={item.id}>
-                <td>
+                <td data-label="Old URL">
                   <code>
                     {item.from_host ? `${item.from_host} ` : ""}
                     {item.from_path}
                   </code>
                 </td>
-                <td>
+                <td data-label="New URL">
                   <code>{item.to_path}</code>
                 </td>
-                <td>{item.redirect_type}</td>
-                <td style={{ textTransform: "capitalize" }}>{item.source}</td>
-                <td>
+                <td data-label="Type">{item.redirect_type}</td>
+                <td data-label="Source" style={{ textTransform: "capitalize" }}>
+                  {item.source}
+                </td>
+                <td data-label="Status">
                   <span className={`badge ${item.active ? "badge--published" : "badge--draft"}`}>
                     {item.active ? "Active" : "Inactive"}
                   </span>
