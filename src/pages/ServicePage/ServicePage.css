@@ -119,18 +119,30 @@
   }
 }
 
+.service-hero__eyebrow--reveal,
 .service-hero__title--reveal,
-.service-hero__copy--reveal {
+.service-hero__copy--reveal,
+.service-hero__phone--reveal {
   animation: service-hero-reveal 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.service-hero__eyebrow--reveal {
+  animation-delay: 40ms;
 }
 
 .service-hero__copy--reveal {
   animation-delay: 160ms;
 }
 
+.service-hero__phone--reveal {
+  animation-delay: 260ms;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .service-hero__eyebrow--reveal,
   .service-hero__title--reveal,
-  .service-hero__copy--reveal {
+  .service-hero__copy--reveal,
+  .service-hero__phone--reveal {
     animation: none;
   }
 }
@@ -164,6 +176,103 @@
 
   .service-hero__title {
     font-size: var(--fs-6xl);
+  }
+}
+
+/* ---- Hero, /services/:slug only (ServicePage.jsx passes
+   variant="service") — full bleed photo, content anchored low and
+   left, a clean sans headline instead of the poster display face,
+   and a static eyebrow + phone row. Scoped entirely under
+   .service-hero--service so SeoPage/PreviewGeoPages/InsightArticle,
+   which render this same ServiceHero without that variant, are
+   completely unaffected. ---- */
+
+.service-hero--service .service-hero__scrim {
+  /* Monotonic fade to solid black at the very bottom instead of the
+     default vignette (dark-light-dark) scrim — the photo needs to
+     visibly dissolve into the hero's own dark floor, not look cropped
+     at a hard edge, before the next section's own background begins. */
+  background: linear-gradient(
+    180deg,
+    rgba(11, 11, 13, 0.1) 0%,
+    rgba(11, 11, 13, 0.15) 35%,
+    rgba(11, 11, 13, 0.55) 68%,
+    var(--color-black) 100%
+  );
+}
+
+.service-hero--service .service-hero__inner {
+  padding-bottom: var(--space-9);
+  text-align: left;
+}
+
+.service-hero--service .service-hero__eyebrow {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.service-hero--service .service-hero__title {
+  max-width: 13ch;
+  margin-top: 0;
+  font-family: var(--font-sans-premium);
+  font-weight: 800;
+  font-size: var(--fs-3xl);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+
+.service-hero--service .service-hero__copy {
+  max-width: 38ch;
+  margin-top: var(--space-3);
+  font-size: var(--fs-sm);
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.service-hero--service .service-hero__phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: var(--space-5);
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  color: var(--color-white);
+  text-decoration: none;
+}
+
+.service-hero--service .service-hero__phone svg {
+  flex-shrink: 0;
+  color: var(--color-accent-on-dark);
+}
+
+.service-hero--service .service-hero__phone:hover {
+  color: var(--color-accent-on-dark);
+}
+
+@media (min-width: 640px) {
+  .service-hero--service .service-hero__title {
+    font-size: var(--fs-4xl);
+  }
+
+  .service-hero--service .service-hero__copy {
+    font-size: var(--fs-base);
+  }
+}
+
+@media (min-width: 1024px) {
+  .service-hero--service .service-hero__title {
+    max-width: 15ch;
+    font-size: var(--fs-5xl);
+  }
+
+  .service-hero--service .service-hero__copy {
+    font-size: var(--fs-lg);
   }
 }
 

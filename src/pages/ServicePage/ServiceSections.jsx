@@ -2,6 +2,7 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { CheckIcon } from "../../components/QuoteWizard/icons";
 import { renderRichText } from "../../lib/richText";
+import { BUSINESS_INFO } from "../../data/businessInfo";
 import FaqAccordionItem from "../../components/FaqSection/FaqAccordionItem";
 import BeforeAfterSlider from "./BeforeAfterSlider";
 import processArrow from "../../assets/images/services/process-arrow.png";
@@ -71,9 +72,27 @@ function FeatureCardsSection({ section }) {
   );
 }
 
-export function ServiceHero({ hero }) {
+function PhoneIcon() {
   return (
-    <section className="service-hero">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
+    </svg>
+  );
+}
+
+/**
+ * `variant="service"` is the opt-in redesigned treatment used only by
+ * /services/:slug (ServicePage.jsx) — full bleed image, content
+ * anchored low and left-aligned, a static eyebrow + phone row. Every
+ * other caller (SeoPage, PreviewGeoPages, InsightArticle) omits
+ * `variant` and gets the original centered/no-eyebrow rendering
+ * untouched, since this same component backs their heroes too.
+ */
+export function ServiceHero({ hero, variant }) {
+  const isService = variant === "service";
+
+  return (
+    <section className={`service-hero${isService ? " service-hero--service" : ""}`}>
       {hero.image && (
         <div className="service-hero__media">
           <img
@@ -87,13 +106,24 @@ export function ServiceHero({ hero }) {
           <div className="service-hero__scrim" aria-hidden="true" />
         </div>
       )}
-      <div className={`container service-hero__inner${hero.centered ? " service-hero__inner--center" : ""}`}>
+      <div
+        className={`container service-hero__inner${hero.centered && !isService ? " service-hero__inner--center" : ""}`}
+      >
+        {isService && (
+          <span className="eyebrow service-hero__eyebrow service-hero__eyebrow--reveal">Serving Toronto &amp; The GTA</span>
+        )}
         <h1
           className={`service-hero__title service-hero__title--reveal${hero.titleNoWrap ? " service-hero__title--nowrap" : ""}`}
         >
           {hero.title}
         </h1>
         <p className="service-hero__copy service-hero__copy--reveal">{renderRichText(hero.copy)}</p>
+        {isService && (
+          <a href={`tel:${BUSINESS_INFO.telephone}`} className="service-hero__phone service-hero__phone--reveal">
+            <PhoneIcon />
+            {BUSINESS_INFO.telephoneDisplay}
+          </a>
+        )}
       </div>
     </section>
   );
@@ -115,7 +145,7 @@ function RevealIntroSection({ section }) {
   return (
     <section className={classes} ref={ref}>
       <div className="container service-reveal-intro__inner">
-        <span className="eyebrow service-reveal-intro__eyebrow">{section.eyebrow}</span>
+        {section.eyebrow && <span className="eyebrow service-reveal-intro__eyebrow">{section.eyebrow}</span>}
         <h2 className="service-reveal-intro__title">{section.heading}</h2>
         <p className="service-reveal-intro__body">{renderRichText(section.body)}</p>
         {section.list && (

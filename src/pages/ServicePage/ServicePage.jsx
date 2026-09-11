@@ -92,7 +92,7 @@ function ServicePage() {
       <main>
         {isLoading ? null : service?.page ? (
           <>
-            <ServiceHero hero={service.page.hero} />
+            <ServiceHero hero={service.page.hero} variant="service" />
             {service.page.sections.map((section, i) => (
               <ServiceSection section={section} key={i} />
             ))}
