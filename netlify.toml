@@ -35,16 +35,6 @@
     "/sitemap.xml",
   ]
 
-# Temporary /admin login's Supabase reverse proxy — needs the sub-path
-# after /api/admin/ (e.g. rest/v1/services) preserved for
-# admin-db-proxy.js to forward correctly, so it gets its own rule
-# ahead of the generic /api/* one below (first match wins). See
-# netlify/functions/admin-db-proxy.js.
-[[redirects]]
-  from = "/api/admin/*"
-  to = "/.netlify/functions/admin-db-proxy/:splat"
-  status = 200
-
 # Frontend keeps calling /api/google-reviews — this rewrites it to the
 # actual function path without changing the URL the browser sees.
 [[redirects]]
