@@ -461,10 +461,17 @@
 
 .service-reveal-intro__title {
   margin: 0 0 var(--space-4);
-  font-family: var(--font-display-strong);
+  /* Was --font-display-strong (Anton) — a genuinely single-weight
+     poster face, so "reduce the weight" couldn't be done on it at
+     all. Inter carries real weight variation (400-700 already
+     loaded), reads as editorial rather than promotional-poster at
+     700, and is the only typeface in this project's stack that can
+     actually hit the ~600-700 target. Size intentionally untouched. */
+  font-family: var(--font-sans-premium);
+  font-weight: 700;
   font-size: clamp(2.875rem, 7.5vw, 5rem);
-  line-height: 0.98;
-  letter-spacing: 0.005em;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
   text-transform: none;
   color: var(--color-black);
   transform: translateY(28px);
