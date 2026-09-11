@@ -1,12 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ClerkProvider, useAuth, RedirectToSignIn } from "@clerk/react";
-import { setAdminTokenGetter, useTempAdminProxy } from "./lib/supabaseAdminClient";
+import { setAdminTokenGetter } from "./lib/supabaseAdminClient";
 import { SUPABASE_CONFIGURED } from "../lib/supabaseEnv";
-import { TEMP_ADMIN_LOGIN_ENABLED, checkTempSession } from "./tempAdminAuth";
 import AdminLayout from "./AdminLayout";
 import SignInPage from "./pages/SignInPage";
-import TempLoginPage from "./pages/TempLoginPage";
 import DashboardPage from "./pages/DashboardPage";
 import PagesEditor from "./pages/PagesEditor";
 import ServicesListPage from "./pages/ServicesListPage";
@@ -36,51 +34,13 @@ function AdminAuthBridge({ children }) {
   return children;
 }
 
-/**
- * TEMPORARY (client review): when TEMP_ADMIN_LOGIN_ENABLED is off
- * (the default), this is exactly the original component — Clerk only,
- * nothing below runs. When it's on, a real Clerk session still works
- * and still takes priority (Ahmed's account is untouched), but an
- * unauthenticated visitor gets the custom login form instead of being
- * redirected to Clerk. See src/admin/tempAdminAuth.js and
- * netlify/functions/admin-login.js / admin-session.js /
- * admin-db-proxy.js for the rest of this system, and
- * src/admin/lib/supabaseAdminClient.js for how a successful temp
- * login switches supabaseAdmin onto the session-proxied backend.
- */
 function RequireAdmin({ children }) {
   const { isLoaded, isSignedIn } = useAuth();
-  const [tempChecked, setTempChecked] = useState(!TEMP_ADMIN_LOGIN_ENABLED);
-  const [tempValid, setTempValid] = useState(false);
 
-  useEffect(() => {
-    if (!TEMP_ADMIN_LOGIN_ENABLED) return;
-    let cancelled = false;
-    checkTempSession().then((valid) => {
-      if (cancelled) return;
-      setTempValid(valid);
-      setTempChecked(true);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  if (!isLoaded) return null;
+  if (!isSignedIn) return <RedirectToSignIn />;
 
-  useEffect(() => {
-    if (!TEMP_ADMIN_LOGIN_ENABLED) return;
-    useTempAdminProxy(tempValid && !isSignedIn);
-  }, [tempValid, isSignedIn]);
-
-  if (!TEMP_ADMIN_LOGIN_ENABLED) {
-    if (!isLoaded) return null;
-    if (!isSignedIn) return <RedirectToSignIn />;
-    return children;
-  }
-
-  if (!isLoaded || !tempChecked) return null;
-  if (isSignedIn || tempValid) return children;
-
-  return <TempLoginPage onSignedIn={() => setTempValid(true)} />;
+  return children;
 }
 
 function AdminSetupNotice({ children }) {
