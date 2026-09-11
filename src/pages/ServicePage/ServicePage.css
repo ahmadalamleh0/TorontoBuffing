@@ -50,13 +50,17 @@
   display: flex;
   align-items: flex-end;
   min-height: 78vh;
-  overflow: hidden;
   background: var(--color-black);
 }
 
 .service-hero__media {
   position: absolute;
   inset: 0;
+  /* The clipping boundary lives here now, not on .service-hero itself
+     — .service-hero--service needs overflow: visible so its bottom
+     fade (below) can bleed past the section's own edge into whatever
+     comes next, without letting the photo itself spill anywhere. */
+  overflow: hidden;
 }
 
 .service-hero__media img {
@@ -199,6 +203,36 @@
     rgba(11, 11, 13, 0.55) 68%,
     var(--color-black) 100%
   );
+}
+
+/* The scrim above only fades the PHOTO smoothly down to solid black —
+   it can't soften the actual seam, because that's a single, instant
+   pixel row where solid black meets whatever comes next (almost
+   always a white section). No amount of internal gradient fixes an
+   edge between two flat colors. This pseudo-element is what actually
+   does that: it isn't clipped by the hero (overflow now lives on
+   .service-hero__media instead, scoped to just the photo), so it can
+   physically bleed past the section's own bottom edge and cast a soft
+   fading shadow onto the top of the section below — that overlap,
+   not a sharper internal gradient, is what reads as one surface
+   flowing into the next instead of two flat panels stacked edge to
+   edge. */
+.service-hero--service::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -56px;
+  height: 56px;
+  background: linear-gradient(180deg, var(--color-black) 0%, rgba(11, 11, 13, 0) 100%);
+  pointer-events: none;
+}
+
+@media (min-width: 1024px) {
+  .service-hero--service::after {
+    bottom: -72px;
+    height: 72px;
+  }
 }
 
 .service-hero--service .service-hero__inner {

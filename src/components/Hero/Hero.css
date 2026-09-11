@@ -72,9 +72,13 @@
 
 .hero__eyebrow {
   margin-bottom: var(--space-2);
-  font-size: 1rem;
-  font-weight: 800;
-  letter-spacing: var(--ls-wide);
+  /* Sized/weighted back down close to the shared .eyebrow class's own
+     defaults (--fs-xs, --fw-medium, --ls-widest) — it was previously
+     styled to stand out as its own statement; now it needs to read as
+     a subtle label sitting above the headline, not compete with it. */
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-widest);
   /* Plain white, not the brand blue used here before — scoped to the
      hero eyebrow only, not the shared global .eyebrow class other
      sections use. Just a dark contact shadow for legibility over the
