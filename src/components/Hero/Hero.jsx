@@ -16,7 +16,7 @@ const heroImage = "/images/hero/hero-mobile-hood-detail.webp";
 // deliberately stays out of CMS scope: index.html preloads this exact
 // static path for the LCP image, ahead of any JS running, and a
 // dynamic Supabase URL can't be known at that point.
-const DEFAULT_EYEBROW = "Toronto Buffing";
+const DEFAULT_EYEBROW = "Rated No.1";
 const DEFAULT_HEADLINE = ["Paint Correction,", "Ceramic Coating & PPF."];
 const DEFAULT_SUBLINE = "Precision protection for vehicles across Vaughan and the GTA.";
 

@@ -75,21 +75,12 @@
   font-size: 1rem;
   font-weight: 800;
   letter-spacing: var(--ls-wide);
-  /* Sampled directly from the actual logo file (tb-logo.png) — its
-     most common opaque pixel cluster averages to ~#001a79, a deep,
-     saturated royal blue with almost no red or green. The previous
-     #2e3ea0 was a lighter, more muted approximation; this is the real
-     logo color, not a lightened stand-in, so it needs the glow below
-     (not a lighter fill) to stay legible against a busy dark photo —
-     scoped to the hero eyebrow only, not the shared global .eyebrow
-     class other sections use. Dark shadow first for edge definition
-     over bright parts of the photo, then a restrained blue glow on
-     top so it separates from the image without reading as neon. */
-  color: #0a1f7a;
-  text-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.7),
-    0 0 8px rgba(30, 74, 216, 0.55),
-    0 0 18px rgba(30, 74, 216, 0.3);
+  /* Plain white, not the brand blue used here before — scoped to the
+     hero eyebrow only, not the shared global .eyebrow class other
+     sections use. Just a dark contact shadow for legibility over the
+     busy hero photo, no color glow. */
+  color: var(--color-white);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
 }
 
 .hero__headline {
