@@ -254,3 +254,54 @@
     padding-block: 1.25rem;
   }
 }
+
+/* Phone-only composed layout (below the 640px tablet breakpoint where
+   .editorial-footer__info-grid already goes 2-column on its own) —
+   Contact and Location stay full-width rows close together,
+   Protection/Correction pair up side by side, Restoration and Service
+   Areas each stay full-width with their own short links running in
+   two columns. Column order in the DOM is fixed (Contact, Location,
+   Protection, Correction, Restoration, Service Areas), so this is
+   pure structural CSS — no markup changes needed. Desktop (768px+,
+   and the existing 640-767px tablet rules above) is untouched. */
+@media (max-width: 639px) {
+  .editorial-footer__info-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 1.25rem;
+    row-gap: 1.1rem;
+  }
+
+  .editorial-footer__col:nth-child(1),
+  .editorial-footer__col:nth-child(2),
+  .editorial-footer__col:nth-child(5),
+  .editorial-footer__col:nth-child(6) {
+    grid-column: 1 / -1;
+  }
+
+  .editorial-footer__col {
+    gap: 0.4rem;
+    min-width: 0;
+  }
+
+  .editorial-footer__content {
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    gap: 0.3rem;
+  }
+
+  /* Restoration's own links (the 5th column) — same two-column
+     treatment Service Areas already uses, so its 3 short links read
+     as 2 + 1 instead of a tall single stack. */
+  .editorial-footer__col:nth-child(5) .editorial-footer__content {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 1.25rem;
+    row-gap: 0.3rem;
+  }
+
+  .editorial-footer__link,
+  .editorial-footer__text {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+}
