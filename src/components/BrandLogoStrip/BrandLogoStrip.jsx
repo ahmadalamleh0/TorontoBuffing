@@ -20,23 +20,29 @@ const LOGOS = [
   { name: "Gtechniq", src: gtechniqLogo },
 ];
 
-// Repeated enough times that one copy comfortably exceeds any
-// realistic viewport width, then rendered twice back-to-back and
-// animated via translateX(-50%) — the same seamless-loop trick used
-// elsewhere on the site (reviews marquee, previous brand strip).
+// Repeated enough times that one group comfortably exceeds any
+// realistic viewport width (including landscape phones and desktop),
+// then rendered exactly twice back-to-back — the second, identical
+// group animated into view as the first one exits. Both groups are
+// the same array rendered the same way, so their widths, gaps and
+// ordering are guaranteed identical; translateX(-50%) then always
+// moves the track by exactly one group's width, never the viewport's,
+// so the loop stays seamless at any screen size or orientation with
+// no JS measurement involved.
 const REPEAT = 4;
-const SET = Array.from({ length: REPEAT }, () => LOGOS).flat();
+const GROUP = Array.from({ length: REPEAT }, () => LOGOS).flat();
 
-// Mobile gets its own fixed, non-scrolling row instead of the
-// marquee: an infinite translateX loop and an edge fade mask can't
-// guarantee every logo is simultaneously, fully on screen at a given
-// instant, which is exactly what a narrow viewport needs. Desktop
-// keeps the marquee untouched.
-const MOBILE_LOGOS = [
-  { name: "XPEL", src: xpelLogo },
-  { name: "Ceramic Pro", src: ceramicProLogo },
-  { name: "Gtechniq", src: gtechniqLogo },
-];
+function LogoGroup() {
+  return (
+    <div className="brand-strip__set">
+      {GROUP.map((brand, i) => (
+        <span className={`brand-strip__logo${brand.large ? " brand-strip__logo--large" : ""}`} key={i}>
+          <img src={brand.src} alt={brand.name} loading="eager" />
+        </span>
+      ))}
+    </div>
+  );
+}
 
 function BrandLogoStrip() {
   return (
@@ -44,30 +50,9 @@ function BrandLogoStrip() {
       <span className="visually-hidden">
         Brands Toronto Buffing works with: XPEL, Suntek, STEK, Hexis, Ceramic Pro, Gtechniq.
       </span>
-
-      <div className="brand-strip__mobile-grid" aria-hidden="true">
-        {MOBILE_LOGOS.map((brand) => (
-          <span className="brand-strip__mobile-logo" key={brand.name}>
-            <img src={brand.src} alt={brand.name} loading="eager" />
-          </span>
-        ))}
-      </div>
-
-      <div className="brand-strip__desktop-track-wrap">
-        <div className="brand-strip__track" aria-hidden="true">
-          {[0, 1].map((copy) => (
-            <div className="brand-strip__set" key={copy}>
-              {SET.map((brand, i) => (
-                <span
-                  className={`brand-strip__logo${brand.large ? " brand-strip__logo--large" : ""}`}
-                  key={i}
-                >
-                  <img src={brand.src} alt={brand.name} />
-                </span>
-              ))}
-            </div>
-          ))}
-        </div>
+      <div className="brand-strip__track" aria-hidden="true">
+        <LogoGroup key="a" />
+        <LogoGroup key="b" />
       </div>
     </div>
   );

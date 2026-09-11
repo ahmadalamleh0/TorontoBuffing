@@ -1,47 +1,28 @@
+/* Outer wrapper is the only clipping boundary — overflow: hidden
+   lives here and nowhere else, so nothing inside the track ever gets
+   double-clipped or measured against a second box. The mask is a
+   visual fade, not a clip, so it can't cause anything to disappear on
+   its own; it's kept tight on mobile (see below) so it never eats a
+   large share of a narrow viewport's visible width. */
 .brand-strip {
+  overflow: hidden;
   width: 100%;
   box-sizing: border-box;
-}
-
-/* Mobile: a stable, static three-column grid — always shows exactly
-   XPEL, Ceramic Pro and Gtechniq, fully on screen, no animation. */
-.brand-strip__mobile-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  align-items: center;
-  justify-items: center;
-  width: 100%;
-  gap: var(--space-3);
   padding-block: var(--space-3);
-  padding-inline: var(--container-padding);
-  box-sizing: border-box;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
 }
 
-.brand-strip__mobile-logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 0;
-  height: 26px;
-}
-
-.brand-strip__mobile-logo img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-  max-height: 100%;
-  width: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.7));
-}
-
-.brand-strip__desktop-track-wrap {
-  display: none;
-}
-
+/* Two identical groups back to back, sized purely by their own
+   content (width: max-content) — never the viewport. translateX(-50%)
+   therefore always moves the track by exactly one group's width,
+   whatever that resolves to at the current screen size, so a resize
+   or orientation change just gets picked up on the next paint with no
+   JS measurement and no chance of a gap, jump or blank frame. */
 .brand-strip__track {
   display: flex;
   width: max-content;
+  flex-shrink: 0;
   animation: brand-strip-scroll 42s linear infinite;
   will-change: transform;
 }
@@ -82,20 +63,13 @@
 }
 
 @media (min-width: 640px) {
-  .brand-strip__mobile-grid {
-    display: none;
-  }
-
-  .brand-strip__desktop-track-wrap {
-    display: block;
-    overflow: hidden;
-    width: 100%;
+  .brand-strip {
     padding-block: var(--space-5);
-    /* Wide fade zone (not just a narrow 6% sliver) — a logo crossing
-       the edge needs to be most of the way to fully transparent before
-       it reaches the container's hard overflow:hidden clip, or it
-       reads as an abrupt cut (e.g. "XPEL" losing its X) instead of a
-       smooth fade. */
+    /* Wide fade zone (not just a narrow sliver) — comfortable once
+       the container is wide enough that the fade band is a small
+       fraction of the total visible width, rather than swallowing a
+       big share of a narrow phone screen the way this same value
+       would below 640px. */
     -webkit-mask-image: linear-gradient(to right, transparent, black 22%, black 78%, transparent);
     mask-image: linear-gradient(to right, transparent, black 22%, black 78%, transparent);
   }
