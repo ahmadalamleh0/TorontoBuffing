@@ -71,18 +71,21 @@
 }
 
 .hero__eyebrow {
-  margin-bottom: var(--space-2);
-  /* Sized/weighted back down close to the shared .eyebrow class's own
-     defaults (--fs-xs, --fw-medium, --ls-widest) — it was previously
-     styled to stand out as its own statement; now it needs to read as
-     a subtle label sitting above the headline, not compete with it. */
-  font-size: var(--fs-xs);
-  font-weight: var(--fw-medium);
-  letter-spacing: var(--ls-widest);
-  /* Plain white, not the brand blue used here before — scoped to the
-     hero eyebrow only, not the shared global .eyebrow class other
-     sections use. Just a dark contact shadow for legibility over the
-     busy hero photo, no color glow. */
+  /* Pulled in closer to the headline beneath it (was --space-2, 8px). */
+  margin-bottom: 4px;
+  /* Explicit Inter (not the shared .eyebrow class's inherited system
+     stack) — "the clean sans-serif," matching the same font used for
+     the service-page hero eyebrows. --ls-widest (0.2em) read as
+     excessive at this small size; a genuinely small size (was --fs-xs,
+     13px) and a heavier-than-medium weight both needed changing too,
+     so it reads as a quiet label instead of competing with the
+     headline. */
+  font-family: var(--font-sans-premium);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  /* Solid white, unchanged — a dark contact shadow for legibility
+     over the busy hero photo, no color glow. */
   color: var(--color-white);
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
 }
