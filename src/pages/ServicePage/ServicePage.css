@@ -327,12 +327,12 @@
   display: block;
   margin-bottom: var(--space-2);
   font-family: var(--font-sans-premium);
-  font-size: var(--fs-xs);
-  font-weight: 700;
-  /* Tighter than the shared .eyebrow class's default --ls-widest
-     (0.2em) — this reads as a compact stat line, not a wide-tracked
-     section label. */
-  letter-spacing: var(--ls-wide);
+  /* Sized down from --fs-xs (13px)/700 weight to a genuinely small,
+     medium-weight label — it was still reading as competing with the
+     headline instead of sitting quietly above it. */
+  font-size: 11.5px;
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.1em;
   color: var(--color-white);
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
@@ -461,17 +461,17 @@
 
 .service-reveal-intro__title {
   margin: 0 0 var(--space-4);
-  /* Was --font-display-strong (Anton) — a genuinely single-weight
-     poster face, so "reduce the weight" couldn't be done on it at
-     all. Inter carries real weight variation (400-700 already
-     loaded), reads as editorial rather than promotional-poster at
-     700, and is the only typeface in this project's stack that can
-     actually hit the ~600-700 target. Size intentionally untouched. */
-  font-family: var(--font-sans-premium);
-  font-weight: 700;
+  /* Bebas Neue (--font-heading) — same face h1/h2 default to
+     sitewide, single weight so no font-weight override does anything
+     here (matches the site's own convention of leaving it unset).
+     Tight line-height for clean, balanced line breaks; letter-spacing
+     stays close to neutral — Bebas Neue's own letterforms are already
+     condensed, unlike the Inter/-0.02em pairing this replaced. Size
+     unchanged. */
+  font-family: var(--font-heading);
   font-size: clamp(2.875rem, 7.5vw, 5rem);
-  line-height: 1.08;
-  letter-spacing: -0.02em;
+  line-height: 0.98;
+  letter-spacing: 0.005em;
   text-transform: none;
   color: var(--color-black);
   transform: translateY(28px);
