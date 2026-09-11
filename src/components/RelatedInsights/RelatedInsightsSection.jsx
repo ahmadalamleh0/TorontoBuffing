@@ -53,7 +53,7 @@ function RelatedInsightsSection({ relatedService, excludeSlug }) {
               <span className="related-insights__card-category">{item.category}</span>
               <h3 className="related-insights__card-title">{item.title}</h3>
               <p className="related-insights__card-excerpt">{item.excerpt || item.seo_description || ""}</p>
-              <span className="related-insights__card-link">Read Article &rarr;</span>
+              <span className="related-insights__card-link">Learn More &rarr;</span>
             </Link>
           ))}
         </div>

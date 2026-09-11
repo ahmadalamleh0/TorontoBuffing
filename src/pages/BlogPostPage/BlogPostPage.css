@@ -122,17 +122,27 @@
 
 /* Related service CTA — sits between the article content and the
    quote wizard/Related Insights, a clear two way link back to the
-   service this Insight is actually about. */
+   service this Insight is actually about. Minimal and centered on
+   purpose — this is a one line pointer, not a second CTA competing
+   with the quote wizard right below it, so it stays small with tight
+   padding rather than the shared .section 96px rhythm. */
 .blog-post-service-cta {
   background: var(--color-off-white);
+  /* Asymmetric on purpose: the FAQ block right above this already
+     carries its own full .section bottom padding, so this block's own
+     top padding only needs to be small breathing room, not a second
+     full section gap stacked on top of it. */
+  padding-top: clamp(20px, 3vw, 28px);
+  padding-bottom: clamp(28px, 4vw, 40px);
 }
 
 .blog-post-service-cta__inner {
   max-width: 720px;
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: var(--space-3);
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  text-align: center;
 }
 
 .blog-post-service-cta__label {

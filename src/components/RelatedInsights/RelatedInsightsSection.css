@@ -3,6 +3,12 @@
    cover photo yet) so it works today and still looks intentional. */
 .related-insights {
   background: var(--color-white);
+  /* Tighter than the shared .section default (96px) — whatever
+     precedes this (a service's own last content section, or the
+     Related Service block on an Insight article) already carries its
+     own bottom padding, so the full 96px+96px stack read as dead
+     space above this section's own heading. */
+  padding-block: clamp(40px, 6vw, 64px);
 }
 
 .related-insights__grid {
