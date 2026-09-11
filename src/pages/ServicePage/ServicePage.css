@@ -206,44 +206,68 @@
    shorter than min-height or taller than max-height regardless of how
    extreme a future photo's proportions are. */
 .service-hero--service {
-  /* Explicit, not the default auto: without this, whenever min-height
-     pushes the box taller than aspect-ratio alone would (e.g. the
-     landscape classic-restoration photo hitting the 58vh floor
-     instead of its own much shorter natural height), the browser
-     grows WIDTH instead to preserve the ratio — aspect-ratio treats
-     an auto width as the flexible dimension once height is forced by
-     a separate constraint. That silently blew the hero wider than
-     the viewport (390px container measuring 696px wide) and caused
-     the exact horizontal cropping this fix exists to remove. Pinning
-     width keeps it the one truly fixed dimension, so height is what
-     flexes between min/max instead. */
+  /* Explicit, not the default auto: without this, aspect-ratio treats
+     an auto width as the flexible dimension whenever height gets
+     pushed away from the ratio-implied value by a separate
+     constraint (min/max-height) — silently blew the hero wider than
+     the viewport (390px container measuring 696px wide) the first
+     time this was built. Pinning width keeps it the one truly fixed
+     dimension. */
   width: 100%;
-  min-height: 58vh;
-  max-height: 86vh;
+  /* aspect-ratio (set inline per photo in ServiceSections.jsx) is what
+     drives height now, not a forced vh value — every portrait-sourced
+     photo (6 of the 7) ends up at or very near its own full natural
+     height, no cropping. This min-height is a text-safety floor, not
+     an image-crop floor: it's sized to the content block's own
+     minimum (eyebrow + a 2-line title + 2-line copy + phone + divider,
+     see .service-hero__inner's reduced padding below), not to any
+     particular "hero should look this tall" target — it only
+     actually engages for the one landscape source photo
+     (classic-restoration), whose own aspect-ratio alone produces a
+     box too short to hold that text without it overflowing above the
+     hero into the navbar. Every other photo's own height already
+     clears this easily. */
+  min-height: 360px;
 }
 
 @media (min-width: 1024px) {
   .service-hero--service {
-    /* Desktop viewports are wide enough that object-fit: cover looks
-       right on any of these photos without help — locked back to
-       exactly the original fixed 84vh so this fix is mobile-only. */
+    /* Desktop is unchanged from before this fix — fixed 84vh
+       regardless of photo shape, since a wide viewport already looks
+       right with object-fit: cover on any of these photos. */
     min-height: 84vh;
     max-height: 84vh;
   }
 }
 
 .service-hero--service .service-hero__scrim {
-  /* Monotonic fade to solid black at the very bottom instead of the
-     default vignette (dark-light-dark) scrim — the photo needs to
-     visibly dissolve into the hero's own dark floor, not look cropped
-     at a hard edge, before the next section's own background begins. */
+  /* Mobile: the hero is now exactly as tall as the full photo (no
+     forced min-height), so a fade that starts darkening at 35% was
+     visibly eating most of the photo — stays essentially clear
+     through the top ~60% and only ramps to solid black over the
+     final stretch, right under where the text sits. */
   background: linear-gradient(
     180deg,
-    rgba(11, 11, 13, 0.1) 0%,
-    rgba(11, 11, 13, 0.15) 35%,
-    rgba(11, 11, 13, 0.55) 68%,
+    rgba(11, 11, 13, 0) 0%,
+    rgba(11, 11, 13, 0) 58%,
+    rgba(11, 11, 13, 0.55) 88%,
     var(--color-black) 100%
   );
+}
+
+@media (min-width: 1024px) {
+  .service-hero--service .service-hero__scrim {
+    /* Desktop unchanged — the original fade, wider viewports don't
+       have the same "photo mostly gone" problem the mobile-only
+       aspect-ratio height change caused. */
+    background: linear-gradient(
+      180deg,
+      rgba(11, 11, 13, 0.1) 0%,
+      rgba(11, 11, 13, 0.15) 35%,
+      rgba(11, 11, 13, 0.55) 68%,
+      var(--color-black) 100%
+    );
+  }
 }
 
 /* The scrim above only fades the PHOTO smoothly down to solid black —
@@ -277,8 +301,26 @@
 }
 
 .service-hero--service .service-hero__inner {
-  padding-bottom: var(--space-9);
+  /* The base rule's padding-top (calc(header-height + space-6), ~100px)
+     and padding-bottom (space-9, 96px) were sized for the old forced
+     78vh box. Now that height comes from the photo's own aspect ratio,
+     a short (landscape-sourced) hero can end up shorter than that
+     padding alone, pushing the text block's top edge above the hero
+     entirely — cut it down to what's actually needed for breathing
+     room, not header clearance the flex-end-anchored content never
+     needed anyway. */
+  padding-top: var(--space-3);
+  padding-bottom: var(--space-6);
   text-align: left;
+}
+
+@media (min-width: 1024px) {
+  .service-hero--service .service-hero__inner {
+    /* Desktop's fixed 84vh box never had this problem — original
+       spacing, unchanged. */
+    padding-top: calc(var(--header-height) + var(--space-6));
+    padding-bottom: var(--space-9);
+  }
 }
 
 .service-hero--service .service-hero__eyebrow {
@@ -332,6 +374,25 @@
 
 .service-hero--service .service-hero__phone:hover {
   color: var(--color-accent-on-dark);
+}
+
+/* Mobile-only divider under the phone row, matching the reference —
+   spans the same width as the rest of the content (the .container's
+   own side padding already gives it equal left/right inset), not a
+   separate shorter centered rule. */
+.service-hero--service .service-hero__divider {
+  display: block;
+  width: 100%;
+  height: 1px;
+  margin-top: var(--space-5);
+  background: rgba(255, 255, 255, 0.22);
+  border: none;
+}
+
+@media (min-width: 1024px) {
+  .service-hero--service .service-hero__divider {
+    display: none;
+  }
 }
 
 @media (min-width: 640px) {

@@ -137,6 +137,10 @@ export function ServiceHero({ hero, variant }) {
             {BUSINESS_INFO.telephoneDisplay}
           </a>
         )}
+        {/* Mobile-only (see .service-hero__divider) — a plain rule,
+            not a claim, so no aria-label needed beyond hiding it from
+            the accessibility tree entirely. */}
+        {isService && <span className="service-hero__divider" aria-hidden="true" />}
       </div>
     </section>
   );
