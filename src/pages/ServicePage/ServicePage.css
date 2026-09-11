@@ -611,6 +611,15 @@
 }
 
 .service-feature-card__body {
+  /* aspect-ratio on __media above computes a fractional pixel height,
+     which can leave a hairline sliver of the card's own background
+     visible at the boundary once the browser rounds that box to the
+     pixel grid. Both sides are the same solid black already (the
+     media's own gradient fades to it, the card's background is it),
+     so pulling the body up by 1px to guarantee overlap removes the
+     seam with zero visible effect on either side. */
+  position: relative;
+  margin-top: -1px;
   padding: var(--space-3) var(--space-4);
   text-align: center;
 }
