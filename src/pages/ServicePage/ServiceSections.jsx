@@ -176,7 +176,7 @@ function RevealIntroSection({ section }) {
                 <span className="service-checklist__icon" aria-hidden="true">
                   <CheckIcon />
                 </span>
-                {renderRichText(item)}
+                <span className="service-checklist__text">{renderRichText(item)}</span>
               </li>
             ))}
           </ul>
@@ -288,7 +288,7 @@ function IntroSection({ section }) {
                 <span className="service-checklist__icon" aria-hidden="true">
                   <CheckIcon />
                 </span>
-                {renderRichText(item)}
+                <span className="service-checklist__text">{renderRichText(item)}</span>
               </li>
             ))}
           </ul>

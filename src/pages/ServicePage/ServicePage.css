@@ -760,7 +760,7 @@
   /* Tightened for mobile only — restored to the original space-3/
      space-6 gap and space-6 top margin at 640px+ below, alongside the
      existing column-count breakpoint. */
-  gap: var(--space-2) var(--space-6);
+  gap: 10px var(--space-6);
   margin: var(--space-4) 0 0;
   padding: 0;
   list-style: none;
@@ -769,9 +769,10 @@
 .service-checklist__item {
   display: flex;
   align-items: flex-start;
-  gap: var(--space-3);
+  gap: 10px;
   font-family: var(--font-sans-premium);
-  font-size: var(--fs-base);
+  font-size: 17px;
+  line-height: 1.6;
   color: var(--color-black);
 }
 
@@ -780,17 +781,32 @@
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
-  margin-top: 0.15em;
+  width: 18px;
+  height: 18px;
+  margin-top: 0.2em;
   border-radius: 50%;
   background: var(--color-accent);
   color: var(--color-white);
 }
 
 .service-checklist__icon svg {
-  width: 11px;
-  height: 11px;
+  width: 9px;
+  height: 9px;
+}
+
+/* The label and its description must stay one continuous text flow —
+   a single flex item beside the icon — never two, or flexbox lays the
+   bold `<strong>` term and the description text out as separate
+   columns: short multi-word labels ("E coat", "Clear coat") get
+   squeezed and wrap mid-word, and the description collapses into an
+   unnaturally narrow, centered-looking block. */
+.service-checklist__text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.service-checklist__text strong {
+  white-space: nowrap;
 }
 
 @media (min-width: 640px) {
@@ -798,6 +814,22 @@
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-3) var(--space-6);
     margin: var(--space-6) 0 0;
+  }
+
+  .service-checklist__item {
+    font-size: var(--fs-base);
+    line-height: var(--lh-normal);
+  }
+
+  .service-checklist__icon {
+    width: 22px;
+    height: 22px;
+    margin-top: 0.15em;
+  }
+
+  .service-checklist__icon svg {
+    width: 11px;
+    height: 11px;
   }
 }
 
