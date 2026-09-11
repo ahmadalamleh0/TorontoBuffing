@@ -6,9 +6,8 @@ import hlPorsche2 from "../../assets/images/servicePages/headlight-restoration/h
 
 export const headlightRestorationPage = {
   hero: {
-    title: "Headlight Restoration.",
-    copy:
-      "Hazy, yellowed headlights are almost always a surface problem, not a hardware one. Multi-stage wet sanding and polishing restore true clarity in hours, without a parts order.",
+    title: "Headlight Restoration",
+    copy: "Hazy, yellowed headlights restored to true clarity without a parts order.",
     image: hlBmwM4,
     imageAlt: "A BMW M4 with its front bumper and headlight assembly removed at Toronto Buffing",
     imageWidth: 1440,

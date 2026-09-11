@@ -9,13 +9,19 @@ import heroImage from "../../assets/images/servicePages/classic-restoration/clas
 
 export const classicRestorationPage = {
   hero: {
-    title: "Classic Restoration.",
-    copy:
-      "Classic restoration corrects decades of wear and prior workmanship while preserving as much of the vehicle's original paint as possible, with a plan built around its actual condition.",
+    title: "Classic Restoration",
+    copy: "Careful restoration that preserves original paint while correcting decades of wear.",
     image: classic7,
     imageAlt: "Detail of a restored Chevrolet Corvette Sting Ray's rear end",
     imageWidth: 1280,
     imageHeight: 960,
+    // The only landscape (4:3) source among the 7 hero photos, cropped
+    // into a much taller mobile hero window — object-fit: cover has to
+    // scale it up until its height fills the box, at which point over
+    // half its width is cut off. Center crop lands mid-hood; shifting
+    // left keeps the actual "rear end" (the taillights and Corvette
+    // script the alt text describes) in frame instead.
+    imagePosition: "30% center",
     centered: true,
   },
   sections: [

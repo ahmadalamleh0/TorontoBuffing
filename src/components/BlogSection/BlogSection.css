@@ -1,5 +1,10 @@
 .blog-section {
   background: var(--color-white);
+  /* FAQ right above uses its own tighter 48px padding-block, so the
+     shared .section 96px on top of that read as a big dead gap
+     between the two white sections. Only the top is tightened —
+     bottom keeps the shared .section spacing before the footer. */
+  padding-top: clamp(40px, 6vw, 64px);
 }
 
 .blog-section .eyebrow {

@@ -8,9 +8,8 @@ import pr5 from "../../assets/images/servicePages/panel-refinishing/pr-5.jpg";
 
 export const panelRefinishingPage = {
   hero: {
-    title: "Panel Refinishing.",
-    copy:
-      "When correction can no longer fix the damage, panel refinishing restores it. Damaged areas are properly repaired, primed and colour-matched back to a true factory-level finish.",
+    title: "Panel Refinishing",
+    copy: "Careful repair and refinishing that restores damaged panels to a true factory finish.",
     image: heroImage,
     imageAlt: "A vehicle masked and prepped for paint refinishing in the Toronto Buffing spray booth",
     imageWidth: 1200,

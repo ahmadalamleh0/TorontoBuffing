@@ -102,6 +102,8 @@ export function ServiceHero({ hero, variant }) {
             height={hero.imageHeight}
             loading="eager"
             fetchPriority="high"
+            decoding="sync"
+            style={hero.imagePosition ? { objectPosition: hero.imagePosition } : undefined}
           />
           <div className="service-hero__scrim" aria-hidden="true" />
         </div>

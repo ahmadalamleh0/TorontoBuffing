@@ -49,7 +49,6 @@ function BlogSection() {
     <section id="insights" className="blog-section section">
       <div className="container">
         <div className="blog-section__heading">
-          <span className="eyebrow">From The Shop</span>
           <h2 className="blog-section__title">Latest Insights</h2>
         </div>
 

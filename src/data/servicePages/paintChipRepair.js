@@ -6,9 +6,8 @@ import craftsmanship from "../../assets/images/servicePages/paint-chip-repair/pc
 
 export const paintChipRepairPage = {
   hero: {
-    title: "Paint Chip Repair.",
-    copy:
-      "A paint chip exposes bare metal to corrosion. Toronto Buffing seals the exposure first, then layers, levels and polishes the repair to blend into the surrounding finish.",
+    title: "Paint Chip Repair",
+    copy: "Chips and stone damage repaired and blended into the surrounding finish.",
     image: heroImage,
     imageAlt: "A green BMW marked with yellow chip-repair spots during preparation at Toronto Buffing",
     imageWidth: 1252,

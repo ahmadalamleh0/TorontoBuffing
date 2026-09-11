@@ -10,8 +10,8 @@ import garageBanner from "../../assets/images/banner/garage-showcase.jpg";
 
 export const paintCorrectionPage = {
   hero: {
-    title: "Paint Correction.",
-    copy: "Paint correction uses machine polishing to cut away swirl marks and haze, restoring the paint's true depth and clarity.",
+    title: "Paint Correction",
+    copy: "Machine polishing that removes swirl marks and restores true paint clarity.",
     centered: true,
     image: pcHero,
     imageAlt: "A technician machine-polishing swirl marks out of a BMW's trunk lid at Toronto Buffing",

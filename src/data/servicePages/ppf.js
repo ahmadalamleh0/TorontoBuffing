@@ -7,8 +7,8 @@ import ppfCraftsmanship from "../../assets/images/servicePages/ppf/ppf-craftsman
 
 export const ppfPage = {
   hero: {
-    title: "Paint Protection Film.",
-    copy: "Paint protection film applies a clear, self-healing layer over vulnerable panels, shielding the paint from stone chips, road debris and daily wear without changing its appearance.",
+    title: "Paint Protection Film",
+    copy: "Invisible protection against rock chips, scratches and everyday road wear.",
     centered: true,
     titleNoWrap: true,
     image: heroImage,

@@ -11,9 +11,8 @@ import product5 from "../../assets/images/servicePages/ceramic-coating/products/
 
 export const ceramicCoatingPage = {
   hero: {
-    title: "Ceramic Coating.",
-    copy:
-      "Ceramic coating bonds a durable layer of protection to the clearcoat, locking in gloss and clarity while making the paint significantly easier to maintain against dirt, water and UV exposure.",
+    title: "Ceramic Coating",
+    copy: "A durable, glossy layer that protects paint and makes it easier to maintain.",
     image: ceramic2,
     imageAlt: "Two finished Porsche 911 GT3s in the Toronto Buffing studio",
     imageWidth: 1290,

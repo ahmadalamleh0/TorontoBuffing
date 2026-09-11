@@ -124,7 +124,12 @@ function Footer() {
           <div className="editorial-footer__col">
             <h4 className="editorial-footer__label">SERVICE AREAS</h4>
             <div className="editorial-footer__content editorial-footer__content--areas">
-              {SERVICE_AREAS.map((area) =>
+              {/* Footer-only trim — Oakville and Brampton stay fully
+                  live as real Service Area pages (routes, sitemap,
+                  the homepage's own city section via the same
+                  SERVICE_AREAS list); they're just not linked from
+                  here specifically. */}
+              {SERVICE_AREAS.filter((area) => area.title !== "Oakville" && area.title !== "Brampton").map((area) =>
                 area.published ? (
                   <Link key={area.path} to={area.path} className="editorial-footer__link">
                     {area.title.toUpperCase()}
