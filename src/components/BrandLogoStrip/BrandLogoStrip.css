@@ -1,10 +1,9 @@
 /* Outer wrapper is the only clipping boundary — overflow: hidden
-   lives here and nowhere else, so nothing inside the track ever gets
-   double-clipped or measured against a second box. The mask is a
-   visual fade, not a clip, so it can't cause anything to disappear on
-   its own; it's kept tight on mobile (see below) so it never eats a
-   large share of a narrow viewport's visible width. */
-.brand-strip {
+   lives here and nowhere else. The mask is a visual fade, not a
+   clip, so it can't cause anything to disappear on its own; it's
+   kept tight on mobile (see below) so it never eats a large share of
+   a narrow viewport's visible width. */
+.marquee {
   overflow: hidden;
   width: 100%;
   box-sizing: border-box;
@@ -14,34 +13,44 @@
 }
 
 /* Two identical groups back to back, sized purely by their own
-   content (width: max-content) — never the viewport. translateX(-50%)
-   therefore always moves the track by exactly one group's width,
-   whatever that resolves to at the current screen size, so a resize
-   or orientation change just gets picked up on the next paint with no
-   JS measurement and no chance of a gap, jump or blank frame. */
-.brand-strip__track {
+   content (width: max-content) — never the viewport, never 100%.
+   translate3d(-50%,0,0) therefore always moves the track by exactly
+   one group's width, whatever that resolves to at the current screen
+   size, so a resize or orientation change is picked up on the next
+   paint with no JS measurement involved. Every logo has explicit
+   width/height (see BrandLogoStrip.jsx), so that width is known and
+   stable from first layout — nothing here grows or shifts once
+   images actually finish loading, which is what caused the previous
+   "goes blank" bug: an animation running against a still-changing
+   track width. */
+.marqueeTrack {
   display: flex;
+  flex-wrap: nowrap;
   width: max-content;
-  flex-shrink: 0;
-  animation: brand-strip-scroll 42s linear infinite;
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
   will-change: transform;
+  animation: marquee-scroll 42s linear infinite;
 }
 
-.brand-strip__set {
+.marqueeGroup {
   display: flex;
+  flex-shrink: 0;
+  flex-wrap: nowrap;
   align-items: center;
-  flex: 0 0 auto;
+  gap: 0;
+  padding-right: var(--space-6);
 }
 
-.brand-strip__logo {
+.marqueeLogo {
   display: flex;
-  flex: 0 0 auto;
+  flex-shrink: 0;
   align-items: center;
   height: 22px;
   margin-inline: var(--space-6);
 }
 
-.brand-strip__logo img {
+.marqueeLogo img {
   display: block;
   height: 100%;
   width: auto;
@@ -49,21 +58,23 @@
   filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.7));
 }
 
-.brand-strip__logo--large {
+.marqueeLogo--large {
   height: 34px;
 }
 
-@keyframes brand-strip-scroll {
+@keyframes marquee-scroll {
   from {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
+    -webkit-transform: translate3d(-50%, 0, 0);
   }
 }
 
 @media (min-width: 640px) {
-  .brand-strip {
+  .marquee {
     padding-block: var(--space-5);
     /* Wide fade zone (not just a narrow sliver) — comfortable once
        the container is wide enough that the fade band is a small
@@ -74,12 +85,12 @@
     mask-image: linear-gradient(to right, transparent, black 22%, black 78%, transparent);
   }
 
-  .brand-strip__logo {
+  .marqueeLogo {
     height: 26px;
     margin-inline: var(--space-8);
   }
 
-  .brand-strip__logo--large {
+  .marqueeLogo--large {
     height: 40px;
   }
 }
@@ -89,7 +100,7 @@
    looping continuously on phones regardless of that OS setting.
    Matches specificity against the global `*` !important rule. */
 @media (prefers-reduced-motion: reduce) {
-  .brand-strip__track {
+  .marqueeTrack {
     animation-duration: 42s !important;
     animation-iteration-count: infinite !important;
   }

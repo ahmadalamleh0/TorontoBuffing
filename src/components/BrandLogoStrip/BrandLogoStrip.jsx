@@ -11,33 +11,43 @@ import "./BrandLogoStrip.css";
 // Ceramic Pro's file renders dark linework, which will read
 // low-contrast on this dark strip until a better-suited file replaces
 // it; swap the import above when that artwork is ready.
+//
+// width/height here are each file's real intrinsic ratio (STEK has no
+// absolute size of its own, so its viewBox ratio is used instead) —
+// passed straight through as the <img>'s own width/height attributes.
+// That's what lets the browser reserve each logo's correct final
+// width immediately from layout, before the image byte data has
+// actually arrived over the network, instead of guessing 0 (or a
+// generic fallback box) and reflowing once it loads. Without that,
+// .marqueeTrack's width: max-content — and therefore the running
+// translate3d(-50%,...) animation's own reference distance — silently
+// grows while images are still arriving, which is what caused the
+// live "goes blank for several seconds" bug: the animation's -50%
+// target kept being recalculated against a track that hadn't finished
+// growing yet.
 const LOGOS = [
-  { name: "XPEL", src: xpelLogo },
-  { name: "Suntek", src: suntekLogo },
-  { name: "STEK", src: stekLogo, large: true },
-  { name: "Hexis", src: hexisLogo, large: true },
-  { name: "Ceramic Pro", src: ceramicProLogo, large: true },
-  { name: "Gtechniq", src: gtechniqLogo },
+  { name: "XPEL", src: xpelLogo, width: 500, height: 128 },
+  { name: "Suntek", src: suntekLogo, width: 351, height: 74.561 },
+  { name: "STEK", src: stekLogo, width: 99.66, height: 100, large: true },
+  { name: "Hexis", src: hexisLogo, width: 694, height: 412, large: true },
+  { name: "Ceramic Pro", src: ceramicProLogo, width: 575, height: 216, large: true },
+  { name: "Gtechniq", src: gtechniqLogo, width: 600, height: 126 },
 ];
 
-// Repeated enough times that one group comfortably exceeds any
-// realistic viewport width (including landscape phones and desktop),
-// then rendered exactly twice back-to-back — the second, identical
-// group animated into view as the first one exits. Both groups are
-// the same array rendered the same way, so their widths, gaps and
-// ordering are guaranteed identical; translateX(-50%) then always
-// moves the track by exactly one group's width, never the viewport's,
-// so the loop stays seamless at any screen size or orientation with
-// no JS measurement involved.
+// One group's own content is repeated internally (not just the two
+// top-level groups) purely so a single group is comfortably wider
+// than any realistic viewport before the two groups are duplicated —
+// unrelated to, and not a substitute for, the two-group loop
+// structure itself.
 const REPEAT = 4;
-const GROUP = Array.from({ length: REPEAT }, () => LOGOS).flat();
+const GROUP_ITEMS = Array.from({ length: REPEAT }, () => LOGOS).flat();
 
-function LogoGroup() {
+function MarqueeGroup({ hidden }) {
   return (
-    <div className="brand-strip__set">
-      {GROUP.map((brand, i) => (
-        <span className={`brand-strip__logo${brand.large ? " brand-strip__logo--large" : ""}`} key={i}>
-          <img src={brand.src} alt={brand.name} loading="eager" />
+    <div className="marqueeGroup" aria-hidden={hidden ? "true" : undefined}>
+      {GROUP_ITEMS.map((brand, i) => (
+        <span className={`marqueeLogo${brand.large ? " marqueeLogo--large" : ""}`} key={i}>
+          <img src={brand.src} width={brand.width} height={brand.height} alt={brand.name} loading="eager" decoding="sync" />
         </span>
       ))}
     </div>
@@ -46,13 +56,15 @@ function LogoGroup() {
 
 function BrandLogoStrip() {
   return (
-    <div className="brand-strip">
+    <div className="marquee">
       <span className="visually-hidden">
         Brands Toronto Buffing works with: XPEL, Suntek, STEK, Hexis, Ceramic Pro, Gtechniq.
       </span>
-      <div className="brand-strip__track" aria-hidden="true">
-        <LogoGroup key="a" />
-        <LogoGroup key="b" />
+      <div className="marqueeTrack">
+        {/* complete logo set */}
+        <MarqueeGroup />
+        {/* exact duplicate of complete logo set */}
+        <MarqueeGroup hidden />
       </div>
     </div>
   );
