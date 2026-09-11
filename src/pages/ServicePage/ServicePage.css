@@ -325,15 +325,18 @@
 
 .service-hero--service .service-hero__eyebrow {
   display: block;
-  margin-bottom: var(--space-2);
+  /* Pulled in closer to the title beneath it (was --space-2, 8px). */
+  margin-bottom: 4px;
+  /* Already Inter, not Bebas Neue — this label was never set to the
+     display face; only the reveal-intro headline further down the
+     page uses --font-heading. */
   font-family: var(--font-sans-premium);
-  /* Sized down from --fs-xs (13px)/700 weight to a genuinely small,
-     medium-weight label — it was still reading as competing with the
-     headline instead of sitting quietly above it. */
-  font-size: 11.5px;
-  font-weight: var(--fw-medium);
-  letter-spacing: 0.1em;
-  color: var(--color-white);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  /* White softened to 85% so it reads as quieter than the solid-white
+     title, uppercase inherited from the shared .eyebrow class. */
+  color: rgba(255, 255, 255, 0.85);
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
