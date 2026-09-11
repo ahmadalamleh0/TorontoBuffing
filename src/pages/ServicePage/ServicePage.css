@@ -191,6 +191,47 @@
    which render this same ServiceHero without that variant, are
    completely unaffected. ---- */
 
+/* The actual fix for mobile crop severity: the base .service-hero
+   rule forces min-height: 78vh on every hero regardless of the source
+   photo's own shape, so a landscape image gets blown up until its
+   height fills that (very tall, narrow-viewport) box, cropping away
+   whatever doesn't fit the width — no object-position value can fix
+   that, it can only choose WHICH part gets cropped. The real fix is
+   letting each hero's height follow its own photo: ServiceSections.jsx
+   sets `aspect-ratio` inline from hero.imageWidth/imageHeight, and
+   min/max-height here just clamp the result — a portrait photo (most
+   of the 7) ends up close to its own natural full-width height with
+   little to no cropping, a landscape one (classic-restoration) no
+   longer gets forced into the same tall box, and neither can go
+   shorter than min-height or taller than max-height regardless of how
+   extreme a future photo's proportions are. */
+.service-hero--service {
+  /* Explicit, not the default auto: without this, whenever min-height
+     pushes the box taller than aspect-ratio alone would (e.g. the
+     landscape classic-restoration photo hitting the 58vh floor
+     instead of its own much shorter natural height), the browser
+     grows WIDTH instead to preserve the ratio — aspect-ratio treats
+     an auto width as the flexible dimension once height is forced by
+     a separate constraint. That silently blew the hero wider than
+     the viewport (390px container measuring 696px wide) and caused
+     the exact horizontal cropping this fix exists to remove. Pinning
+     width keeps it the one truly fixed dimension, so height is what
+     flexes between min/max instead. */
+  width: 100%;
+  min-height: 58vh;
+  max-height: 86vh;
+}
+
+@media (min-width: 1024px) {
+  .service-hero--service {
+    /* Desktop viewports are wide enough that object-fit: cover looks
+       right on any of these photos without help — locked back to
+       exactly the original fixed 84vh so this fix is mobile-only. */
+    min-height: 84vh;
+    max-height: 84vh;
+  }
+}
+
 .service-hero--service .service-hero__scrim {
   /* Monotonic fade to solid black at the very bottom instead of the
      default vignette (dark-light-dark) scrim — the photo needs to

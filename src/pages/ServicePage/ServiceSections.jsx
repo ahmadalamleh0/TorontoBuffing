@@ -90,9 +90,20 @@ function PhoneIcon() {
  */
 export function ServiceHero({ hero, variant }) {
   const isService = variant === "service";
+  // Drives the hero's own height from the actual photo's proportions
+  // (see .service-hero--service in ServicePage.css) instead of every
+  // service being forced into the same fixed viewport-height box
+  // regardless of whether its source photo is a tall portrait or a
+  // landscape shot — only set for the service variant so every other
+  // caller's hero (SeoPage, InsightArticle, PreviewGeoPages) is
+  // completely unaffected.
+  const heroStyle =
+    isService && hero.imageWidth && hero.imageHeight
+      ? { aspectRatio: `${hero.imageWidth} / ${hero.imageHeight}` }
+      : undefined;
 
   return (
-    <section className={`service-hero${isService ? " service-hero--service" : ""}`}>
+    <section className={`service-hero${isService ? " service-hero--service" : ""}`} style={heroStyle}>
       {hero.image && (
         <div className="service-hero__media">
           <img
