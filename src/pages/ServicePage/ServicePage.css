@@ -314,7 +314,7 @@
 }
 
 .service-feature-card__media {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 5 / 4;
   overflow: hidden;
 }
 
@@ -331,24 +331,13 @@
 }
 
 .service-feature-card__body {
-  padding: var(--space-5);
-}
-
-/* The signature brand-blue detail — a short solid rule, the one spot
-   of color in an otherwise black-and-white card. */
-.service-feature-card__rule {
-  display: block;
-  width: 30px;
-  height: 3px;
-  margin-bottom: var(--space-3);
-  background: var(--color-accent-on-dark);
-  border-radius: 2px;
+  padding: var(--space-4);
 }
 
 .service-feature-card__title {
   margin: 0;
   font-family: var(--font-heading);
-  font-size: var(--fs-xl);
+  font-size: var(--fs-lg);
   letter-spacing: 0.01em;
   color: var(--color-white);
 }
@@ -359,6 +348,10 @@
   font-size: var(--fs-sm);
   line-height: var(--lh-normal);
   color: rgba(255, 255, 255, 0.6);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 @media (min-width: 640px) {
@@ -367,7 +360,7 @@
   }
 
   .service-feature-card__body {
-    padding: var(--space-6);
+    padding: var(--space-5);
   }
 }
 
@@ -419,6 +412,13 @@
 .service-heading {
   font-size: var(--fs-3xl);
   color: var(--color-black);
+  /* Keeps a heading clear of the fixed nav pill (NovaNavbar) when a
+     browser scrolls straight to it — a shared search result's "jump to
+     this text" link, or any future in-page anchor — the same guard
+     already used on QuoteWizardSection's own anchor target. Purely a
+     scroll-target offset: it has no effect on normal in-flow layout or
+     spacing between sections. */
+  scroll-margin-top: calc(var(--header-height) + var(--space-4));
 }
 
 .service-heading--center {
@@ -739,6 +739,164 @@
     opacity: 1;
     transform: none;
     transition: none;
+  }
+}
+
+/* ---- Jump navigation — a compact list of in-page anchor links near
+   the top of a long guide (an Insight), so a reader can skip straight
+   to the part they need instead of scrolling through the whole
+   article. Deliberately plain and quiet: this is a utility, not a
+   feature moment. ---- */
+
+.service-jump-nav {
+  padding-block: var(--space-6);
+  background: var(--color-off-white);
+  border-top: 1px solid var(--color-border-gray);
+  border-bottom: 1px solid var(--color-border-gray);
+}
+
+.service-jump-nav__inner {
+  max-width: 720px;
+}
+
+.service-jump-nav__label {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-muted-gray);
+}
+
+.service-jump-nav__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.service-jump-nav__link {
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--color-brand-blue);
+  text-decoration: none;
+}
+
+.service-jump-nav__link:hover {
+  text-decoration: underline;
+}
+
+/* ---- FAQ block ("Common Questions") — a real accordion (question
+   visible, answer collapsed until clicked), reusing FaqAccordionItem's
+   own row styling from FaqSection.css (imported by ServiceSections.jsx)
+   so it matches the homepage/service-page FAQ exactly. Only the
+   heading treatment and outer width are set here. ---- */
+
+.service-faq-block {
+  background: var(--color-off-white);
+}
+
+.service-faq-block__inner {
+  max-width: 720px;
+}
+
+.service-faq-block .service-heading {
+  margin-bottom: var(--space-6);
+  font-family: var(--font-display-strong);
+  font-size: clamp(2.25rem, 5.5vw, 3.25rem);
+  font-weight: 900;
+  letter-spacing: 0.005em;
+}
+
+.service-faq-block__list {
+  gap: var(--space-3);
+}
+
+/* ---- Nearby service areas — a clean internal-linking grid of city
+   cards, city name as the primary link, no geography essay. ---- */
+
+.service-nearby {
+  background: var(--color-white);
+}
+
+.service-nearby__inner {
+  max-width: 860px;
+}
+
+.service-nearby .service-heading {
+  margin-bottom: var(--space-6);
+  font-family: var(--font-display-strong);
+  font-size: clamp(2.25rem, 5.5vw, 3.25rem);
+  font-weight: 900;
+  letter-spacing: 0.005em;
+}
+
+.service-nearby__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+.service-nearby__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-5);
+  text-align: center;
+  background: var(--color-off-white);
+  border: 1px solid var(--color-border-gray);
+  border-radius: 16px;
+  transition: border-color var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard);
+}
+
+.service-nearby__card:hover {
+  border-color: var(--color-brand-blue);
+  transform: translateY(-2px);
+}
+
+.service-nearby__card-name {
+  font-family: var(--font-display-strong);
+  font-size: var(--fs-xl);
+  font-weight: 800;
+  color: var(--color-black);
+}
+
+.service-nearby__card-sub {
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+.service-nearby__card-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  margin-top: var(--space-2);
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--color-brand-blue);
+}
+
+.service-nearby__note {
+  max-width: 60ch;
+  margin: var(--space-6) auto 0;
+  font-family: var(--font-sans-premium);
+  font-size: var(--fs-sm);
+  font-style: italic;
+  text-align: center;
+  color: var(--color-black);
+}
+
+@media (min-width: 768px) {
+  .service-nearby__grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 

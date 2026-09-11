@@ -2,41 +2,34 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" href="/images/logo/tb-logo.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0a0a0a" />
     <meta name="color-scheme" content="dark" />
-    <link rel="canonical" href="https://paintcorrection.ca/" />
-    <!-- Static fallback for this route + a sane default for any other:
-         these are overwritten per-route at runtime by the Seo
-         component (react-helmet-async), but non-JS crawlers and social
-         unfurlers only ever see this initial HTML, so it needs to be a
-         real, accurate description on its own — not a placeholder. -->
-    <meta
-      name="description"
-      content="Toronto Buffing provides precision paint correction, ceramic coating and paint protection film (PPF) for vehicles across Vaughan and the GTA. Get your free quote."
-    />
-
-    <!-- Social share preview (WhatsApp, iMessage, Instagram DM, etc.) -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Toronto Buffing" />
-    <meta property="og:title" content="Toronto Buffing | Paint Correction, PPF & Ceramic Coating" />
-    <meta
-      property="og:description"
-      content="Toronto Buffing provides precision paint correction, ceramic coating and paint protection film (PPF) for vehicles across Vaughan and the GTA. Get your free quote."
-    />
-    <meta property="og:url" content="https://paintcorrection.ca/" />
-    <meta property="og:image" content="https://paintcorrection.ca/images/social/og-image.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Toronto Buffing | Paint Correction, PPF & Ceramic Coating" />
-    <meta
-      name="twitter:description"
-      content="Toronto Buffing provides precision paint correction, ceramic coating and paint protection film (PPF) for vehicles across Vaughan and the GTA. Get your free quote."
-    />
-    <meta name="twitter:image" content="https://paintcorrection.ca/images/social/og-image.png" />
+    <!-- No static title/description/canonical/OG/Twitter tags here on
+         purpose. Every route (HomePage, ServicePage, SeoPage, the
+         Insight article renderer, NotFoundPage) renders its own
+         accurate <Seo> (src/components/Seo/Seo.jsx, react-helmet-async)
+         unconditionally on mount, covering all of it. A static tag here
+         is never cleaned up by anyone at runtime, so it just leaves a
+         second, wrong (homepage-only) tag sitting in the DOM forever
+         alongside the correct per-page one — that was the actual cause
+         of the "2 canonical / 2 description" bug. This includes
+         <title>: React 19's built-in head-hoisting inserts Helmet's
+         <title> as its own real element (correct per-page text) without
+         touching whatever <title> is already in this file, so a static
+         one here duplicates too — confirmed by inspecting the live DOM,
+         not by reading react-helmet-async's source alone (its imperative
+         document.title= path targets the existing element in place and
+         would be safe on its own, but that isn't what actually renders
+         first once React 19 hoisting is in the mix). The real limitation
+         this leaves: a non-JS-executing crawler (a WhatsApp/iMessage/
+         Slack link preview) never runs React, so it sees no title/
+         description/image at all for any route — an inherent
+         CSR-without-prerendering limitation, not something a static tag
+         here can fix without reintroducing the duplication. -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -51,7 +44,6 @@
          like this on every build. -->
     <link rel="preload" as="image" href="/images/hero/hero-mobile-hood-detail.webp" fetchpriority="high" />
     <link rel="preload" as="image" href="/images/logo/tb-logo.png" fetchpriority="high" />
-    <title>Toronto Buffing | Paint Correction, PPF & Ceramic Coating</title>
   </head>
   <body>
     <div id="root"></div>

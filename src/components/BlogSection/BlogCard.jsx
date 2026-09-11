@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 
 /**
- * @param {{ post: import('../../data/blogData').BLOG_POSTS[number] }} props
+ * @param {{ post: import('../../data/blogData').BLOG_POSTS[number], basePath?: string }} props
  */
-function BlogCard({ post }) {
+function BlogCard({ post, basePath = "/insights" }) {
   return (
-    <Link to={`/insights/${post.slug}`} className="blog-card">
+    <Link to={`${basePath}/${post.slug}`} className="blog-card">
       <div className="blog-card__media">
         <img src={post.image} alt={post.imageAlt} loading="lazy" />
         <span className="blog-card__read">Read More</span>

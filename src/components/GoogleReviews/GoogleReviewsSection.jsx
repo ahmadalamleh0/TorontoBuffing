@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { fetchGoogleReviews, mergeManualReviews, selectFeaturedReviews } from "../../services/reviewsService";
+import { fetchPublishedReviews } from "../../services/cms/reviews";
 import { MANUAL_REVIEWS } from "../../data/manualReviews";
 import { SAMPLE_REVIEWS_SUMMARY } from "../../data/sampleReviews";
 import GoogleReviewsSummary from "./GoogleReviewsSummary";
@@ -74,33 +75,42 @@ function GoogleReviewsSection() {
   useEffect(() => {
     const controller = new AbortController();
 
-    fetchGoogleReviews({ signal: controller.signal })
-      .then((liveSummary) => {
-        const merged = mergeManualReviews(liveSummary, MANUAL_REVIEWS);
-        setState({ status: "ready", data: merged, isSample: false });
-      })
-      .catch((error) => {
+    // Curated reviews (CMS `reviews` table, falling back to
+    // manualReviews.js) and the live Google Places summary are
+    // independent — fetch both in parallel and merge once both have
+    // settled, rather than letting one block the other.
+    Promise.allSettled([fetchGoogleReviews({ signal: controller.signal }), fetchPublishedReviews()]).then(
+      ([liveResult, manualResult]) => {
         if (controller.signal.aborted) return;
+
+        const manualReviews =
+          manualResult.status === "fulfilled" && manualResult.value?.length ? manualResult.value : MANUAL_REVIEWS;
+
+        if (liveResult.status === "fulfilled") {
+          const merged = mergeManualReviews(liveResult.value, manualReviews);
+          setState({ status: "ready", data: merged, isSample: false });
+          return;
+        }
 
         // The live Places request only ever *enriches* this section
         // (rating, review count, reviewer profile data, links) — the
-        // curated reviews (manualReviews.js) are static, bundled data
-        // that must render regardless of whether that request
-        // succeeds. So a failure here never drops to an error state;
-        // it just merges the curated reviews onto an empty summary
-        // instead of the live one, same design either way.
+        // curated reviews must render regardless of whether that
+        // request succeeds. So a failure here never drops to an error
+        // state; it just merges the curated reviews onto an empty
+        // summary instead of the live one, same design either way.
         console.error(
           "[GoogleReviewsSection] Live /api/google-reviews request failed — showing curated reviews without " +
             "live rating/count/links. Error:",
-          error,
+          liveResult.reason,
         );
 
         // Dev-only: also lets the section preview with a rating/count
         // instead of the section looking rating-less locally.
         const baseSummary = import.meta.env.DEV ? SAMPLE_REVIEWS_SUMMARY : EMPTY_LIVE_SUMMARY;
-        const merged = mergeManualReviews(baseSummary, MANUAL_REVIEWS);
+        const merged = mergeManualReviews(baseSummary, manualReviews);
         setState({ status: "ready", data: merged, isSample: import.meta.env.DEV });
-      });
+      },
+    );
 
     return () => controller.abort();
   }, []);

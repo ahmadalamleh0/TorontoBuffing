@@ -1,4 +1,4 @@
-import paintCorrectionImage from "../assets/images/services/paint-correction.jpg";
+import paintCorrectionImage from "../assets/images/services/paint-correction-new.webp";
 import ppfImage from "../assets/images/services/ppf.jpg";
 import classicRestorationImage from "../assets/images/services/classic-restoration-new.jpg";
 import ceramicCoatingImage from "../assets/images/services/ceramic-coating.jpg";

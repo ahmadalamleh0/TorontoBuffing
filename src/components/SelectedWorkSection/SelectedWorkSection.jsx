@@ -1,9 +1,32 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { PROJECTS } from "./projectsData";
+import { fetchPublishedProjects } from "../../services/cms/projects";
 import WorkCard from "./WorkCard";
 import "./SelectedWorkSection.css";
+
+// projectsData.js's PROJECTS is the fallback whenever the CMS's
+// `projects` table isn't configured, empty, or unreachable — the
+// carousel always has real cards either way.
+function useProjects() {
+  const [projects, setProjects] = useState(PROJECTS);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    fetchPublishedProjects().then((result) => {
+      if (cancelled || !result || result.length === 0) return;
+      setProjects(result);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  return projects;
+}
 
 gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true });
@@ -105,6 +128,7 @@ function SelectedWorkSection() {
   usePinBanner();
   const trackRef = useRef(null);
   useCarouselDrag(trackRef);
+  const projects = useProjects();
 
   return (
     <section id="work" className="selected-work">
@@ -112,8 +136,8 @@ function SelectedWorkSection() {
         <h2 className="selected-work__heading">Recent Projects</h2>
 
         <div className="selected-work__grid" ref={trackRef}>
-          {PROJECTS.map((p) => (
-            <WorkCard key={p.id} project={p} />
+          {projects.map((p, i) => (
+            <WorkCard key={p.id} project={p} cardIndex={i} />
           ))}
         </div>
       </div>

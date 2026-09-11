@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import BrandLogoStrip from "../BrandLogoStrip/BrandLogoStrip";
 import GoogleLogo from "../GoogleReviews/GoogleLogo";
 import "./Hero.css";
@@ -10,10 +11,23 @@ import "./Hero.css";
 // changes every build, and index.html's static preload can't follow it.
 const heroImage = "/images/hero/hero-mobile-hood-detail.webp";
 
+// Text-only defaults — kept as the fallback whenever CMS content
+// hasn't loaded yet (or hasn't been set). The hero background image
+// deliberately stays out of CMS scope: index.html preloads this exact
+// static path for the LCP image, ahead of any JS running, and a
+// dynamic Supabase URL can't be known at that point.
+const DEFAULT_EYEBROW = "Toronto Buffing";
+const DEFAULT_HEADLINE = ["Paint Correction,", "Ceramic Coating & PPF."];
+const DEFAULT_SUBLINE = "Precision protection for vehicles across Vaughan and the GTA.";
+
 // Same hood-detail shot on every breakpoint now; .hero__media--mobile
 // and --desktop still exist purely so each breakpoint can keep its
 // own background-position crop via CSS.
-function Hero() {
+function Hero({ content }) {
+  const eyebrow = content?.eyebrow || DEFAULT_EYEBROW;
+  const headline = content?.headline?.length ? content.headline : DEFAULT_HEADLINE;
+  const subline = content?.subline || DEFAULT_SUBLINE;
+
   return (
     <section id="top" className="hero">
       <div
@@ -34,22 +48,25 @@ function Hero() {
           brand strip — leaving the car visible in between. */}
       <div className="hero__content container">
         <div className="hero__text">
-          <span className="eyebrow hero__eyebrow">Toronto Buffing</span>
+          <span className="eyebrow hero__eyebrow">{eyebrow}</span>
           <h1 className="hero__headline">
-            Paint Correction,
-            <br />
-            Ceramic Coating &amp; PPF.
+            {headline.map((line, i) => (
+              <Fragment key={i}>
+                {i > 0 && <br />}
+                {line}
+              </Fragment>
+            ))}
           </h1>
-          <p className="hero__subline">Precision protection for vehicles across Vaughan and the GTA.</p>
+          <p className="hero__subline">{subline}</p>
         </div>
 
         <div className="hero__actions">
-          <span className="hero__trust-badge" aria-label="Rated 5.0 stars on Google from 350+ reviews">
+          <span className="hero__trust-badge" aria-label="Rated 5.0 stars on Google from 400+ reviews">
             <span className="hero__trust-badge-visual" aria-hidden="true">
               <GoogleLogo size={13} />
               <span>5.0</span>
               <span className="hero__trust-badge-star">★</span>
-              <span>350+</span>
+              <span>400+</span>
             </span>
           </span>
           <a href="#contact" className="btn btn-secondary hero__cta">

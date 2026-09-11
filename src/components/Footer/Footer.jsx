@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+import { SERVICE_AREAS } from "../../data/serviceAreas";
 import "./Footer.css";
 
 const SOCIAL_LINKS = [
@@ -43,7 +45,30 @@ const SOCIAL_LINKS = [
   },
 ];
 
-const SERVICE_GROUPS = ["PROTECTION", "CORRECTION", "RESTORATION"];
+const SERVICE_GROUPS = [
+  {
+    label: "PROTECTION",
+    services: [
+      { title: "PPF", id: "ppf" },
+      { title: "Ceramic Coating", id: "ceramic-coating" },
+    ],
+  },
+  {
+    label: "CORRECTION",
+    services: [
+      { title: "Paint Correction", id: "paint-correction" },
+      { title: "Panel Refinishing", id: "panel-refinishing" },
+    ],
+  },
+  {
+    label: "RESTORATION",
+    services: [
+      { title: "Headlight Restoration", id: "headlight-restoration" },
+      { title: "Paint Chip Repair", id: "paint-chip-repair" },
+      { title: "Classic Restoration", id: "classic-restoration" },
+    ],
+  },
+];
 
 function Footer() {
   return (
@@ -79,11 +104,39 @@ function Footer() {
             </div>
           </div>
 
-          {SERVICE_GROUPS.map((label) => (
-            <div className="editorial-footer__col" key={label}>
-              <h4 className="editorial-footer__label">{label}</h4>
+          {SERVICE_GROUPS.map((group) => (
+            <div className="editorial-footer__col" key={group.label}>
+              <h4 className="editorial-footer__label">{group.label}</h4>
+              <div className="editorial-footer__content">
+                {group.services.map((service) => (
+                  <Link
+                    key={service.id}
+                    to={`/services/${service.id}`}
+                    className="editorial-footer__link"
+                  >
+                    {service.title.toUpperCase()}
+                  </Link>
+                ))}
+              </div>
             </div>
           ))}
+
+          <div className="editorial-footer__col">
+            <h4 className="editorial-footer__label">SERVICE AREAS</h4>
+            <div className="editorial-footer__content editorial-footer__content--areas">
+              {SERVICE_AREAS.map((area) =>
+                area.published ? (
+                  <Link key={area.path} to={area.path} className="editorial-footer__link">
+                    {area.title.toUpperCase()}
+                  </Link>
+                ) : (
+                  <span key={area.path} className="editorial-footer__text editorial-footer__text--muted">
+                    {area.title.toUpperCase()}
+                  </span>
+                ),
+              )}
+            </div>
+          </div>
         </div>
       </div>
 

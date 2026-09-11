@@ -3,6 +3,31 @@
   publish = "dist"
   functions = "netlify/functions"
 
+# CMS-driven + legacy-URL redirects (see the admin's "Redirects"
+# section and supabase's `redirects` table): checked live on every
+# request EXCEPT the ones explicitly excluded below — covers arbitrary
+# legacy paths (not just /services/* and /pages/*), while keeping the
+# homepage (most perf/LCP-sensitive route), the admin app, the API
+# function rewrite, and static assets completely untouched by this
+# lookup. See netlify/edge-functions/redirects.js.
+[[edge_functions]]
+  path = "/*"
+  function = "redirects"
+  excludedPath = [
+    "/",
+    "/admin/*",
+    "/api/*",
+    "/.netlify/*",
+    "/assets/*",
+    "/images/*",
+    "/video/*",
+    "/fonts/*",
+    "/favicon.ico",
+    "/apple-touch-icon.png",
+    "/robots.txt",
+    "/sitemap.xml",
+  ]
+
 # Frontend keeps calling /api/google-reviews — this rewrites it to the
 # actual function path without changing the URL the browser sees.
 [[redirects]]
@@ -10,9 +35,58 @@
   to = "/.netlify/functions/:splat"
   status = 200
 
+# sitemap.xml is generated live from Supabase (see
+# netlify/functions/sitemap.js) so newly published SEO pages/services
+# appear without a rebuild. force=true so this wins over the static
+# public/sitemap.xml file that ships in the build.
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/.netlify/functions/sitemap"
+  status = 200
+  force = true
+
+# Legacy TorontoBuffing.com 301 Permanent Redirects
+# Maps old URLs to their corresponding new destinations on torontobuffing.com
+[[redirects]]
+  from = "/services.html"
+  to = "/#services"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/photos.html"
+  to = "/#work"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/information.html"
+  to = "/#insights"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/2018-pricing.html"
+  to = "/#contact"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/about-us2.html"
+  to = "/#about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/contact.html"
+  to = "/#contact"
+  status = 301
+  force = true
+
 # SPA fallback for react-router client-side routes. Must come after
-# the /api/* rule above — Netlify uses the first matching redirect.
+# the rules above — Netlify uses the first matching redirect.
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+

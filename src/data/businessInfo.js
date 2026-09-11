@@ -5,7 +5,7 @@
  * NovaNavbar) — nothing here is invented. If the visible site copy
  * changes, update it here too so schema stays in sync.
  */
-export const SITE_URL = "https://paintcorrection.ca";
+export const SITE_URL = "https://www.torontobuffing.com";
 
 export const BUSINESS_INFO = {
   name: "Toronto Buffing Inc.",

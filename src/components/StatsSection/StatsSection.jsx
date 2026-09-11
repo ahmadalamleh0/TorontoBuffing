@@ -5,28 +5,34 @@ import "./StatsSection.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const STAT_ITEMS = [
-  {
-    targetValue: 1000,
-    format: (val) => `${Math.floor(val).toLocaleString()}+`,
-    label: "RESTORATIONS COMPLETED",
-  },
-  {
-    targetValue: 16,
-    format: (val) => `${Math.floor(val)}+`,
-    label: "YEARS OF EXPERIENCE",
-  },
-  {
-    targetValue: 10,
-    format: (val) => `${Math.floor(val)}-YEAR`,
-    label: "PPF WARRANTY",
-  },
+// Declarative so CMS rows (pages.stats jsonb: { value, suffix,
+// useLocaleString, label }) can reproduce the exact same formatted
+// strings as these bundled defaults without shipping a function to
+// the database.
+const DEFAULT_STAT_ITEMS = [
+  { targetValue: 1000, suffix: "+", useLocaleString: true, label: "RESTORATIONS COMPLETED" },
+  { targetValue: 16, suffix: "+", useLocaleString: false, label: "YEARS OF EXPERIENCE" },
+  { targetValue: 10, suffix: "-YEAR", useLocaleString: false, label: "PPF WARRANTY" },
 ];
 
-function StatsSection() {
+function formatStatValue(val, { suffix, useLocaleString }) {
+  const floored = Math.floor(val);
+  return `${useLocaleString ? floored.toLocaleString() : floored}${suffix}`;
+}
+
+function StatsSection({ content }) {
   const sectionRef = useRef(null);
   const itemRefs = useRef([]);
   const numberRefs = useRef([]);
+
+  const rawItems = content?.length ? content : DEFAULT_STAT_ITEMS;
+  const STAT_ITEMS = rawItems.map((item) => ({
+    targetValue: item.targetValue ?? item.value ?? 0,
+    suffix: item.suffix ?? "",
+    useLocaleString: item.useLocaleString ?? false,
+    label: item.label ?? "",
+    format: (val) => formatStatValue(val, item),
+  }));
 
   useEffect(() => {
     const ctx = gsap.context(() => {

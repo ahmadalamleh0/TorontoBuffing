@@ -1,5 +1,8 @@
-import { useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import "./BrandStatement.css";
+
+const DEFAULT_HEADLINE = ["More Than", "Detailing."];
+const DEFAULT_COPY = "Precision restoration, correction and protection, beyond traditional detailing.";
 
 function useSectionReveal() {
   const ref = useRef(null);
@@ -33,22 +36,24 @@ function useSectionReveal() {
 // The single-statement brand moment between the hero and Services —
 // no headline-above-headline, no imagery, just the line the rest of
 // the site backs up.
-function BrandStatement() {
+function BrandStatement({ content }) {
   const sectionRef = useSectionReveal();
+  const headline = content?.headline?.length ? content.headline : DEFAULT_HEADLINE;
+  const copy = content?.copy || DEFAULT_COPY;
 
   return (
     <section id="about" className="brand-statement" ref={sectionRef}>
       <div className="container brand-statement__container">
         <span className="brand-statement__line" aria-hidden="true" />
         <h2 className="brand-statement__headline">
-          More Than
-          <br />
-          Detailing.
+          {headline.map((line, i) => (
+            <Fragment key={i}>
+              {i > 0 && <br />}
+              {line}
+            </Fragment>
+          ))}
         </h2>
-        <p className="brand-statement__copy">
-          Precision restoration, correction and protection, beyond traditional
-          detailing.
-        </p>
+        <p className="brand-statement__copy">{copy}</p>
       </div>
     </section>
   );

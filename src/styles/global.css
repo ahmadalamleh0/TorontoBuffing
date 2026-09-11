@@ -80,6 +80,11 @@ p {
 
 .section {
   padding-block: var(--space-9);
+  /* Keeps a section clear of the fixed nav pill when a browser jumps
+     straight to it (jump navigation, a shared search result, any
+     future in-page anchor) — purely a scroll-target offset, no effect
+     on normal in-flow spacing. */
+  scroll-margin-top: calc(var(--header-height) + var(--space-4));
 }
 
 /* ---- Accessibility ---- */

@@ -55,7 +55,7 @@ export const PROJECTS = [
     images: [porscheSilver1, porscheSilver2, porscheSilver3],
   },
   { id: "porsche", vehicle: "Porsche 911 GT3 RS", images: [porsche1, porsche2, porsche3, porsche4] },
-  { id: "ferrari", vehicle: "Ferrari 360", images: [ferrari4, ferrari2, ferrari3] },
+  { id: "ferrari", vehicle: "Ferrari 360", images: [ferrari2, ferrari4, ferrari3] },
   { id: "supra", vehicle: "Toyota Supra", images: [supra1, supra2, supra3] },
   { id: "bmw", vehicle: "BMW E30", images: [bmw1, bmw2, bmw3, bmw4] },
   { id: "corvette-black", vehicle: "Chevrolet Corvette Z06", images: [corvetteBlack1, corvetteBlack2, corvetteBlack3] },

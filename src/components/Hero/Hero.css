@@ -2,6 +2,13 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  /* svh fallback: a browser that doesn't support the svh unit treats
+     the whole declaration as invalid and ignores it (no partial
+     application), which would leave .hero with no explicit height at
+     all rather than falling back gracefully — the plain vh value above
+     it covers that case, then svh overrides it everywhere that
+     supports it (accounting for mobile browser chrome). */
+  min-height: 100vh;
   min-height: 100svh;
   overflow: hidden;
 }
@@ -66,10 +73,19 @@
 .hero__eyebrow {
   margin-bottom: var(--space-2);
   font-size: 0.875rem;
-  font-weight: var(--fw-semibold);
+  font-weight: 700;
   letter-spacing: var(--ls-wide);
-  color: var(--color-accent-on-dark);
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.65);
+  /* A touch lighter than --color-brand-blue (#1e2884) — same logo-blue
+     family, just nudged up so bolder text doesn't read as too dark
+     against the hero photo — scoped to the hero eyebrow only, not the
+     shared global .eyebrow class other sections use. A dark shadow
+     layer is kept first for legibility over the busy hero photo, then
+     the blue glow on top for the branded look. */
+  color: #2e3ea0;
+  text-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.6),
+    0 0 10px rgba(46, 62, 160, 0.8),
+    0 0 22px rgba(46, 62, 160, 0.5);
 }
 
 .hero__headline {

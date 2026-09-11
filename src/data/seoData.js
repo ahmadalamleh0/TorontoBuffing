@@ -104,7 +104,7 @@ export function buildBlogBreadcrumbSchema({ slug, title }) {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
-      { "@type": "ListItem", position: 2, name: "Insights", item: `${SITE_URL}/#insights` },
+      { "@type": "ListItem", position: 2, name: "Insights", item: `${SITE_URL}/insights` },
       { "@type": "ListItem", position: 3, name: title, item: `${SITE_URL}/insights/${slug}` },
     ],
   };
@@ -150,11 +150,11 @@ export function buildLocalBusinessSchema() {
   };
 }
 
-export function buildFaqPageSchema() {
+export function buildFaqPageSchema(faqItems = FAQ_ITEMS) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: FAQ_ITEMS.map((item) => ({
+    mainEntity: faqItems.map((item) => ({
       "@type": "Question",
       name: item.question,
       acceptedAnswer: {

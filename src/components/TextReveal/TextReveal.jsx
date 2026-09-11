@@ -1,11 +1,10 @@
 import { useEffect, useRef } from "react";
 import "./TextReveal.css";
 
-const EYEBROW = "Why Toronto Buffing";
-const TITLE = "DETAILERS WITH INTEGRITY.";
-const BODY_LEAD =
+const DEFAULT_TITLE = "DETAILERS WITH INTEGRITY.";
+const DEFAULT_BODY_LEAD =
   "Every vehicle is treated based on what it actually needs. From proper preparation to proven materials and precise workmanship, we focus on restoring, protecting, and preserving your vehicle the right way ";
-const BODY_EMPHASIS = "without shortcuts.";
+const DEFAULT_BODY_EMPHASIS = "without shortcuts.";
 
 const REVEAL_THRESHOLD = 0.3;
 
@@ -39,20 +38,22 @@ function useRevealOnView() {
 }
 
 // The "Why Toronto Buffing" statement between Services and the image
-// banner — matches the service pages' reveal-intro treatment exactly:
-// small eyebrow, one heavy Anton headline, one short line of support,
-// fading/rising into place together as one composed brand statement.
-function TextReveal() {
+// banner — one heavy Anton headline, one short line of support, fading/
+// rising into place together as one composed brand statement (no
+// eyebrow label, by request).
+function TextReveal({ content }) {
   const ref = useRevealOnView();
+  const title = content?.title || DEFAULT_TITLE;
+  const bodyLead = content?.bodyLead || DEFAULT_BODY_LEAD;
+  const bodyEmphasis = content?.bodyEmphasis || DEFAULT_BODY_EMPHASIS;
 
   return (
     <section className="cinematic" ref={ref}>
       <div className="container cinematic__inner">
-        <span className="eyebrow cinematic__eyebrow">{EYEBROW}</span>
-        <h2 className="cinematic__title">{TITLE}</h2>
+        <h2 className="cinematic__title">{title}</h2>
         <p className="cinematic__body">
-          {BODY_LEAD}
-          <strong>{BODY_EMPHASIS}</strong>
+          {bodyLead}
+          <strong>{bodyEmphasis}</strong>
         </p>
       </div>
     </section>

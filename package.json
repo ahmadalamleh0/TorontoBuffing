@@ -7,9 +7,20 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "seed:cms": "node scripts/seed-cms.mjs",
+    "import:redirects": "node scripts/import-redirects.mjs",
+    "publish:launch-batch": "node scripts/publish-launch-batch.mjs",
+    "seed:draft-pages": "node scripts/seed-draft-seo-pages.mjs",
+    "seed:service-area-drafts": "node scripts/seed-service-area-drafts.mjs",
+    "check:copy-dashes": "node scripts/check-copy-dashes.mjs",
+    "migrate:insights": "node scripts/migrate-insights.mjs",
+    "assign:insight-covers": "node scripts/assign-insight-covers.mjs",
+    "tag:faq-services": "node scripts/tag-faq-services.mjs"
   },
   "dependencies": {
+    "@clerk/react": "^6.15.1",
+    "@supabase/supabase-js": "^2.116.0",
     "gsap": "^3.15.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",

@@ -1,5 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { FAQ_CATEGORIES, FAQ_ITEMS } from "../../data/faqData";
+import { buildFaqPageSchema } from "../../data/seoData";
+import { fetchPublishedFaqs } from "../../services/cms/faqs";
+import FaqAccordionItem from "./FaqAccordionItem";
 import "./FaqSection.css";
 
 // Ported from the client-supplied Framer code component (FAQ.js /
@@ -11,48 +15,50 @@ import "./FaqSection.css";
 // swapped from the source's green (#1D9E75) to Toronto Buffing blue,
 // and content hardcoded instead of exposed as editable props.
 //
-// FAQ_ITEMS/FAQ_CATEGORIES now live in src/data/faqData.js, shared
-// with the homepage's FAQPage JSON-LD so structured data can never
-// drift from what's actually rendered here.
-const CATEGORIES = FAQ_CATEGORIES;
+// FAQ_ITEMS/FAQ_CATEGORIES (src/data/faqData.js) are the fallback used
+// whenever the CMS's `faqs` table isn't configured, empty, or
+// unreachable — the accordion always has real content either way.
+// Once CMS data loads, this section's own <Helmet> emits FAQPage
+// JSON-LD built from whichever list actually rendered, so structured
+// data can never drift from what's on the page.
 
-function FaqAccordionItem({ item, index, isOpen, onToggle }) {
-  return (
-    <div className={`faq-akitem${isOpen ? " is-open" : ""}`}>
-      <button
-        type="button"
-        className="faq-akitem__question"
-        onClick={onToggle}
-        aria-expanded={isOpen}
-      >
-        <span className="faq-akitem__question-inner">
-          <span className="faq-akitem__number">{String(index + 1).padStart(2, "0")}</span>
-          <span className="faq-akitem__question-text">{item.question}</span>
-        </span>
-        <span className="faq-akitem__indicator" aria-hidden="true">
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-            <line x1="5" y1="1" x2="5" y2="9" strokeWidth="1.4" strokeLinecap="round" />
-            <line x1="1" y1="5" x2="9" y2="5" strokeWidth="1.4" strokeLinecap="round" />
-          </svg>
-        </span>
-      </button>
-      <div className="faq-akitem__answer-wrap">
-        <p className="faq-akitem__answer">{item.answer}</p>
-      </div>
-    </div>
-  );
+function useFaqData() {
+  const [state, setState] = useState({ items: FAQ_ITEMS, categories: FAQ_CATEGORIES });
+
+  useEffect(() => {
+    let cancelled = false;
+
+    fetchPublishedFaqs().then((result) => {
+      if (cancelled || !result || result.items.length === 0) return;
+      setState(result);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  return state;
 }
 
 function FaqSection() {
+  const { items, categories } = useFaqData();
   const [openIndex, setOpenIndex] = useState(null);
-  const [activeTab, setActiveTab] = useState("General");
+  const [activeTab, setActiveTab] = useState(categories[0] ?? "General");
 
-  const filtered = FAQ_ITEMS.filter((item) => item.category === activeTab);
+  // If CMS data replaces the fallback list after the initial render
+  // and the active tab no longer exists in it, fall back to the new
+  // list's first category instead of showing an empty accordion.
+  const effectiveTab = categories.includes(activeTab) ? activeTab : categories[0];
+  const filtered = items.filter((item) => item.category === effectiveTab);
 
   const toggle = (index) => setOpenIndex((current) => (current === index ? null : index));
 
   return (
     <section className="faq-ak section">
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(buildFaqPageSchema(items))}</script>
+      </Helmet>
       <div className="container faq-ak__container">
         <span className="faq-ak__badge">
           <span className="faq-ak__badge-dot" aria-hidden="true" />
@@ -63,11 +69,11 @@ function FaqSection() {
         <p className="faq-ak__subheading">Everything you need to know before your visit.</p>
 
         <div className="faq-ak__tabs">
-          {CATEGORIES.map((cat) => (
+          {categories.map((cat) => (
             <button
               key={cat}
               type="button"
-              className={`faq-ak__tab${activeTab === cat ? " is-active" : ""}`}
+              className={`faq-ak__tab${effectiveTab === cat ? " is-active" : ""}`}
               onClick={() => {
                 setActiveTab(cat);
                 setOpenIndex(null);

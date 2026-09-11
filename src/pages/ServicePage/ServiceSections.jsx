@@ -1,6 +1,15 @@
-import { Fragment, useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { CheckIcon } from "../../components/QuoteWizard/icons";
+import { renderRichText } from "../../lib/richText";
+import FaqAccordionItem from "../../components/FaqSection/FaqAccordionItem";
 import BeforeAfterSlider from "./BeforeAfterSlider";
+// Shared with the homepage/service FAQ so the "faq" block below gets
+// the exact same accordion styling for free — imported here (not just
+// by FaqSection/ServiceFaqSection) so it's guaranteed loaded wherever
+// ServiceSections is, including /service-areas/:slug pages that never
+// render the homepage or /services/:slug FAQ components.
+import "../../components/FaqSection/FaqSection.css";
 
 const REVEAL_THRESHOLD = 0.3;
 
@@ -36,9 +45,8 @@ function useRevealOnView() {
   return ref;
 }
 
-// Premium editorial 3-up feature grid — photo-led cards with a slim
-// brand-blue rule as the one signature accent in an otherwise dark,
-// quiet card body. No CTA: this is a statement of process/
+// Premium editorial 3-up feature grid — photo-led cards with a quiet,
+// compact dark card body. No CTA: this is a statement of process/
 // craftsmanship, not a conversion point.
 function FeatureCardsSection({ section }) {
   const ref = useRevealOnView();
@@ -52,9 +60,8 @@ function FeatureCardsSection({ section }) {
               <img src={card.image} alt={card.alt ?? ""} loading="lazy" />
             </div>
             <div className="service-feature-card__body">
-              <span className="service-feature-card__rule" aria-hidden="true" />
               <h3 className="service-feature-card__title">{card.title}</h3>
-              <p className="service-feature-card__text">{card.body}</p>
+              <p className="service-feature-card__text">{renderRichText(card.body)}</p>
             </div>
           </div>
         ))}
@@ -66,24 +73,26 @@ function FeatureCardsSection({ section }) {
 export function ServiceHero({ hero }) {
   return (
     <section className="service-hero">
-      <div className="service-hero__media">
-        <img
-          src={hero.image}
-          alt={hero.imageAlt ?? ""}
-          width={hero.imageWidth}
-          height={hero.imageHeight}
-          loading="eager"
-          fetchPriority="high"
-        />
-        <div className="service-hero__scrim" aria-hidden="true" />
-      </div>
+      {hero.image && (
+        <div className="service-hero__media">
+          <img
+            src={hero.image}
+            alt={hero.imageAlt ?? ""}
+            width={hero.imageWidth}
+            height={hero.imageHeight}
+            loading="eager"
+            fetchPriority="high"
+          />
+          <div className="service-hero__scrim" aria-hidden="true" />
+        </div>
+      )}
       <div className={`container service-hero__inner${hero.centered ? " service-hero__inner--center" : ""}`}>
         <h1
           className={`service-hero__title service-hero__title--reveal${hero.titleNoWrap ? " service-hero__title--nowrap" : ""}`}
         >
           {hero.title}
         </h1>
-        <p className="service-hero__copy service-hero__copy--reveal">{hero.copy}</p>
+        <p className="service-hero__copy service-hero__copy--reveal">{renderRichText(hero.copy)}</p>
       </div>
     </section>
   );
@@ -107,7 +116,7 @@ function RevealIntroSection({ section }) {
       <div className="container service-reveal-intro__inner">
         <span className="eyebrow service-reveal-intro__eyebrow">{section.eyebrow}</span>
         <h2 className="service-reveal-intro__title">{section.heading}</h2>
-        <p className="service-reveal-intro__body">{section.body}</p>
+        <p className="service-reveal-intro__body">{renderRichText(section.body)}</p>
         {section.list && (
           <ul className="service-checklist service-reveal-intro__list">
             {section.list.map((item, i) => (
@@ -119,29 +128,18 @@ function RevealIntroSection({ section }) {
                 <span className="service-checklist__icon" aria-hidden="true">
                   <CheckIcon />
                 </span>
-                {item}
+                {renderRichText(item)}
               </li>
             ))}
           </ul>
         )}
         {section.note && (
           <p className="service-reveal-intro__note reveal-up" style={{ transitionDelay: "340ms" }}>
-            {section.note}
+            {renderRichText(section.note)}
           </p>
         )}
       </div>
     </section>
-  );
-}
-
-// Renders "plain text **bold text** more plain text" as a fragment
-// with the marked segments wrapped in <strong> — lets approach-row
-// copy call out the key phrase anywhere in the sentence, not just a
-// fixed leading word.
-function renderBoldedText(text) {
-  const parts = text.split(/\*\*(.+?)\*\*/g);
-  return parts.map((part, i) =>
-    i % 2 === 1 ? <strong key={i}>{part}</strong> : <Fragment key={i}>{part}</Fragment>,
   );
 }
 
@@ -168,12 +166,12 @@ function ApproachSection({ section }) {
 
         <span className="service-approach__rule" aria-hidden="true" />
 
-        {section.body && <p className="service-approach__body">{section.body}</p>}
+        {section.body && <p className="service-approach__body">{renderRichText(section.body)}</p>}
 
         <div className="service-approach__list">
           {section.items.map((item, i) => (
             <div className="service-approach__item" style={{ transitionDelay: `${i * 90}ms` }} key={item.text}>
-              <span className="service-approach__text">{renderBoldedText(item.text)}</span>
+              <span className="service-approach__text">{renderRichText(item.text)}</span>
             </div>
           ))}
         </div>
@@ -182,12 +180,40 @@ function ApproachSection({ section }) {
   );
 }
 
+// Jump navigation for a long guide (an Insight like Paint Correction
+// 101 or Post Service Car Care) — a flat list of in-page anchor links
+// to the guide's own major section ids. Plain <a href="#id"> anchors,
+// not React Router Link: these are same-page jumps, not navigation.
+// section.items are {label, id}, where `id` matches another section's
+// own `section.id` (rendered as a real id attribute by that section's
+// component — see IntroSection/BenefitsSection/etc. above).
+function JumpNavSection({ section }) {
+  const ref = useRevealOnView();
+
+  return (
+    <nav className="service-jump-nav section" aria-label="Guide sections" ref={ref}>
+      <div className="container service-jump-nav__inner">
+        {section.heading && <p className="service-jump-nav__label">{section.heading}</p>}
+        <ol className="service-jump-nav__list">
+          {section.items.map((item) => (
+            <li key={item.id}>
+              <a href={`#${item.id}`} className="service-jump-nav__link">
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </nav>
+  );
+}
+
 function IntroSection({ section }) {
   const ref = useRevealOnView();
   const paragraphs = Array.isArray(section.body) ? section.body : [section.body];
 
   return (
-    <section className="service-intro section" ref={ref}>
+    <section className="service-intro section" id={section.id} ref={ref}>
       <div className="container service-intro__inner">
         <h2 className="service-heading reveal-up">{section.heading}</h2>
 
@@ -199,7 +225,7 @@ function IntroSection({ section }) {
 
         {paragraphs.map((p, i) => (
           <p className="service-intro__body reveal-up" style={{ transitionDelay: `${140 + i * 60}ms` }} key={i}>
-            {p}
+            {renderRichText(p)}
           </p>
         ))}
 
@@ -214,7 +240,7 @@ function IntroSection({ section }) {
                 <span className="service-checklist__icon" aria-hidden="true">
                   <CheckIcon />
                 </span>
-                {item}
+                {renderRichText(item)}
               </li>
             ))}
           </ul>
@@ -222,7 +248,7 @@ function IntroSection({ section }) {
 
         {section.note && (
           <p className="service-intro__note reveal-up" style={{ transitionDelay: "260ms" }}>
-            {section.note}
+            {renderRichText(section.note)}
           </p>
         )}
       </div>
@@ -234,7 +260,7 @@ function ChecklistGridSection({ section }) {
   const ref = useRevealOnView();
 
   return (
-    <section className="service-grid-section section" ref={ref}>
+    <section className="service-grid-section section" id={section.id} ref={ref}>
       <div className="container">
         <h2 className="service-heading service-heading--center reveal-up">{section.heading}</h2>
 
@@ -249,7 +275,7 @@ function ChecklistGridSection({ section }) {
 
         {section.note && (
           <p className="service-grid-section__note reveal-up" style={{ transitionDelay: "260ms" }}>
-            {section.note}
+            {renderRichText(section.note)}
           </p>
         )}
       </div>
@@ -266,7 +292,7 @@ function BenefitsSection({ section }) {
   const ref = useRevealOnView();
 
   return (
-    <section className="service-benefits section" ref={ref}>
+    <section className="service-benefits section" id={section.id} ref={ref}>
       <div className="container service-benefits__inner">
         <h2 className="service-heading service-heading--center">{section.heading}</h2>
 
@@ -274,12 +300,86 @@ function BenefitsSection({ section }) {
           {section.items.map((item, i) => (
             <div className="service-benefits__item" style={{ transitionDelay: `${i * 90}ms` }} key={item.title}>
               <h3 className="service-benefits__item-title">{item.title}</h3>
-              <p className="service-benefits__item-body">{item.body}</p>
+              <p className="service-benefits__item-body">{renderRichText(item.body)}</p>
             </div>
           ))}
         </div>
 
-        {section.note && <p className="service-benefits__note">{section.note}</p>}
+        {section.note && <p className="service-benefits__note">{renderRichText(section.note)}</p>}
+      </div>
+    </section>
+  );
+}
+
+// Real accordion — question visible, answer collapsed until clicked —
+// for a page's own city/service specific FAQ ("Common Questions" on a
+// Service Area page). Reuses FaqAccordionItem, the exact same row
+// FaqSection (homepage) and ServiceFaqSection (/services/:slug) use,
+// so the interaction and styling are identical everywhere on the
+// site, not a second implementation. section.items are {title, body}
+// (question, answer) — the same shape every other block on this page
+// already uses for a labelled list, just rendered as a toggle instead
+// of an always-open grid.
+function FaqBlockSection({ section }) {
+  const ref = useRevealOnView();
+  const [openIndex, setOpenIndex] = useState(null);
+
+  return (
+    <section className="service-faq-block section" id={section.id} ref={ref}>
+      <div className="container service-faq-block__inner">
+        <h2 className="service-heading service-heading--center reveal-up">{section.heading}</h2>
+        <div className="faq-ak__list service-faq-block__list">
+          {section.items.map((item, i) => (
+            <FaqAccordionItem
+              key={item.title}
+              item={{ question: item.title, answer: item.body }}
+              index={i}
+              isOpen={openIndex === i}
+              onToggle={() => setOpenIndex((current) => (current === i ? null : i))}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// Clean internal-linking grid to nearby /service-areas/:slug pages
+// ("Also Serving Nearby") — a name, a one-line purpose, and a clear
+// "View Service Area" CTA per city, with the city name itself as the
+// primary link. Deliberately not the old {title, body} block: that
+// shape invited writing a full sentence of geographic explanation
+// into `body`, which is exactly the over-explained "South of Brampton.
+// See the Mississauga page." copy this replaces. section.items are
+// {name, slug} — nothing to parse or render as markdown, so there's no
+// way for raw link syntax to leak into this section either.
+function NearbyAreasSection({ section }) {
+  const ref = useRevealOnView();
+
+  return (
+    <section className="service-nearby section" ref={ref}>
+      <div className="container service-nearby__inner">
+        <h2 className="service-heading service-heading--center reveal-up">{section.heading}</h2>
+
+        <div className="service-nearby__grid">
+          {section.items.map((item, i) => (
+            <Link
+              to={`/service-areas/${item.slug}`}
+              className="service-nearby__card reveal-up"
+              style={{ transitionDelay: `${120 + i * 60}ms` }}
+              key={item.slug}
+            >
+              <span className="service-nearby__card-name">{item.name}</span>
+              <span className="service-nearby__card-sub">Serving customers from {item.name}</span>
+              <span className="service-nearby__card-cta">
+                View Service Area
+                <span aria-hidden="true">&rarr;</span>
+              </span>
+            </Link>
+          ))}
+        </div>
+
+        {section.note && <p className="service-nearby__note reveal-up">{renderRichText(section.note)}</p>}
       </div>
     </section>
   );
@@ -293,7 +393,7 @@ function TextListSection({ section }) {
   const ref = useRevealOnView();
 
   return (
-    <section className="service-text-list section" ref={ref}>
+    <section className="service-text-list section" id={section.id} ref={ref}>
       <div className="container service-text-list__inner">
         <h2 className="service-heading service-heading--center">{section.heading}</h2>
 
@@ -305,7 +405,7 @@ function TextListSection({ section }) {
           ))}
         </div>
 
-        {section.note && <p className="service-text-list__note">{section.note}</p>}
+        {section.note && <p className="service-text-list__note">{renderRichText(section.note)}</p>}
       </div>
     </section>
   );
@@ -318,7 +418,7 @@ function StageListSection({ section }) {
   const ref = useRevealOnView();
 
   return (
-    <section className="service-stage-list section" ref={ref}>
+    <section className="service-stage-list section" id={section.id} ref={ref}>
       <div className="container service-stage-list__inner">
         {section.heading && (
           <h2 className="service-heading service-heading--center reveal-up">{section.heading}</h2>
@@ -334,7 +434,7 @@ function StageListSection({ section }) {
               <h3 className="service-stage-list__item-title">
                 <span className="service-stage-list__item-num">Stage {i + 1}</span> &mdash; {stage.title}
               </h3>
-              <p className="service-stage-list__item-body">{stage.body}</p>
+              <p className="service-stage-list__item-body">{renderRichText(stage.body)}</p>
             </div>
           ))}
         </div>
@@ -347,7 +447,7 @@ function StepsSection({ section }) {
   const ref = useRevealOnView();
 
   return (
-    <section className="service-steps-section section" ref={ref}>
+    <section className="service-steps-section section" id={section.id} ref={ref}>
       <div className="container">
         <h2 className="service-heading service-heading--center reveal-up">{section.heading}</h2>
 
@@ -368,11 +468,24 @@ function StepsSection({ section }) {
 // symmetric arc (level start/end, centered peak) with an unambiguous
 // chevron right at the tip, so it sits naturally on the circles' own
 // centerline and clearly points into the next node.
+//
+// The chevron's two wings are built from the curve's own tangent at
+// its endpoint (42,11), not a generic fixed angle: the curve is
+// `M2,11 C16,5 32,5 42,11`, so its incoming direction there is
+// (42-32, 11-5) = (10,6). The wing endpoints are that direction's
+// reverse, rotated +/-27 degrees and scaled to a length of 7.5,
+// landing at (38,4.6) and (34.5,10.5). That keeps the tip exactly on
+// the curve's own endpoint (no gap) with the chevron's bisector
+// exactly continuing the curve's own trajectory (no kink/rotation
+// mismatch) — the previous fixed-angle chevron didn't line up with
+// this curve's actual end tangent, which read as a disconnected or
+// misrotated tip, most visible once .service-process__connector svg
+// rotates this 90 degrees for the stacked mobile layout.
 function ProcessArrowIcon() {
   return (
     <svg width="48" height="20" viewBox="0 0 48 20" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
       <path d="M2 11c14-6 30-6 40 0" />
-      <path d="M34 5.5c3 1.5 5.5 3 8 5.5-2.5 2.5-5 4-8 5.5" />
+      <path d="M38 4.6 42 11 34.5 10.5" />
     </svg>
   );
 }
@@ -409,7 +522,7 @@ function ProcessSection({ section }) {
                 </span>
                 <span className="service-process__step-index">Step {String(i + 1).padStart(2, "0")}</span>
                 <h3 className="service-process__step-title">{step.title}</h3>
-                <p className="service-process__step-body">{step.body}</p>
+                <p className="service-process__step-body">{renderRichText(step.body)}</p>
               </div>
             </Fragment>
           ))}
@@ -428,7 +541,7 @@ function BrandsSection({ section }) {
         <h2 className="service-heading service-heading--center reveal-up">{section.heading}</h2>
         {section.body && (
           <p className="service-intro__body service-intro__body--center reveal-up" style={{ transitionDelay: "100ms" }}>
-            {section.body}
+            {renderRichText(section.body)}
           </p>
         )}
 
@@ -442,7 +555,7 @@ function BrandsSection({ section }) {
 
         {section.highlight && (
           <p className="service-brands-section__highlight reveal-up" style={{ transitionDelay: "300ms" }}>
-            {section.highlight}
+            {renderRichText(section.highlight)}
           </p>
         )}
       </div>
@@ -454,11 +567,11 @@ function TrustSection({ section }) {
   const ref = useRevealOnView();
 
   return (
-    <section className="service-trust-section section" ref={ref}>
+    <section className="service-trust-section section" id={section.id} ref={ref}>
       <div className="container service-trust-section__inner">
         <h2 className="service-heading service-heading--center reveal-up">{section.heading}</h2>
         <p className="service-intro__body service-intro__body--center reveal-up" style={{ transitionDelay: "100ms" }}>
-          {section.body}
+          {renderRichText(section.body)}
         </p>
 
         {section.points && (
@@ -469,7 +582,7 @@ function TrustSection({ section }) {
                 style={{ transitionDelay: `${200 + i * 60}ms` }}
                 key={point}
               >
-                {renderBoldedText(point)}
+                {renderRichText(point)}
               </span>
             ))}
           </div>
@@ -492,7 +605,7 @@ function BannerSection({ section }) {
     .join(" ");
 
   return (
-    <section className={classes} ref={section.overlay ? ref : undefined}>
+    <section className={classes} id={section.id} ref={section.overlay ? ref : undefined}>
       <img
         src={section.image}
         alt={section.alt ?? ""}
@@ -661,6 +774,9 @@ const SECTION_COMPONENTS = {
   benefits: BenefitsSection,
   "text-list": TextListSection,
   "stage-list": StageListSection,
+  faq: FaqBlockSection,
+  "nearby-areas": NearbyAreasSection,
+  "jump-nav": JumpNavSection,
   steps: StepsSection,
   brands: BrandsSection,
   trust: TrustSection,

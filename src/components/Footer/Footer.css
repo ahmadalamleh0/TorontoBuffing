@@ -27,8 +27,8 @@
 
 @media (min-width: 1024px) {
   .editorial-footer__info-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 4rem;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 3rem;
   }
 }
 
@@ -59,9 +59,26 @@
   letter-spacing: 0.02em;
 }
 
+/* Service Areas: same column/label/link styling as every other footer
+   group (font, size, hover color all inherited from .editorial-footer__
+   content and .editorial-footer__link, untouched) — only the internal
+   arrangement changes, from a single stacked list to two short columns. */
+.editorial-footer__content--areas {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  column-gap: 1.5rem;
+  row-gap: 0.35rem;
+}
+
 .editorial-footer__text {
   margin: 0;
   color: var(--color-white);
+}
+
+/* A service area whose page isn't published yet — same size/position
+   as a real link, just visibly non-interactive (dimmer, no hover). */
+.editorial-footer__text--muted {
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .editorial-footer__text--bold {

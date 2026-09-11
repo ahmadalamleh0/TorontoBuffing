@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /admin
 
-Sitemap: https://paintcorrection.ca/sitemap.xml
+Sitemap: https://www.torontobuffing.com/sitemap.xml

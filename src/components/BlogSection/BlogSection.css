@@ -19,6 +19,11 @@
   color: var(--color-black);
 }
 
+.blog-section__more {
+  margin-top: var(--space-6);
+  text-align: center;
+}
+
 /* Mobile: horizontal swipe, one large card + a peek of the next.
    Desktop: a plain 3-column grid — same technique SelectedWorkSection
    uses for its carousel, without the drag JS (only 3 items here, so
