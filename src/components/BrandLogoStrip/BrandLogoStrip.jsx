@@ -27,25 +27,47 @@ const LOGOS = [
 const REPEAT = 4;
 const SET = Array.from({ length: REPEAT }, () => LOGOS).flat();
 
+// Mobile gets its own fixed, non-scrolling row instead of the
+// marquee: an infinite translateX loop and an edge fade mask can't
+// guarantee every logo is simultaneously, fully on screen at a given
+// instant, which is exactly what a narrow viewport needs. Desktop
+// keeps the marquee untouched.
+const MOBILE_LOGOS = [
+  { name: "XPEL", src: xpelLogo },
+  { name: "Ceramic Pro", src: ceramicProLogo },
+  { name: "Gtechniq", src: gtechniqLogo },
+];
+
 function BrandLogoStrip() {
   return (
     <div className="brand-strip">
       <span className="visually-hidden">
         Brands Toronto Buffing works with: XPEL, Suntek, STEK, Hexis, Ceramic Pro, Gtechniq.
       </span>
-      <div className="brand-strip__track" aria-hidden="true">
-        {[0, 1].map((copy) => (
-          <div className="brand-strip__set" key={copy}>
-            {SET.map((brand, i) => (
-              <span
-                className={`brand-strip__logo${brand.large ? " brand-strip__logo--large" : ""}`}
-                key={i}
-              >
-                <img src={brand.src} alt={brand.name} />
-              </span>
-            ))}
-          </div>
+
+      <div className="brand-strip__mobile-grid" aria-hidden="true">
+        {MOBILE_LOGOS.map((brand) => (
+          <span className="brand-strip__mobile-logo" key={brand.name}>
+            <img src={brand.src} alt={brand.name} loading="eager" />
+          </span>
         ))}
+      </div>
+
+      <div className="brand-strip__desktop-track-wrap">
+        <div className="brand-strip__track" aria-hidden="true">
+          {[0, 1].map((copy) => (
+            <div className="brand-strip__set" key={copy}>
+              {SET.map((brand, i) => (
+                <span
+                  className={`brand-strip__logo${brand.large ? " brand-strip__logo--large" : ""}`}
+                  key={i}
+                >
+                  <img src={brand.src} alt={brand.name} />
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
