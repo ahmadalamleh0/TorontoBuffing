@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { UserButton } from "@clerk/react";
+import { ADMIN_AUTH_BYPASS } from "./adminAuthBypass";
 
 const NAV_ITEMS = [
   { to: "/admin", label: "Dashboard", end: true },
@@ -71,7 +72,10 @@ function AdminLayout() {
           ))}
         </nav>
         <div className="admin-sidebar__footer">
-          <UserButton />
+          {/* No real Clerk session exists while ADMIN_AUTH_BYPASS is on
+              (see adminAuthBypass.js), so there's no signed-in user for
+              this to represent. */}
+          {!ADMIN_AUTH_BYPASS && <UserButton />}
         </div>
       </aside>
       <main className="admin-main">
