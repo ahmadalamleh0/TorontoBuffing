@@ -55,7 +55,7 @@ function FaqSection() {
   const toggle = (index) => setOpenIndex((current) => (current === index ? null : index));
 
   return (
-    <section className="faq-ak section">
+    <section id="faq" className="faq-ak section">
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(buildFaqPageSchema(items))}</script>
       </Helmet>

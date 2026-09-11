@@ -53,10 +53,14 @@
   force = true
 
 # Legacy TorontoBuffing.com 301 Permanent Redirects
-# Maps old URLs to their corresponding new destinations on torontobuffing.com
+# Maps old Webflow-era URLs to their corresponding destinations on the
+# current site. Must all come before the SPA fallback rule at the very
+# end of this file — Netlify uses the first matching redirect, so the
+# fallback would otherwise swallow every one of these as a 200 instead
+# of a real 301.
 [[redirects]]
-  from = "/services.html"
-  to = "/#services"
+  from = "/home.html"
+  to = "/"
   status = 301
   force = true
 
@@ -67,8 +71,8 @@
   force = true
 
 [[redirects]]
-  from = "/information.html"
-  to = "/#insights"
+  from = "/services.html"
+  to = "/#services"
   status = 301
   force = true
 
@@ -90,8 +94,96 @@
   status = 301
   force = true
 
+[[redirects]]
+  from = "/faq.html"
+  to = "/#faq"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/benefits-.html"
+  to = "/#about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/scratch-removal-and-repair.html"
+  to = "/services/paint-correction"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/stone-chip-touch-ups---scratch-repair-services---toronto-buffing-inc..html"
+  to = "/services/paint-chip-repair"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/ceramic-coatings.html"
+  to = "/services/ceramic-coating"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/toronto-buffing-inc.-ceramic-coatings---pro-nano-coatings.html"
+  to = "/services/ceramic-coating"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/sealants.html"
+  to = "/services/ceramic-coating"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/paint-correction-services-toronto.html"
+  to = "/services/paint-correction"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/why-choose-toronto-buffing-for-your-paint-correction-needs-.html"
+  to = "/services/paint-correction"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/3-stage-paint-correction-explained.html"
+  to = "/insights/three-stage-paint-correction"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/buffing-1.html"
+  to = "/insights/paint-correction-101"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/information.html"
+  to = "/insights/paint-correction-101"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/polishing.html"
+  to = "/insights/how-paint-correction-works"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/waxing-vs-paint-correction.html"
+  to = "/insights/how-paint-correction-works"
+  status = 301
+  force = true
+
 # SPA fallback for react-router client-side routes. Must come after
-# the rules above — Netlify uses the first matching redirect.
+# every rule above — Netlify uses the first matching redirect. Only
+# ever matches paths not covered by any rule above, and the app itself
+# renders a real 404 page (NotFoundPage) client-side for any unknown
+# route, so an unmapped legacy or made-up URL never silently lands on
+# the homepage.
 [[redirects]]
   from = "/*"
   to = "/index.html"
