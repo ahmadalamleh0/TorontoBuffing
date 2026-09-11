@@ -1,7 +1,9 @@
 import { Helmet } from "react-helmet-async";
 import { SITE_URL } from "../../data/businessInfo";
 
-const DEFAULT_IMAGE = `${SITE_URL}/images/social/og-image.png`;
+// Versioned filename (see index.html's icon links for why) — Safari
+// and link-preview crawlers cache these aggressively per URL.
+const DEFAULT_IMAGE = `${SITE_URL}/images/social/og-image-v2.png`;
 
 // Hostnames search engines should treat as "this is the real site."
 // Configurable (VITE_PRODUCTION_HOSTNAMES, comma-separated) rather
