@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { BLOG_POSTS } from "../../data/blogData";
-import { fetchFeaturedInsights } from "../../services/cms/seoPages";
+import { getBlogPostBySlug } from "../../data/blogData";
+import { fetchSeoPageBySlug } from "../../services/cms/seoPages";
 import BlogCard from "./BlogCard";
 import "./BlogSection.css";
 
@@ -16,22 +16,46 @@ function toCardShape(insight) {
   };
 }
 
-// Featured Insights are controlled entirely from /admin (the
-// "Featured" checkbox on an Insight, up to 3 shown here in
-// display_order) — this never hardcodes which articles appear. If no
-// Insight is marked featured yet (true today: none of the 24 drafts
-// are published), it falls back to the original 3 posts rather than
-// showing an empty homepage section.
-function useFeaturedPosts() {
-  const [posts, setPosts] = useState(BLOG_POSTS);
+function legacyToCardShape(post) {
+  return {
+    slug: post.slug,
+    image: post.image,
+    imageAlt: post.imageAlt,
+    category: post.category,
+    title: post.title,
+    excerpt: post.excerpt,
+  };
+}
+
+// The homepage "Latest Insights" section is a fixed, hand-picked
+// curation, not the newest-published or admin "Featured" articles —
+// edit this list directly to change what shows here. Mixes the
+// original static posts (data/blogData.js) with CMS Insights by
+// slug, in this exact order.
+const HOMEPAGE_INSIGHT_SLUGS = ["ppf-vs-ceramic-coating", "how-paint-correction-works", "good-ppf-vs-bad-ppf"];
+
+function useCuratedPosts() {
+  const [posts, setPosts] = useState(() =>
+    HOMEPAGE_INSIGHT_SLUGS.map((slug) => {
+      const legacy = getBlogPostBySlug(slug);
+      return legacy ? legacyToCardShape(legacy) : null;
+    }).filter(Boolean)
+  );
 
   useEffect(() => {
     let cancelled = false;
 
-    fetchFeaturedInsights(3).then((rows) => {
-      if (cancelled || rows.length === 0) return;
-      const withCover = rows.filter((r) => r.cover_image_url);
-      if (withCover.length > 0) setPosts(withCover.map(toCardShape));
+    Promise.all(
+      HOMEPAGE_INSIGHT_SLUGS.map(async (slug) => {
+        const legacy = getBlogPostBySlug(slug);
+        if (legacy) return legacyToCardShape(legacy);
+        const row = await fetchSeoPageBySlug(slug, "insights");
+        return row ? toCardShape(row) : null;
+      })
+    ).then((cards) => {
+      if (cancelled) return;
+      const filled = cards.filter(Boolean);
+      if (filled.length > 0) setPosts(filled);
     });
 
     return () => {
@@ -43,7 +67,7 @@ function useFeaturedPosts() {
 }
 
 function BlogSection() {
-  const posts = useFeaturedPosts();
+  const posts = useCuratedPosts();
 
   return (
     <section id="insights" className="blog-section section">
