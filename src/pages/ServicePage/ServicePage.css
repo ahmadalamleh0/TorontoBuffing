@@ -478,8 +478,9 @@
      effect at all (verified: 400/700/900 render pixel-identical, no
      browser synthesis kicks in for this @font-face). A thin stroke in
      the same color is what actually adds presence without going
-     chunky/faux-bold; 0.6px reads as "moderately bolder," not heavy. */
-  -webkit-text-stroke: 0.6px currentColor;
+     chunky/faux-bold; 0.25px per updated direction (was 0.6px). */
+  text-stroke: 0.25px currentColor;
+  -webkit-text-stroke: 0.25px currentColor;
   transform: translateY(28px);
   transition-delay: 140ms;
 }
