@@ -496,7 +496,7 @@ function ProcessSection({ section }) {
                   aria-hidden="true"
                   style={{ "--ring-delay": `${i * 140 + 260}ms` }}
                 >
-                  <span className="service-process__circle-inner">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="service-process__circle-inner">{i + 1}</span>
                 </span>
                 <span className="service-process__step-index">Step {String(i + 1).padStart(2, "0")}</span>
                 <h3 className="service-process__step-title">{step.title}</h3>
