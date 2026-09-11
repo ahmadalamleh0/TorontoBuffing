@@ -110,7 +110,7 @@ export function ServiceHero({ hero, variant }) {
         className={`container service-hero__inner${hero.centered && !isService ? " service-hero__inner--center" : ""}`}
       >
         {isService && (
-          <span className="eyebrow service-hero__eyebrow service-hero__eyebrow--reveal">Serving Toronto &amp; The GTA</span>
+          <span className="eyebrow service-hero__eyebrow service-hero__eyebrow--reveal">Rated No. 1 In The GTA</span>
         )}
         <h1
           className={`service-hero__title service-hero__title--reveal${hero.titleNoWrap ? " service-hero__title--nowrap" : ""}`}

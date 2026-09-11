@@ -192,6 +192,13 @@ function NovaNavbar() {
                     </SectionLink>
                   </li>
                 ))}
+                <li>
+                  {/* A real route (/insights), not a homepage anchor, so
+                      this is a plain Link rather than SectionLink. */}
+                  <Link className="nova__link" to="/insights">
+                    Learn
+                  </Link>
+                </li>
               </ul>
             )}
 
@@ -248,6 +255,9 @@ function NovaNavbar() {
                         {link.label.toUpperCase()}
                       </SectionLink>
                     ))}
+                    <Link className="nova__drawer-link" to="/insights" onClick={closeMenu}>
+                      LEARN
+                    </Link>
                   </div>
 
                   <SectionLink

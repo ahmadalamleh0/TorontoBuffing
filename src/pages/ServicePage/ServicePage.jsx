@@ -96,8 +96,8 @@ function ServicePage() {
             {service.page.sections.map((section, i) => (
               <ServiceSection section={section} key={i} />
             ))}
-            <RelatedInsightsSection relatedService={slug} />
             <QuoteWizardSection />
+            <RelatedInsightsSection relatedService={slug} />
             <ServiceFaqSection serviceSlug={slug} />
           </>
         ) : (
