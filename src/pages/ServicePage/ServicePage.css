@@ -462,18 +462,21 @@
 .service-reveal-intro__title {
   margin: 0 0 var(--space-4);
   /* Bebas Neue (--font-heading) — same face h1/h2 default to
-     sitewide, single weight so no font-weight override does anything
-     here (matches the site's own convention of leaving it unset).
-     Tight line-height for clean, balanced line breaks; letter-spacing
-     stays close to neutral — Bebas Neue's own letterforms are already
-     condensed, unlike the Inter/-0.02em pairing this replaced. Size
-     unchanged. */
+     sitewide. Tight line-height for clean, balanced line breaks;
+     letter-spacing stays close to neutral — Bebas Neue's own
+     letterforms are already condensed. Size unchanged. */
   font-family: var(--font-heading);
   font-size: clamp(2.875rem, 7.5vw, 5rem);
   line-height: 0.98;
   letter-spacing: 0.005em;
   text-transform: none;
   color: var(--color-black);
+  /* Bebas Neue as loaded is a single weight — font-weight has no
+     effect at all (verified: 400/700/900 render pixel-identical, no
+     browser synthesis kicks in for this @font-face). A thin stroke in
+     the same color is what actually adds presence without going
+     chunky/faux-bold; 0.6px reads as "moderately bolder," not heavy. */
+  -webkit-text-stroke: 0.6px currentColor;
   transform: translateY(28px);
   transition-delay: 140ms;
 }
@@ -750,8 +753,11 @@
 .service-checklist {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-3) var(--space-6);
-  margin: var(--space-6) 0 0;
+  /* Tightened for mobile only — restored to the original space-3/
+     space-6 gap and space-6 top margin at 640px+ below, alongside the
+     existing column-count breakpoint. */
+  gap: var(--space-2) var(--space-6);
+  margin: var(--space-4) 0 0;
   padding: 0;
   list-style: none;
 }
@@ -786,6 +792,8 @@
 @media (min-width: 640px) {
   .service-checklist {
     grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3) var(--space-6);
+    margin: var(--space-6) 0 0;
   }
 }
 
@@ -838,7 +846,10 @@
 }
 
 .service-approach__body {
-  margin: 0 auto var(--space-6);
+  /* Bottom margin tightened for mobile only (brings the first row
+     closer beneath it) — restored to the original space-6 at 640px+
+     below. */
+  margin: 0 auto var(--space-4);
   max-width: 52ch;
   font-family: var(--font-sans-premium);
   font-size: var(--fs-base);
@@ -853,7 +864,10 @@
 }
 
 .service-approach__item {
-  padding: var(--space-5) 0;
+  /* Tightened for mobile only — restored to the original space-5 top
+     and bottom at 640px+ below. Divider lines (border-top/bottom)
+     untouched. */
+  padding: var(--space-3) 0;
   border-top: 1px solid var(--color-border-gray);
   opacity: 0;
   transform: translateY(16px);
@@ -880,6 +894,16 @@
 .service-approach__text strong {
   font-weight: 800;
   color: var(--color-brand-blue);
+}
+
+@media (min-width: 640px) {
+  .service-approach__body {
+    margin-bottom: var(--space-6);
+  }
+
+  .service-approach__item {
+    padding: var(--space-5) 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1189,7 +1213,9 @@
 }
 
 .service-text-list .service-heading {
-  margin-bottom: var(--space-6);
+  /* Tightened for mobile only — restored to the original space-6 at
+     640px+ below. */
+  margin-bottom: var(--space-4);
   font-family: var(--font-display-strong);
   font-size: clamp(2rem, 5vw, 2.75rem);
   font-weight: 900;
@@ -1202,7 +1228,9 @@
 }
 
 .service-text-list__row {
-  padding: var(--space-4) 0;
+  /* Tightened for mobile only — restored to the original space-4 top
+     and bottom at 640px+ below. Divider lines untouched. */
+  padding: var(--space-2) 0;
   border-top: 1px solid var(--color-border-gray);
   font-family: var(--font-sans-premium);
   font-size: clamp(1rem, 1.6vw, 1.125rem);
@@ -1237,6 +1265,16 @@
     opacity: 1;
     transform: none;
     transition: none;
+  }
+}
+
+@media (min-width: 640px) {
+  .service-text-list .service-heading {
+    margin-bottom: var(--space-6);
+  }
+
+  .service-text-list__row {
+    padding: var(--space-4) 0;
   }
 }
 
