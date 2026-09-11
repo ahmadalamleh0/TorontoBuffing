@@ -3,7 +3,6 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { ClerkProvider, useAuth, RedirectToSignIn } from "@clerk/react";
 import { setAdminTokenGetter } from "./lib/supabaseAdminClient";
 import { SUPABASE_CONFIGURED } from "../lib/supabaseEnv";
-import { ADMIN_AUTH_BYPASS } from "./adminAuthBypass";
 import AdminLayout from "./AdminLayout";
 import SignInPage from "./pages/SignInPage";
 import DashboardPage from "./pages/DashboardPage";
@@ -37,17 +36,6 @@ function AdminAuthBridge({ children }) {
 
 function RequireAdmin({ children }) {
   const { isLoaded, isSignedIn } = useAuth();
-
-  // TEMPORARY (client review, full access): skips the Clerk sign-in
-  // requirement so /admin opens straight to the working CMS for
-  // anyone. This alone would normally still leave writes blocked (no
-  // Clerk token means RLS's private.is_admin() is false) — writes work
-  // right now ONLY because private.is_admin() has ALSO been
-  // temporarily changed directly in Supabase. See
-  // src/admin/adminAuthBypass.js and
-  // supabase/TEMPORARY-admin-bypass.sql for the full picture and how
-  // to revert both halves.
-  if (ADMIN_AUTH_BYPASS) return children;
 
   if (!isLoaded) return null;
   if (!isSignedIn) return <RedirectToSignIn />;

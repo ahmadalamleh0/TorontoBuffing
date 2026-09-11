@@ -248,8 +248,7 @@ textarea.input {
 .btn:hover {
   background: var(--admin-bg);
 }
-.btn:disabled,
-.btn--disabled {
+.btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
