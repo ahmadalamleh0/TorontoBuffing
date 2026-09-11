@@ -4,6 +4,7 @@ import { CheckIcon } from "../../components/QuoteWizard/icons";
 import { renderRichText } from "../../lib/richText";
 import FaqAccordionItem from "../../components/FaqSection/FaqAccordionItem";
 import BeforeAfterSlider from "./BeforeAfterSlider";
+import processArrow from "../../assets/images/services/process-arrow.png";
 // Shared with the homepage/service FAQ so the "faq" block below gets
 // the exact same accordion styling for free — imported here (not just
 // by FaqSection/ServiceFaqSection) so it's guaranteed loaded wherever
@@ -464,32 +465,6 @@ function StepsSection({ section }) {
   );
 }
 
-// Gentle curved arrow linking one process step to the next — a
-// symmetric arc (level start/end, centered peak) with an unambiguous
-// chevron right at the tip, so it sits naturally on the circles' own
-// centerline and clearly points into the next node.
-//
-// The chevron's two wings are built from the curve's own tangent at
-// its endpoint (42,11), not a generic fixed angle: the curve is
-// `M2,11 C16,5 32,5 42,11`, so its incoming direction there is
-// (42-32, 11-5) = (10,6). The wing endpoints are that direction's
-// reverse, rotated +/-27 degrees and scaled to a length of 7.5,
-// landing at (38,4.6) and (34.5,10.5). That keeps the tip exactly on
-// the curve's own endpoint (no gap) with the chevron's bisector
-// exactly continuing the curve's own trajectory (no kink/rotation
-// mismatch) — the previous fixed-angle chevron didn't line up with
-// this curve's actual end tangent, which read as a disconnected or
-// misrotated tip, most visible once .service-process__connector svg
-// rotates this 90 degrees for the stacked mobile layout.
-function ProcessArrowIcon() {
-  return (
-    <svg width="48" height="20" viewBox="0 0 48 20" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M2 11c14-6 30-6 40 0" />
-      <path d="M38 4.6 42 11 34.5 10.5" />
-    </svg>
-  );
-}
-
 // Premium 3-step process — large centered title, then numbered
 // gauge-style circle nodes (dashed outer ring, solid inner disc —
 // closer to an instrument dial than a plain outlined circle) linked
@@ -509,7 +484,10 @@ function ProcessSection({ section }) {
             <Fragment key={step.title}>
               {i > 0 && (
                 <span className="service-process__connector" aria-hidden="true" style={{ transitionDelay: `${i * 140 + 60}ms` }}>
-                  <ProcessArrowIcon />
+                  <span
+                    className="service-process__connector-arrow"
+                    style={{ WebkitMaskImage: `url(${processArrow})`, maskImage: `url(${processArrow})` }}
+                  />
                 </span>
               )}
               <div className="service-process__step" style={{ transitionDelay: `${i * 140}ms` }}>

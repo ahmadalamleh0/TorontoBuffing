@@ -1272,7 +1272,29 @@
   color: var(--color-accent-on-dark);
 }
 
-.service-process__connector svg {
+/* The source asset (shape.png) is pure black strokes on transparent —
+   fine on a light page, invisible against this section's near-black
+   background. CSS mask recolors it to the section's own accent blue
+   (same #7a80b8 as the circle nodes' dashed rings) using the PNG's
+   alpha channel as a stencil, so the exact shape/proportions are
+   untouched — nothing about the artwork itself is redrawn, only its
+   on-screen tint, the same job `stroke="currentColor"` did for the
+   inline SVG connector this replaced. Intrinsic asset ratio is
+   428x240 (~1.78:1); width + aspect-ratio keeps that ratio so it
+   never stretches. The whole element rotates as one piece for the
+   stacked mobile layout, same rotate-on-mobile/none-on-desktop
+   pattern as before. */
+.service-process__connector-arrow {
+  display: block;
+  width: 40px;
+  aspect-ratio: 428 / 240;
+  background-color: var(--color-accent-on-dark);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
   transform: rotate(90deg);
 }
 
@@ -1307,7 +1329,8 @@
     height: 76px;
   }
 
-  .service-process__connector svg {
+  .service-process__connector-arrow {
+    width: 52px;
     transform: none;
   }
 }
