@@ -260,13 +260,29 @@ textarea.input {
 .btn--primary:hover {
   background: var(--admin-accent-hover);
 }
-.seo-pages-add-btn {
+/* .admin a's link-color rule (0,1,1 specificity) otherwise beats this
+   button's own color: #fff (0,1,0) — since this is a <Link>, not a
+   <button>, that left the label rendering as blue text on the same
+   blue background: functionally unreadable, not just low-contrast.
+   The .admin prefix here (0,2,1) wins outright, not by source-order
+   luck. */
+.admin a.seo-pages-add-btn {
   justify-content: center;
-  gap: 8px;
+  gap: 9px;
+  padding: 13px 24px;
+  border-radius: 999px;
   color: #fff;
+  font-size: 15px;
   font-weight: 700;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
+  box-shadow: 0 4px 14px rgba(30, 95, 191, 0.4);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+.admin a.seo-pages-add-btn:hover {
+  transform: translateY(-1px);
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(30, 95, 191, 0.5);
 }
 .btn--danger {
   color: var(--admin-danger);
