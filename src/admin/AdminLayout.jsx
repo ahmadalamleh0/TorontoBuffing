@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
-import { UserButton } from "@clerk/react";
+import { UserButton, useAuth } from "@clerk/react";
+import { TEMP_ADMIN_LOGIN_ENABLED, tempLogout } from "./tempAdminAuth";
 
 const NAV_ITEMS = [
   { to: "/admin", label: "Dashboard", end: true },
@@ -21,6 +22,12 @@ function AdminLayout() {
   // all, so nothing here can affect the existing desktop layout.
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { pathname } = useLocation();
+  const { isSignedIn } = useAuth();
+  // Reaching this layout at all means RequireAdmin already accepted
+  // either a real Clerk session or a temp one (see AdminApp.jsx) — if
+  // Clerk doesn't recognize this visitor, it must be the temp session,
+  // which has no Clerk UserButton to show.
+  const isTempSession = TEMP_ADMIN_LOGIN_ENABLED && !isSignedIn;
 
   useEffect(() => {
     setIsDrawerOpen(false);
@@ -71,7 +78,20 @@ function AdminLayout() {
           ))}
         </nav>
         <div className="admin-sidebar__footer">
-          <UserButton />
+          {isTempSession ? (
+            <button
+              type="button"
+              className="btn btn--sm"
+              onClick={async () => {
+                await tempLogout();
+                window.location.href = "/admin";
+              }}
+            >
+              Sign out
+            </button>
+          ) : (
+            <UserButton />
+          )}
         </div>
       </aside>
       <main className="admin-main">
