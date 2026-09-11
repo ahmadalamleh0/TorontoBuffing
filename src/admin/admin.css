@@ -260,6 +260,14 @@ textarea.input {
 .btn--primary:hover {
   background: var(--admin-accent-hover);
 }
+.seo-pages-add-btn {
+  justify-content: center;
+  gap: 8px;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
 .btn--danger {
   color: var(--admin-danger);
   border-color: var(--admin-danger-bg);

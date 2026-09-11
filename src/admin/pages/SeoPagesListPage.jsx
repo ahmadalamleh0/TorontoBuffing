@@ -43,8 +43,11 @@ function SeoPagesListPage() {
           <h1 className="admin-page-title">SEO Pages</h1>
           <p className="admin-page-subtitle">Standalone content pages at /pages/:slug, built from the same section blocks as the service pages.</p>
         </div>
-        <Link className="btn btn--primary" to="/admin/seo-pages/new">
-          + New Page
+        <Link className="btn btn--primary seo-pages-add-btn" to="/admin/seo-pages/new">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+          Add Page
         </Link>
       </div>
 
