@@ -1860,24 +1860,47 @@
   }
 }
 
-/* ---- Video showcase — full-bleed, edge to edge, no container. The
+/* ---- Video showcase ----
+   Desktop (1024px+): full-bleed, edge to edge, no container — the
    video takes over the screen width like a real cinematic process
    shot; object-fit: cover crops the portrait source's top/bottom as
-   needed rather than shrinking it to fit inside a card. No card, no
-   background stage, no text — just a scroll reveal fade-in like
-   every other section. ---- */
+   needed rather than shrinking it to fit inside a card. Unchanged
+   from before this mobile treatment was added.
+
+   Mobile: was the same tall full-bleed treatment, which read as a
+   "tall reel" rather than an intentionally framed clip. Now sits
+   inside the page's normal side margins (.service-video__inner is a
+   real .container) at a nearly-square ratio, object-position biased
+   toward the top so the actual polishing action stays in frame while
+   cropping comes from the bottom, with the same rounded corners the
+   feature cards use elsewhere on these pages. No card/background/
+   border/caption added — just the video itself, framed differently. */
+
+.service-video__inner {
+  padding-inline: var(--container-padding);
+}
 
 .service-video__media {
   display: block;
   width: 100%;
-  height: min(80vh, 780px);
+  aspect-ratio: 1 / 1.08;
+  height: auto;
   object-fit: cover;
-  object-position: center;
+  object-position: center 20%;
+  border-radius: 16px;
 }
 
 @media (min-width: 1024px) {
+  .service-video__inner {
+    max-width: none;
+    padding-inline: 0;
+  }
+
   .service-video__media {
+    aspect-ratio: auto;
     height: min(85vh, 860px);
+    object-position: center;
+    border-radius: 0;
   }
 }
 

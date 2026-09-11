@@ -659,17 +659,22 @@ function VideoShowcaseSection({ section }) {
 
   return (
     <section className="service-video" ref={ref}>
-      <video
-        className="service-video__media reveal-up"
-        src={section.src}
-        autoPlay
-        muted
-        loop
-        playsInline
-        controls={false}
-        preload="metadata"
-        aria-hidden="true"
-      />
+      {/* .container only actually constrains anything on mobile (see
+          .service-video__inner) — desktop overrides it back to
+          full-bleed, unchanged from before. */}
+      <div className="container service-video__inner">
+        <video
+          className="service-video__media reveal-up"
+          src={section.src}
+          autoPlay
+          muted
+          loop
+          playsInline
+          controls={false}
+          preload="metadata"
+          aria-hidden="true"
+        />
+      </div>
     </section>
   );
 }
