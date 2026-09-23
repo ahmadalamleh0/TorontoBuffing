@@ -117,7 +117,7 @@ export function buildLocalBusinessSchema() {
     "@id": `${SITE_URL}/#business`,
     name: BUSINESS_INFO.name,
     legalName: BUSINESS_INFO.legalName,
-    image: `${SITE_URL}/images/social/og-image-v2.png`,
+    image: `${SITE_URL}/images/social/og-image-v3.png`,
     url: SITE_URL,
     telephone: BUSINESS_INFO.telephone,
     email: BUSINESS_INFO.email,

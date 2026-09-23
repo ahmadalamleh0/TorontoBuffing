@@ -1,4 +1,4 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 
@@ -30,6 +30,18 @@ const PreviewGeoPages = import.meta.env.DEV ? lazy(() => import("./pages/Preview
 const PreviewInsights = import.meta.env.DEV ? lazy(() => import("./pages/PreviewInsights/PreviewInsights")) : null;
 
 function App() {
+  // index.html's static <title>/og:*/twitter:* tags (data-static-seo)
+  // exist purely for non-JS-executing crawlers (Instagram, iMessage —
+  // see the comment in index.html for why). The instant React actually
+  // mounts, on ANY route, they're no longer needed — every route's
+  // <Seo> (src/components/Seo/Seo.jsx) renders its own accurate set via
+  // react-helmet-async, and leaving the static ones in place too would
+  // just duplicate them in the live DOM. Runs once for the whole SPA
+  // session, not per-route (App itself doesn't remount on navigation).
+  useEffect(() => {
+    document.querySelectorAll('[data-static-seo="true"]').forEach((el) => el.remove());
+  }, []);
+
   return (
     <Suspense fallback={null}>
       <Routes>

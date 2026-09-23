@@ -3,7 +3,7 @@ import { SITE_URL } from "../../data/businessInfo";
 
 // Versioned filename (see index.html's icon links for why) — Safari
 // and link-preview crawlers cache these aggressively per URL.
-const DEFAULT_IMAGE = `${SITE_URL}/images/social/og-image-v2.png`;
+const DEFAULT_IMAGE = `${SITE_URL}/images/social/og-image-v3.png`;
 
 // Hostnames search engines should treat as "this is the real site."
 // Configurable (VITE_PRODUCTION_HOSTNAMES, comma-separated) rather

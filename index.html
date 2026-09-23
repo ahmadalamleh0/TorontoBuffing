@@ -2,41 +2,83 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <!-- Versioned filenames (…-v2) on purpose — Safari caches
+    <!-- Versioned filenames (…-v3) on purpose — Safari caches
          favicon/apple-touch-icon/manifest icons very aggressively per
          URL, so a same-URL replacement can silently keep showing the
-         old tiny-logo-on-a-black-tile art for a long time. Bump the
-         suffix again (v3, v4, …) any time these icon images change. -->
-    <link rel="icon" href="/favicon-v2.ico" sizes="any" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32-v2.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16-v2.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-v2.png" />
+         old art for a long time. Bump the suffix again (v4, v5, …)
+         any time these icon images change. -->
+    <link rel="icon" href="/favicon-v3.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32-v3.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16-v3.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-v3.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0a0a0a" />
     <meta name="color-scheme" content="dark" />
-    <!-- No static title/description/canonical/OG/Twitter tags here on
-         purpose. Every route (HomePage, ServicePage, SeoPage, the
-         Insight article renderer, NotFoundPage) renders its own
-         accurate <Seo> (src/components/Seo/Seo.jsx, react-helmet-async)
-         unconditionally on mount, covering all of it. A static tag here
-         is never cleaned up by anyone at runtime, so it just leaves a
-         second, wrong (homepage-only) tag sitting in the DOM forever
-         alongside the correct per-page one — that was the actual cause
-         of the "2 canonical / 2 description" bug. This includes
-         <title>: React 19's built-in head-hoisting inserts Helmet's
-         <title> as its own real element (correct per-page text) without
-         touching whatever <title> is already in this file, so a static
-         one here duplicates too — confirmed by inspecting the live DOM,
-         not by reading react-helmet-async's source alone (its imperative
-         document.title= path targets the existing element in place and
-         would be safe on its own, but that isn't what actually renders
-         first once React 19 hoisting is in the mix). The real limitation
-         this leaves: a non-JS-executing crawler (a WhatsApp/iMessage/
-         Slack link preview) never runs React, so it sees no title/
-         description/image at all for any route — an inherent
-         CSR-without-prerendering limitation, not something a static tag
-         here can fix without reintroducing the duplication. -->
+
+    <!-- Static site identity — title + Open Graph/Twitter, marked
+         data-static-seo so App.jsx can remove every one of these tags
+         the instant React mounts (see src/App.jsx). Two audiences see
+         this differently:
+
+         - A non-JS-executing crawler (Instagram, iMessage, WhatsApp,
+           Slack — none of them run React) never runs that cleanup, so
+           it always sees exactly this block, for every route, since a
+           client-side router can't change what a static file serves
+           before JS runs. There's no way to give every individual
+           route its own non-JS-crawler preview without server
+           rendering, so this covers the one link that's actually
+           shared/tested: the homepage. Text mirrors HOME_SEO in
+           src/data/seoData.js — if that copy changes (or an admin
+           overrides it via the homepage CMS SEO fields), update this
+           block to match, or a non-JS preview will show stale text
+           until it does.
+
+         - A real browser or JS-executing crawler (Googlebot, Bingbot)
+           removes this block on mount, so whichever route is actually
+           active gets Seo.jsx's own accurate per-page title/OG/Twitter
+           tags as the ONLY copy in the DOM — including the homepage,
+           where Seo.jsx's tags now simply replace these rather than
+           needing to skip themselves. This is what avoids the exact
+           "2 canonical / 2 description" bug this project hit before:
+           an earlier version of this fix tried to have Seo.jsx skip
+           itself on "/" instead, but this same static block is part
+           of every route's shared HTML shell, not homepage-only, so
+           every OTHER route ended up with two <title> elements
+           instead — removing it universally on mount is what actually
+           works for all routes at once.
+
+         Absolute URLs point at the actual live deployment
+         (torontobuffing.netlify.app), NOT SITE_URL from
+         businessInfo.js (www.torontobuffing.com) — that domain isn't
+         connected to this Netlify site yet, so a crawler trying to
+         fetch an og:image there would hit GoDaddy's placeholder, not
+         this image. Swap both this comment's premise and the URLs
+         below to the real domain once it's connected. -->
+    <title data-static-seo="true">Toronto Buffing | Paint Correction, PPF &amp; Ceramic Coating</title>
+    <meta data-static-seo="true" property="og:type" content="website" />
+    <meta data-static-seo="true" property="og:locale" content="en_CA" />
+    <meta data-static-seo="true" property="og:site_name" content="Toronto Buffing" />
+    <meta data-static-seo="true" property="og:title" content="Toronto Buffing | Paint Correction, PPF &amp; Ceramic Coating" />
+    <meta
+      data-static-seo="true"
+      property="og:description"
+      content="Toronto Buffing provides precision paint correction, ceramic coating and paint protection film (PPF) for vehicles across Vaughan and the GTA. Get your free quote."
+    />
+    <meta data-static-seo="true" property="og:url" content="https://torontobuffing.netlify.app/" />
+    <meta data-static-seo="true" property="og:image" content="https://torontobuffing.netlify.app/images/social/og-image-v3.png" />
+    <meta data-static-seo="true" property="og:image:width" content="1200" />
+    <meta data-static-seo="true" property="og:image:height" content="630" />
+    <meta data-static-seo="true" property="og:image:alt" content="Toronto Buffing" />
+    <meta data-static-seo="true" name="twitter:card" content="summary_large_image" />
+    <meta data-static-seo="true" name="twitter:title" content="Toronto Buffing | Paint Correction, PPF &amp; Ceramic Coating" />
+    <meta
+      data-static-seo="true"
+      name="twitter:description"
+      content="Toronto Buffing provides precision paint correction, ceramic coating and paint protection film (PPF) for vehicles across Vaughan and the GTA. Get your free quote."
+    />
+    <meta data-static-seo="true" name="twitter:image" content="https://torontobuffing.netlify.app/images/social/og-image-v3.png" />
+    <meta data-static-seo="true" name="twitter:image:alt" content="Toronto Buffing" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
